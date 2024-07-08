@@ -1,4 +1,4 @@
-#include <raylib.h>
+#include "../include/raylib.h"
 
 constexpr int W_WIDTH = 640;
 constexpr int W_HEIGHT = 360;
