@@ -11,10 +11,8 @@ int main() {
     SetExitKey(0);
     SetTargetFPS(60);
 
-    // TODO: if def __WIN32 (or __CYGWIN__ ?) cd to $home_dir\appdata\local and make folder
-    // else cd to .local and make folder there
+    // TODO: if def __WIN32 (or __CYGWIN__ ?) cd to $home_dir\appdata\local and make folder else cd to .local and make folder there
     // also include <filesystem> and check cpp reference for std::filesystem functions
-    char* home_dir = getenv("HOME");
 
     while (!WindowShouldClose()) {
         BeginDrawing();
@@ -22,8 +20,15 @@ int main() {
         ClearBackground(BLANK);
         DrawFPS(0, 0);
 
-        if (IsKeyDown(KEY_W))
-            DrawText(home_dir, 0, 20, 24, WHITE);
+        if (IsKeyDown(KEY_W)) {
+            #ifdef linux
+            DrawText(getenv("HOME"), 0, 20, 24, WHITE);
+            #endif
+
+            #ifdef __WIN32
+            DrawText(getenv("LOCALAPPDATA"), 0, 20, 24, WHITE)
+            #endif
+        }
 
         EndDrawing();
     }
