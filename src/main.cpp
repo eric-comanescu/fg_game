@@ -26,7 +26,7 @@ int main() {
             #endif
 
             #ifdef __WIN32
-            DrawText(getenv("LOCALAPPDATA"), 0, 20, 24, WHITE)
+            DrawText(getenv("LOCALAPPDATA"), 0, 20, 24, WHITE);
             #endif
         }
 
