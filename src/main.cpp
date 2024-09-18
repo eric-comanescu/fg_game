@@ -28,6 +28,10 @@ int main() {
             #ifdef __WIN32
             DrawText(getenv("LOCALAPPDATA"), 0, 20, 24, WHITE);
             #endif
+
+			#ifdef __APPLE__
+			DrawText(getenv("HOME"), 0, 20, 24, WHITE);
+			#endif
         }
 
         EndDrawing();
