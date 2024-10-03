@@ -5,7 +5,7 @@ OUT := -O2 -o ../game
 ifeq ($(OS),Windows_NT)
 	CC := g++
 	LIBS := -lraylib_win -lgdi32 -lwinmm
-	OUT += .exe
+	OUT := -O2 -o ../game.exe
 else
 	CC := clang++
 
