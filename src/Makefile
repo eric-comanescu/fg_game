@@ -1,6 +1,6 @@
 CCARGS := -L../lib -std=c++17
 
-OUT := -O2 ../game
+OUT := -O2 -o ../game
 
 ifeq ($(OS),Windows_NT)
 	CC := g++
@@ -19,12 +19,3 @@ endif
 
 all: main.cpp
 	$(CC) $(CCARGS) $(LIBS) $^ $(OUT)
-
-#all: main.cpp
-#	clang++ --library-directory='../lib/' main.cpp -l raylib_linux -o ../game -O2
-
-#win: main.cpp
-#	g++ -L../lib -o ../game.exe main.cpp -lraylib_win -lgdi32 -lwinmm -O2
-
-osx: main.cpp
-	clang++ -L../lib -std=c++17 $(LIBS) main.cpp -o ../game -O2
