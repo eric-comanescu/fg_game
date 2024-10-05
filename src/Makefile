@@ -18,4 +18,7 @@ else
 endif
 
 all: main.cpp
-	$(CC) $(CCARGS) $(LIBS) $^ $(OUT)
+	$(CC) $(CCARGS) $^ $(LIBS) $(OUT)
+
+clean:
+	rm ../game
