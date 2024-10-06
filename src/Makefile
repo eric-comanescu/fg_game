@@ -4,21 +4,6 @@ OUT := -O2 -o ../bin/game
 
 UNAME_S := $(shell uname -s)
 
-# ifdef OS
-# 	CC := g++
-# 	LIBS := -lraylib_win -lgdi32 -lwinmm
-# 	OUT := -O2 -o ../game.exe
-# else
-# 	CC := clang++
-
-# 	UNAME_S := $(shell uname -s)
-# 	ifeq ($(UNAME_S),Darwin)
-# 		LIBS := -framework CoreVideo -framework IOKit -framework Cocoa -framework GLUT -framework OpenGL -lraylib_osx
-# 	else
-# 		LIBS := -lraylib_linux
-# 	endif
-# endif
-
 ifeq ($(UNAME_S),Linux)
 	LIBS := -lraylib
 else ifeq ($(UNAME_S),Darwin)
