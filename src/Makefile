@@ -1,6 +1,8 @@
 CC := clang++
-CCARGS := -flto -L../lib -std=c++17
+CCARGS := -flto -L../lib -I../include -std=c++17
 OUT := -O2 -o ../bin/game
+
+LIST := main.cpp game.cpp ./states/StateMachine.cpp ./states/State.cpp
 
 UNAME_S := $(shell uname -s)
 
@@ -37,7 +39,7 @@ all: ../bin ../lib/libraylib.a ../include/raylib.h ../include/rlgl.h ../include/
 ../include/raymath.h:
 	cp ../external/raylib/src/raymath.h ../include/
 
-game: main.cpp
+game: $(LIST)
 	$(CC) $(CCARGS) $^ $(LIBS) $(OUT)
 
 clean:
@@ -47,4 +49,3 @@ clean:
 deepclean: clean
 	cd ../external/raylib/src/; \
 	make clean
-
