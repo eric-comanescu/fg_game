@@ -2,7 +2,7 @@ CC := clang++
 CCARGS := -flto -L../lib -I../include -std=c++17
 OUT := -O2 -o ../bin/game
 
-LIST := main.cpp game.cpp ./states/StateMachine.cpp ./states/State.cpp
+LIST := main.cpp game.cpp ./states/StateMachine.cpp
 
 UNAME_S := $(shell uname -s)
 
@@ -10,6 +10,7 @@ ifeq ($(UNAME_S),Linux)
 	LIBS := -lraylib
 else ifeq ($(UNAME_S),Darwin)
 	LIBS := -framework CoreVideo -framework IOKit -framework Cocoa -framework GLUT -framework OpenGL -lraylib
+	OUT := -O2 -o ../bin/game.app
 else
 	CC := g++
 	LIBS := -lraylib -lgdi32 -lwinmm
