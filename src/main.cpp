@@ -1,14 +1,12 @@
-#include <cstdlib>
-
 #include "../include/game.h"
 #include "../include/StateMachine.h"
 
-constexpr int W_WIDTH = 640;
-constexpr int W_HEIGHT = 360;
-constexpr int W_SCALE = 2;
+constexpr int WIDTH = 640;
+constexpr int HEIGHT = 360;
+constexpr int SCALE = 2;
 
 StateMachine sm;
-Game game(&sm, W_WIDTH, W_HEIGHT, W_SCALE);
+Game game(&sm, WIDTH, HEIGHT, SCALE);
 
 int main() {
    game.init();

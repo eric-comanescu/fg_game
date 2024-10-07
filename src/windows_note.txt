@@ -1,1 +1,0 @@
-environment variable for appdata\local folder is LOCALAPPDATA
