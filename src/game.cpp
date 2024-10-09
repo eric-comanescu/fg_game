@@ -35,6 +35,7 @@ void Game::update(float dt) {
 void Game::render() {
     BeginDrawing();
     ClearBackground(BLANK);
+	DrawFPS(0, 0);
 
     m_stateMachine->render();
 

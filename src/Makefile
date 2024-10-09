@@ -1,6 +1,7 @@
 CC := clang++
 CCARGS := -flto -L../lib -I../include -std=c++17
 OUT := -O2 -o ../bin/game
+MAKE := make
 
 LIST := main.cpp game.cpp ./states/StateMachine.cpp
 
@@ -15,6 +16,7 @@ else
 	CC := g++
 	LIBS := -lraylib -lgdi32 -lwinmm
 	OUT := -O2 -o ../bin/game.exe
+	MAKE := mingw32-make
 endif
 
 
@@ -27,8 +29,8 @@ all: ../bin ../lib/libraylib.a ../include/raylib.h ../include/rlgl.h ../include/
 
 ../lib/libraylib.a:
 	cd ../external/raylib/src/; \
-	make clean; \
-	make PLATFORM=PLATFORM_DESKTOP; \
+	$(MAKE) clean; \
+	$(MAKE) PLATFORM=PLATFORM_DESKTOP; \
 	mv libraylib.a ../../../lib/;
 
 ../include/raylib.h:
