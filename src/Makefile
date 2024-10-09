@@ -46,9 +46,9 @@ game: $(LIST)
 	$(CC) $(CCARGS) $^ $(LIBS) $(OUT)
 
 clean:
-	rm ../lib/libraylib.a
 	rm -r ../bin
 
 deepclean: clean
+	rm ../lib/libraylib.a
 	cd ../external/raylib/src/; \
-	make clean
+	$(MAKE) clean

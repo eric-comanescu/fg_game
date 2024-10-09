@@ -12,7 +12,7 @@ Game::~Game() {}
 void Game::init() {
     InitWindow(m_width * m_scale, m_height * m_scale, "Gaem");
     SetExitKey(0);
-    SetTargetFPS(60);
+    SetTargetFPS(120);
 }
 
 void Game::start() {
