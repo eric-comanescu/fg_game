@@ -15,8 +15,8 @@ class InputManager {
     };
 
     struct Input {
-        MotionInputs m_motionInput;
-        KeyboardKey m_key;
+        MotionInputs motionInput;
+        KeyboardKey key;
     };
 
     Input getInput();

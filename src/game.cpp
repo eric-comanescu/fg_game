@@ -1,11 +1,11 @@
-#include "../include/game.h"
+#include "../include/Game.h"
 #include "../include/StateMachine.h"
 #include "../include/raylib.h"
 
 Game::Game(StateMachine* stateMachine, int width, int height, int scale)
     : m_stateMachine {stateMachine}
     , m_width {width}, m_height {height}, m_scale {scale}
-{}
+{ this->init(); }
 
 Game::~Game() {}
 

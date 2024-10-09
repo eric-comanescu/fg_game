@@ -1,4 +1,4 @@
-#include "../include/game.h"
+#include "../include/Game.h"
 #include "../include/StateMachine.h"
 
 constexpr int WIDTH = 640;
@@ -9,6 +9,5 @@ StateMachine sm;
 Game game(&sm, WIDTH, HEIGHT, SCALE);
 
 int main() {
-   game.init();
    game.start();
 }
