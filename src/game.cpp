@@ -21,7 +21,8 @@ void Game::start() {
 
 void Game::gameLoop() {
     while (!WindowShouldClose()) {
-        float dt = GetFrameTime() > 0.1f ? 0.1f : GetFrameTime();
+		float frameTime { GetFrameTime() };
+        float dt { frameTime > 0.1f ? 0.1f : GetFrameTime() };
 
         update(dt);
         render();
