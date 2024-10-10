@@ -1,6 +1,8 @@
 #ifndef INPUT_H
 #define INPUT_H
 
+#include <unordered_map>
+
 #include "raylib.h"
 #include "StateMachine.h"
 
@@ -29,6 +31,7 @@ class InputManager {
     struct Input {
         MotionInputs motionInput;
         KeyboardKey key;
+		Directions direction;
     };
 
 	InputManager();
@@ -38,6 +41,14 @@ class InputManager {
 
 	private:
 	StateMachine m_stateMachine;
+	// std::unordered_map<KeyboardKey, Directions> m_player1Keybinds {
+	// 	{ KEY_W, Directions::UpNeutral },
+	// 	{ KEY_A, Directions::NeutralLeft },
+	// 	{ KEY_S, Directions::DownNeutral },
+	// 	{ KEY_D, Directions::NeutralRight },
+	// };
+	// Above line violate multiple initialization rule oops
+	std::unordered_map<KeyboardKey, Directions> m_player1Keybinds;
 };
 
 #endif
