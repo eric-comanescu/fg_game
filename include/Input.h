@@ -48,6 +48,7 @@ class InputManager {
 	// 	{ KEY_D, Directions::NeutralRight },
 	// };
 	// Above line violate multiple initialization rule oops
+	// Maybe doesn't violate ODR and mingw32-make is broken?
 	std::unordered_map<KeyboardKey, Directions> m_player1Keybinds;
 };
 

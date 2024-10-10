@@ -7,7 +7,7 @@
 #include "../include/StateMachine.h"
 
 InputManager::InputManager() {
-
+	std::cout << "Test\n";
 }
 
 InputManager::~InputManager() {
