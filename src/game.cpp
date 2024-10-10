@@ -7,10 +7,14 @@ Game::Game(StateMachine* stateMachine, int width, int height, int scale)
     , m_width {width}, m_height {height}, m_scale {scale}
 { this->init(); }
 
-Game::~Game() {}
+Game::~Game() {
+	CloseAudioDevice();
+	CloseWindow();
+}
 
 void Game::init() {
     InitWindow(m_width * m_scale, m_height * m_scale, "Gaem");
+	InitAudioDevice();
     SetExitKey(0);
     SetTargetFPS(120);
 }
