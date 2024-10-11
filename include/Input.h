@@ -41,15 +41,15 @@ class InputManager {
 
 	private:
 	StateMachine m_stateMachine;
-	// std::unordered_map<KeyboardKey, Directions> m_player1Keybinds {
-	// 	{ KEY_W, Directions::UpNeutral },
-	// 	{ KEY_A, Directions::NeutralLeft },
-	// 	{ KEY_S, Directions::DownNeutral },
-	// 	{ KEY_D, Directions::NeutralRight },
-	// };
+	std::unordered_map<KeyboardKey, Directions> m_player1Keybinds {
+		{ KEY_W, Directions::UpNeutral },
+		{ KEY_A, Directions::NeutralLeft },
+		{ KEY_S, Directions::DownNeutral },
+		{ KEY_D, Directions::NeutralRight },
+	};
 	// Above line violate multiple initialization rule oops
 	// Maybe doesn't violate ODR and mingw32-make is broken?
-	std::unordered_map<KeyboardKey, Directions> m_player1Keybinds;
+	// std::unordered_map<KeyboardKey, Directions> m_player1Keybinds;
 };
 
 #endif
