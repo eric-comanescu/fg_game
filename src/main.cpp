@@ -11,6 +11,5 @@ InputManager i;
 Game game(&sm, WIDTH, HEIGHT, SCALE);
 
 int main() {
-	i.getInput();
 	game.start();
 }
