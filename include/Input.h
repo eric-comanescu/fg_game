@@ -1,55 +1,50 @@
 #ifndef INPUT_H
 #define INPUT_H
 
+#include <cstdint>
+#include <queue>
 #include <unordered_map>
 
 #include "raylib.h"
-#include "StateMachine.h"
 
 class InputManager {
     public:
-    enum MotionInputs {
-        NONE = 0,
-
-        QCF = 1,
-        QCB = 2,
-        DP = 3,
-        HCF = 4,
-    };
-	enum Directions {
-		DownLeft = 1,
-		DownNeutral,
-		DownRight,
-		NeutralLeft,
-		NeutralNeutral,
-		NeutralRight,
-		UpLeft,
-		UpNeutral,
-		UpRight
+	enum Movement {
+		Up = 0b1000,
+		Down = 0b0100,
+		Left = 0b0010,
+		Right = 0b0001
+	};
+	enum AttackType {
+		Light = 0b1000,
+		Medium = 0b0100,
+		Heavy = 0b0010,
+		Aerial = 0b0001
 	};
 
     struct Input {
-        MotionInputs motionInput;
-        KeyboardKey key;
-		Directions direction;
+		uint8_t movementHold;
+		uint8_t movementPress;
+		uint8_t movementRelease;
+
+		uint8_t attackHold;
+		uint8_t attackPress;
+		uint8_t attackRelease;
     };
 
 	InputManager();
 	~InputManager();
 
-    Input getInput();
+    void updateInput();
 
 	private:
-	StateMachine m_stateMachine;
-	std::unordered_map<KeyboardKey, Directions> m_player1Keybinds {
-		{ KEY_W, Directions::UpNeutral },
-		{ KEY_A, Directions::NeutralLeft },
-		{ KEY_S, Directions::DownNeutral },
-		{ KEY_D, Directions::NeutralRight },
+	std::queue<Input> m_inputQueue {};
+	std::unordered_map<Movement, KeyboardKey> m_keybinds {
+		{ Movement::Up, KEY_W },
+		{ Movement::Down, KEY_S },
+		{ Movement::Left, KEY_A },
+		{ Movement::Right, KEY_D },
 	};
-	// Above line violate multiple initialization rule oops
-	// Maybe doesn't violate ODR and mingw32-make is broken?
-	// std::unordered_map<KeyboardKey, Directions> m_player1Keybinds;
 };
 
 #endif
