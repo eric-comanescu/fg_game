@@ -64,7 +64,7 @@ private:
     void getRelease(Input& input);
 
     void sanitizeInputs(Input& input);
-    void removeInvalidInputs(Input& input, DirectionMask command1, DirectionMask command2);
+    void removeInvalidDirections(Input& input, DirectionMask command1, DirectionMask command2);
 };
 
 #endif
