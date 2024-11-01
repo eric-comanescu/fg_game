@@ -1,7 +1,8 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include "../include/StateMachine.h"
+#include "StateMachine.h"
+#include "Input.h"
 
 class Game {
     public:
@@ -15,6 +16,7 @@ class Game {
     private:
     // Not heap allocated, no need to free
     StateMachine* m_stateMachine;
+	InputManager i {};
     int m_width;
     int m_height;
     int m_scale;

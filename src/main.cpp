@@ -1,3 +1,5 @@
+#include <sstream>
+
 #include "../include/Game.h"
 #include "../include/StateMachine.h"
 #include "../include/Input.h"
@@ -7,7 +9,7 @@ constexpr int HEIGHT = 360;
 constexpr int SCALE = 2;
 
 StateMachine sm {};
-InputManager i;
+InputManager i {};
 Game game(&sm, WIDTH, HEIGHT, SCALE);
 
 int main() {

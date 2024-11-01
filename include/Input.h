@@ -2,56 +2,69 @@
 #define INPUT_H
 
 #include <cstdint>
-#include <queue>
+#include <list>
 #include <unordered_map>
 
 #include "raylib.h"
 
 class InputManager {
-    public:
-	enum Direction: uint8_t {
-		Up = 0b00001000,
-		Down = 0b00000100,
-		Left = 0b00000010,
-		Right = 0b00000001
+public:
+	enum Action {
+		Up_Input,
+		Down_Input,
+		Left_Input,
+		Right_Input,
+		Light_Input,
+		Medium_Input,
+		Heavy_Input
 	};
-	enum AttackType: uint8_t {
-		Light = 0b00001000,
-		Medium = 0b00000100,
-		Heavy = 0b00000010,
-		Aerial = 0b00000001
-	};
-
-    struct Input {
-		uint8_t directionHold;
-		uint8_t directionPress;
-		uint8_t directionRelease;
-
-		uint8_t attackHold;
-		uint8_t attackPress;
-		uint8_t attackRelease;
+    enum DirectionMask: uint8_t {
+        Up = 0b00001000,
+        Down = 0b00000100,
+        Left = 0b00000010,
+        Right = 0b00000001
+    };
+    enum AttackMask: uint8_t {
+        Light = 0b00001000,
+        Medium = 0b00000100,
+        Heavy = 0b00000010,
+        Aerial = 0b00000001
     };
 
-	InputManager();
-	~InputManager();
+    struct Input {
+        uint8_t directionHold {0};
+        uint8_t directionPress {0};
+        uint8_t directionRelease {0};
 
-    void buildInputQueue();
+    	uint8_t attackHold {0};
+        uint8_t attackPress {0};
+        uint8_t attackRelease {0};
+    };
 
-	private:
-	std::queue<Input> m_inputQueue {};
-	std::unordered_map<Direction, KeyboardKey> m_keybinds {
-		{ Direction::Up, KEY_W },
-		{ Direction::Down, KEY_S },
-		{ Direction::Left, KEY_A },
-		{ Direction::Right, KEY_D },
-	};
+    InputManager();
+    ~InputManager();
 
-	void getHold(Input& input);
-	void getPress(Input& input);
-	void getRelease(Input& input);
+    void buildInputList();
 
-	void sanitizeInputs(Input& input);
-	void removeInvalidInputs(Input& input, Direction command1, Direction command2);
+private:
+    std::list<Input> m_inputList {};
+    std::unordered_map<Action, KeyboardKey> m_keybinds {
+        { Action::Up_Input, KEY_W },
+        { Action::Down_Input, KEY_S },
+        { Action::Left_Input, KEY_A },
+        { Action::Right_Input, KEY_D },
+        { Action::Light_Input, KEY_I },
+        { Action::Medium_Input, KEY_O },
+        { Action::Heavy_Input, KEY_P },
+    };
+
+	void getPreviousFrameInputs(Input& currentFrame, Input& previousFrame);
+    void getHold(Input& input);
+    void getPress(Input& input);
+    void getRelease(Input& input);
+
+    void sanitizeInputs(Input& input);
+    void removeInvalidInputs(Input& input, DirectionMask command1, DirectionMask command2);
 };
 
 #endif
