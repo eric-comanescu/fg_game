@@ -44,7 +44,8 @@ public:
     InputManager();
     ~InputManager();
 
-    void buildInputList();
+	void update(float dt);
+	void debugRender();
 
 private:
     std::list<Input> m_inputList {};
@@ -57,7 +58,10 @@ private:
         { Action::Medium_Input, KEY_O },
         { Action::Heavy_Input, KEY_P },
     };
+	float m_timeSinceLastInputBuild;
 
+
+    void buildInputList();
 	void getPreviousFrameInputs(Input& currentFrame, Input& previousFrame);
     void getHold(Input& input);
     void getPress(Input& input);

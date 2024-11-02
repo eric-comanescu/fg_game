@@ -1,22 +1,45 @@
 #include "../include/Input.h"
 
-#include <cassert>
-#include <queue>
 #include <iostream>
+#include <cassert>
+#include <sstream>
 #include <bitset>
+#include <list>
 
 #include "../include/raylib.h"
 
 InputManager::InputManager() {
-
+	m_inputList.push_back(Input());
 }
 
 InputManager::~InputManager() {
 
 }
 
+void InputManager::update(float dt) {
+	constexpr float fixedFrameTime = 1 / 60;
+	if (m_timeSinceLastInputBuild += dt; m_timeSinceLastInputBuild >= fixedFrameTime) {
+		m_timeSinceLastInputBuild = 0;
+
+		buildInputList();
+	}
+}
+
+void InputManager::debugRender() {
+	Input i = m_inputList.back();
+	std::stringstream ss {};
+	ss << "Attack Hold: " << std::bitset<8>(i.attackHold) << "\n";
+	ss << "Attack Press: " << std::bitset<8>(i.attackPress) << "\n";
+	ss << "Attack Release: " << std::bitset<8>(i.attackRelease) << "\n";
+	ss << "Direction Hold: " << std::bitset<8>(i.directionHold) << "\n";
+	ss << "Direction Press: " << std::bitset<8>(i.directionPress) << "\n";
+	ss << "Direction Release: " << std::bitset<8>(i.directionRelease) << "\n";
+
+	DrawText(ss.str().c_str(), 0, 24, 16, WHITE);
+}
+
 void InputManager::buildInputList() {
-	Input previousInput = m_inputList.empty() ? Input() : m_inputList.back();
+	Input previousInput = m_inputList.back();
 	Input currentInput {};
 
     // to hold input for 15 frames, remove up to 15th element

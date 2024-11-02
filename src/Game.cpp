@@ -37,6 +37,7 @@ void Game::gameLoop() {
 
 void Game::update(float dt) {
     m_stateMachine->update(dt);
+	i.update(dt);
 }
 
 void Game::render() {
@@ -44,10 +45,8 @@ void Game::render() {
     ClearBackground(BLANK);
 	DrawFPS(0, 0);
 
-	// Testing
-	i.buildInputList();
-
     m_stateMachine->render();
+	i.debugRender();
 
     EndDrawing();
 }
