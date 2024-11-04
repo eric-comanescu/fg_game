@@ -1,8 +1,7 @@
 #ifndef STATE_MACHINE_H
 #define STATE_MACHINE_H
 
-#include <unordered_map>
-#include <string>
+#include <vector>
 
 #include "State.h"
 
@@ -18,7 +17,7 @@ class StateMachine {
 
     private:
     // Dont need to free m_states and m_currentState, not heap allocated
-    std::unordered_map<char*, State*> m_states;
+    std::vector<State*> m_states;
     State* m_currentState;
 };
 

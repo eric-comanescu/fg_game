@@ -17,7 +17,7 @@ void Game::init() {
     InitWindow(m_width * m_scale, m_height * m_scale, "Gaem");
     InitAudioDevice();
 
-    SetExitKey(0);
+    //SetExitKey(0);
     SetTargetFPS(120);
 }
 

@@ -3,7 +3,7 @@ CCARGS := -flto -L../lib -I../include -std=c++17
 OUT := -O2 -o ../bin/game
 MAKE := make
 
-LIST := main.cpp Game.cpp Input.cpp ./states/StateMachine.cpp
+LIST := main.cpp Game.cpp Input.cpp ./states/StateMachine.cpp ./states/game/PlayState.cpp ./states/State.cpp
 
 UNAME_S := $(shell uname -s)
 
