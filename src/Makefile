@@ -11,7 +11,6 @@ ifeq ($(UNAME_S),Linux)
 	LIBS := -lraylib
 else ifeq ($(UNAME_S),Darwin)
 	LIBS := -framework CoreVideo -framework IOKit -framework Cocoa -framework GLUT -framework OpenGL -lraylib
-	OUT := -O2 -o ../bin/game.app
 else
 	CC := g++
 	LIBS := -lraylib -lgdi32 -lwinmm
