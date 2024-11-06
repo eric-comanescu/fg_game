@@ -56,13 +56,14 @@ void InputManager::buildInputList() {
     // Get Hold
     getHold(currentInput);
 
+	// Sanitize inputs after hold
+    sanitizeInputs(currentInput);
+
     // Get Press
     getPress(currentInput);
 
     // Get Release
     getRelease(currentInput);
-
-    sanitizeInputs(currentInput);
 
 	// Adds current frame's inputs to list
 	m_inputList.push_back(currentInput);
@@ -147,36 +148,53 @@ void InputManager::getPress(Input& input) {
 }
 
 void InputManager::getRelease(Input& input) {
+	constexpr uint8_t FIRST_4_BITS_MASK = 0b11110000;
+
 	input.attackRelease <<= 4;
 	input.directionRelease <<= 4;
 
-	if (IsKeyReleased(m_keybinds[Action::Up_Input])) {
-		input.directionRelease |= DirectionMask::Up;
+	if (((input.directionHold & FIRST_4_BITS_MASK) >> 4) != (input.directionHold & ~FIRST_4_BITS_MASK)) {
+		std::cout << std::bitset<4>((input.directionHold & FIRST_4_BITS_MASK) >> 4) << '\n';
+		std::cout << std::bitset<4>((input.directionHold & ~FIRST_4_BITS_MASK)) << '\n';
+
+		// TODO: Working on this
+		std::cout << 
+		input.directionRelease |= ((input.directionHold >> 4) & ~(input.directionHold & ~FIRST_4_BITS_MASK));
 	}
 
-    if (IsKeyReleased(m_keybinds[Action::Down_Input])) {
-        input.directionRelease |= DirectionMask::Down;
-    }
+	if (!(input.attackHold & FIRST_4_BITS_MASK) == (input.attackHold & ~FIRST_4_BITS_MASK) && (input.attackHold & FIRST_4_BITS_MASK) != 0) {
+		input.attackRelease |= ((input.attackHold >> 4) & ~(input.attackHold & ~FIRST_4_BITS_MASK));
+	}
 
-    if (IsKeyReleased(m_keybinds[Action::Left_Input])) {
-        input.directionRelease |= DirectionMask::Left;
-    }
+	// if (IsKeyReleased(m_keybinds[Action::Up_Input])) {
+	// 	input.directionRelease |= DirectionMask::Up;
+	// }
 
-    if (IsKeyReleased(m_keybinds[Action::Right_Input])) {
-        input.directionRelease |= DirectionMask::Right;
-    }
+    // if (IsKeyReleased(m_keybinds[Action::Down_Input])) {
+    //     input.directionRelease |= DirectionMask::Down;
+    // }
 
-    if (IsKeyReleased(m_keybinds[Action::Light_Input])) {
-        input.attackRelease |= AttackMask::Light;
-    }
+    // if (IsKeyReleased(m_keybinds[Action::Left_Input])) {
+    //     input.directionRelease |= DirectionMask::Left;
+    // }
 
-    if (IsKeyReleased(m_keybinds[Action::Medium_Input])) {
-        input.attackRelease |= AttackMask::Medium;
-    }
+    // if (IsKeyReleased(m_keybinds[Action::Right_Input])) {
+    //     input.directionRelease |= DirectionMask::Right;
+    // }
 
-    if (IsKeyReleased(m_keybinds[Action::Heavy_Input])) {
-        input.attackRelease |= AttackMask::Heavy;
-    }
+    // if (IsKeyReleased(m_keybinds[Action::Light_Input])) {
+    //     input.attackRelease |= AttackMask::Light;
+    // }
+
+    // if (IsKeyReleased(m_keybinds[Action::Medium_Input])) {
+    //     input.attackRelease |= AttackMask::Medium;
+    // }
+
+    // if (IsKeyReleased(m_keybinds[Action::Heavy_Input])) {
+    //     input.attackRelease |= AttackMask::Heavy;
+    // }
+
+
 }
 
 void InputManager::sanitizeInputs(Input& input) {
