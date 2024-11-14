@@ -17,7 +17,8 @@ InputManager::~InputManager() {
 }
 
 void InputManager::update(float dt) {
-	constexpr float fixedFrameTime = 1 / 60;
+	constexpr float fixedFrameTime = 1.0 / 60.0;
+
 	if (m_timeSinceLastInputBuild += dt; m_timeSinceLastInputBuild >= fixedFrameTime) {
 		m_timeSinceLastInputBuild = 0;
 
@@ -153,16 +154,11 @@ void InputManager::getRelease(Input& input) {
 	input.attackRelease <<= 4;
 	input.directionRelease <<= 4;
 
-	if (((input.directionHold & FIRST_4_BITS_MASK) >> 4) != (input.directionHold & ~FIRST_4_BITS_MASK)) {
-		std::cout << std::bitset<4>((input.directionHold & FIRST_4_BITS_MASK) >> 4) << '\n';
-		std::cout << std::bitset<4>((input.directionHold & ~FIRST_4_BITS_MASK)) << '\n';
-
-		// TODO: Working on this
-		std::cout << 
-		input.directionRelease |= ((input.directionHold >> 4) & ~(input.directionHold & ~FIRST_4_BITS_MASK));
+	if (input.directionHold >> 4 != (input.directionHold & ~FIRST_4_BITS_MASK) && input.directionHold >> 4 != 0) {
+		input.directionRelease |= (input.directionHold >> 4) & ~(input.directionHold & ~FIRST_4_BITS_MASK);
 	}
 
-	if (!(input.attackHold & FIRST_4_BITS_MASK) == (input.attackHold & ~FIRST_4_BITS_MASK) && (input.attackHold & FIRST_4_BITS_MASK) != 0) {
+	if (input.attackHold >> 4 != (input.attackHold & ~FIRST_4_BITS_MASK) && input.attackHold >> 4 != 0) {
 		input.attackRelease |= ((input.attackHold >> 4) & ~(input.attackHold & ~FIRST_4_BITS_MASK));
 	}
 
