@@ -13,6 +13,7 @@ else ifeq ($(UNAME_S),Darwin)
 	LIBS := -framework CoreVideo -framework IOKit -framework Cocoa -framework GLUT -framework OpenGL -lraylib
 else
 	CC := g++
+	CCARGS := -flto -L../lib -I../include -std=c++17 -mwindows
 	LIBS := -lraylib -lgdi32 -lwinmm
 	OUT := -O2 -o ../bin/game.exe
 	MAKE := mingw32-make
