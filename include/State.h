@@ -3,6 +3,10 @@
 
 class StateMachine;
 
+enum class StateName {
+	PlayState,
+};
+
 class State {
     friend StateMachine;
 
@@ -17,7 +21,7 @@ class State {
     virtual void render() = 0;
 
     private:
-    char* m_name = nullptr;
+    StateName m_name;
 };
 
 #endif

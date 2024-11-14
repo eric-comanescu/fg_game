@@ -2,6 +2,7 @@
 #define STATE_MACHINE_H
 
 #include <vector>
+#include <list>
 
 #include "State.h"
 
@@ -10,14 +11,15 @@ class StateMachine {
     StateMachine();
     ~StateMachine();
 
-    void add(State* state);
-    void change(char* name); // TODO: Add enter params to method when implemented
+    void push(State* state, void* params = nullptr);
+    void pop();
+	const State* top();
+
     void update(float dt);
     void render();
 
     private:
-    // Dont need to free m_states and m_currentState, not heap allocated
-    std::vector<State*> m_states;
+	std::list<State*> m_statesList;
     State* m_currentState;
 };
 

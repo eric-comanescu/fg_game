@@ -1,7 +1,11 @@
 ## Motion Inputs
 [Input system and parser based on this](https://mugen-net.work/wiki/index.php?title=Deep_Buffering#Algorithm)
 
+### Before Submitting:
+- Change Starting State in StateMachine constructor to main menu state
+
 ### TODO
+- Work on player class
 - Command parser
   - Add Command abstract class
   - Has command sequence field
