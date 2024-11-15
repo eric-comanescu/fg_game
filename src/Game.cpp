@@ -4,6 +4,7 @@
 
 #include "../include/StateMachine.h"
 #include "../include/raylib.h"
+#include "../include/Player.h"
 
 Game::Game(StateMachine* stateMachine, int width, int height, int scale)
     : m_stateMachine {stateMachine }
@@ -46,17 +47,15 @@ void Game::gameLoop() {
 
 void Game::update(float dt) {
     m_stateMachine->update(dt);
-	i.update(dt);
 }
 
 void Game::render() {
 	BeginTextureMode(m_canvas);
-	ClearBackground(SKYBLUE);
+	ClearBackground(BLANK);
 
 	DrawFPS(0, 0);
 
     m_stateMachine->render();
-	i.debugRender();
 
 	EndTextureMode();
 

@@ -1,6 +1,5 @@
 #include "../include/Input.h"
 
-#include <iostream>
 #include <cassert>
 #include <sstream>
 #include <bitset>
@@ -37,6 +36,10 @@ void InputManager::debugRender() {
 	ss << "Direction Release: " << std::bitset<8>(i.directionRelease) << "\n";
 
 	DrawText(ss.str().c_str(), 0, 24, 16, WHITE);
+}
+
+const std::list<InputManager::Input>& InputManager::getInputList() const {
+	return m_inputList;
 }
 
 void InputManager::buildInputList() {
@@ -161,36 +164,6 @@ void InputManager::getRelease(Input& input) {
 	if (input.attackHold >> 4 != (input.attackHold & ~FIRST_4_BITS_MASK) && input.attackHold >> 4 != 0) {
 		input.attackRelease |= ((input.attackHold >> 4) & ~(input.attackHold & ~FIRST_4_BITS_MASK));
 	}
-
-	// if (IsKeyReleased(m_keybinds[Action::Up_Input])) {
-	// 	input.directionRelease |= DirectionMask::Up;
-	// }
-
-    // if (IsKeyReleased(m_keybinds[Action::Down_Input])) {
-    //     input.directionRelease |= DirectionMask::Down;
-    // }
-
-    // if (IsKeyReleased(m_keybinds[Action::Left_Input])) {
-    //     input.directionRelease |= DirectionMask::Left;
-    // }
-
-    // if (IsKeyReleased(m_keybinds[Action::Right_Input])) {
-    //     input.directionRelease |= DirectionMask::Right;
-    // }
-
-    // if (IsKeyReleased(m_keybinds[Action::Light_Input])) {
-    //     input.attackRelease |= AttackMask::Light;
-    // }
-
-    // if (IsKeyReleased(m_keybinds[Action::Medium_Input])) {
-    //     input.attackRelease |= AttackMask::Medium;
-    // }
-
-    // if (IsKeyReleased(m_keybinds[Action::Heavy_Input])) {
-    //     input.attackRelease |= AttackMask::Heavy;
-    // }
-
-
 }
 
 void InputManager::sanitizeInputs(Input& input) {

@@ -47,6 +47,8 @@ public:
 	void update(float dt);
 	void debugRender();
 
+	const std::list<Input>& getInputList() const;
+
 private:
     std::list<Input> m_inputList {};
     std::unordered_map<Action, KeyboardKey> m_keybinds {

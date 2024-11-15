@@ -8,7 +8,7 @@ PlayState::PlayState() : State{} {
 };
 
 PlayState::~PlayState() {
-	std::cout << "called playstate destructor\n";
+
 }
 
 void PlayState::enter(void* params) {

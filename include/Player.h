@@ -2,6 +2,8 @@
 #define PLAYER_H
 
 #include "GameEntity.h"
+#include "Input.h"
+#include "StateMachine.h"
 #include "raylib.h"
 
 class Player : public GameEntity {
@@ -13,7 +15,12 @@ public:
 	void render();
 
 private:
-	Vector2 position {};
+	InputManager m_inputManager {};
+	StateMachine m_stateMachine {};
+	Vector2 m_position {};
+
+	// TODO: Create State to handle this
+	void handleMovement(float dt);
 };
 
 #endif
