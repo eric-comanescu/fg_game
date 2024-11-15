@@ -1,15 +1,18 @@
 #include "../include/Game.h"
 
+#include <iostream>
+
 #include "../include/StateMachine.h"
 #include "../include/raylib.h"
 
 Game::Game(StateMachine* stateMachine, int width, int height, int scale)
-    : m_stateMachine {stateMachine}
+    : m_stateMachine {stateMachine }
     , m_width {width}, m_height {height}, m_scale {scale}
 { this->init(); }
 
 Game::~Game() {
     CloseAudioDevice();
+	UnloadRenderTexture(m_canvas);
     CloseWindow();
 }
 
@@ -17,7 +20,13 @@ void Game::init() {
     InitWindow(m_width * m_scale, m_height * m_scale, "Gaem");
     InitAudioDevice();
 
-    //SetExitKey(0);
+	m_canvas = LoadRenderTexture(m_width, m_height);
+
+	while (!IsRenderTextureReady(m_canvas)) {}
+
+	SetTextureFilter(m_canvas.texture, TEXTURE_FILTER_POINT);
+
+    // SetExitKey(0);
     SetTargetFPS(120);
 }
 
@@ -41,12 +50,27 @@ void Game::update(float dt) {
 }
 
 void Game::render() {
-    BeginDrawing();
-    ClearBackground(BLANK);
+	BeginTextureMode(m_canvas);
+	ClearBackground(SKYBLUE);
+
 	DrawFPS(0, 0);
 
     m_stateMachine->render();
 	i.debugRender();
+
+	EndTextureMode();
+
+    BeginDrawing();
+    ClearBackground(BLANK);
+
+	DrawTexturePro(
+		m_canvas.texture, 																			// Texture to draw
+		(Rectangle){ 0.0f, 0.0f, (float)m_canvas.texture.width, -(float)m_canvas.texture.height }, 	// Source Rectangle
+		(Rectangle){ 0.0f, 0.0f, (float)(m_width * m_scale), (float)(m_height * m_scale) },			// Destination Rectangle
+		(Vector2){ 0.0f, 0.0f },																	// Origin
+		0.0f,																						// Rotation
+		WHITE																						// Tint
+	);
 
     EndDrawing();
 }

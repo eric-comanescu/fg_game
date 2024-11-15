@@ -3,6 +3,7 @@
 
 #include "StateMachine.h"
 #include "Input.h"
+#include "raylib.h"
 
 class Game {
     public:
@@ -14,9 +15,10 @@ class Game {
     void start();
 
     private:
+	RenderTexture2D m_canvas;
+	InputManager i {};
     // Not heap allocated, no need to free
     StateMachine* m_stateMachine;
-	InputManager i {};
     int m_width;
     int m_height;
     int m_scale;
