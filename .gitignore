@@ -1,4 +1,10 @@
 .vscode/
 *.swp
+
+include/rlgl.h
+include/raylib.h
+include/raymath.h
+
 lib/libraylib.a
+
 bin/
