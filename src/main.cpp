@@ -3,9 +3,9 @@
 #include "../include/Input.h"
 #include "../include/PlayState.h"
 
-constexpr int WIDTH = 640;
-constexpr int HEIGHT = 360;
-constexpr int SCALE = 2;
+constexpr int WIDTH = 480;
+constexpr int HEIGHT = 270;
+constexpr int SCALE = 3;
 
 StateMachine sm {};
 InputManager i {};
