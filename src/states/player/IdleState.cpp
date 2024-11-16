@@ -1,7 +1,7 @@
 #include "../../../include/IdleState.h"
 
 #include <list>
-#include <stdlib.h>
+#include <iostream>
 
 #include "../../../include/Player.h"
 #include "../../../include/State.h"
@@ -26,6 +26,8 @@ void IdleState::exit() {
 }
 
 void IdleState::update(float dt) {
+	checkTransitions();
+
 	m_player->m_inputManager.update(dt);
 }
 
@@ -44,10 +46,10 @@ void IdleState::checkTransitions() {
 	const std::list<InputManager::Input>& inputs { m_player->m_inputManager.getInputList() };
 
 	if ((inputs.back().directionHold & LEFT_BITMASK) > 0) {
-		m_player->m_stateMachine.change(StateName::Walking_State, nullptr);
+		m_player->m_stateMachine.change(StateName::Player_Walking_State, nullptr);
 	}
 
 	if ((inputs.back().directionHold & RIGHT_BITMASK) > 0) {
-		m_player->m_stateMachine.change(StateName::Walking_State, nullptr);
+		m_player->m_stateMachine.change(StateName::Player_Walking_State, nullptr);
 	}
 }

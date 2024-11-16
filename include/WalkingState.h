@@ -5,13 +5,10 @@
 #include "Player.h"
 
 class Player;
+enum class Direction;
 
 class WalkingState : public State {
 public:
-	struct EnterParams {
-		Player::Direction direction;
-	};
-
 	WalkingState(Player* player);
 	~WalkingState();
 
@@ -23,11 +20,12 @@ public:
 	StateName name();
 
 private:
-	StateName m_name { StateName::Walking_State };
-	Player::Direction m_movementDirection;
+	StateName m_name { StateName::Player_Walking_State };
+	Direction m_walkingDirection;
 	Player* m_player;
 
 	void checkTransitions();
+	void handleMovement(float dt);
 };
 
 #endif
