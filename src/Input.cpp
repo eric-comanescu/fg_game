@@ -5,6 +5,8 @@
 #include <bitset>
 #include <list>
 
+#include <iostream>
+
 #include "../include/raylib.h"
 
 InputManager::InputManager() {
@@ -21,7 +23,7 @@ void InputManager::update(float dt) {
 	if (m_timeSinceLastInputBuild += dt; m_timeSinceLastInputBuild >= fixedFrameTime) {
 		m_timeSinceLastInputBuild = 0;
 
-		buildInputList();
+		this->buildInputList();
 	}
 }
 

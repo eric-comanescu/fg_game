@@ -36,5 +36,7 @@ void Player::update(float dt) {
 
 void Player::render() {
 	// Temporary, for testing
+	m_inputManager.debugRender();
+
 	DrawRectangle(m_position.x, m_position.y, 50, 90, BLUE);
 }

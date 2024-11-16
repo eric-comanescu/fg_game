@@ -60,7 +60,7 @@ private:
         { Action::Medium_Input, KEY_O },
         { Action::Heavy_Input, KEY_P },
     };
-	float m_timeSinceLastInputBuild;
+	float m_timeSinceLastInputBuild {0};
 
 
     void buildInputList();
