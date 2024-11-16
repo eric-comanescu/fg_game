@@ -11,7 +11,7 @@ public:
 	~StateMachine();
 
 	void add(State* state);
-	void change(StateName name);
+	void change(StateName name, void* params);
 
 	void update(float dt);
 	void render();

@@ -26,3 +26,7 @@ void IdleState::update(float dt) {
 void IdleState::render() {
 
 }
+
+StateName IdleState::name() {
+	return m_name;
+}

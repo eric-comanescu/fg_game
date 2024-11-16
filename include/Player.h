@@ -8,7 +8,7 @@
 #include "raylib.h"
 
 class Player : public GameEntity {
-	friend IdleState;
+	friend class IdleState;
 
 public:
 	// TODO: change constructor to protected to avoid instantiation
