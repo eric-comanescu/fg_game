@@ -18,7 +18,7 @@ public:
 private:
 	InputManager m_inputManager {};
 	StateMachine m_stateMachine {};
-	Vector2 m_position {};
+	Vector2 m_position {0, 180};
 
 	// TODO: Create State to handle this
 	void handleMovement(float dt);
