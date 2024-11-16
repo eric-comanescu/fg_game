@@ -4,9 +4,9 @@
 class StateStack;
 
 enum class StateName {
-	PlayState,
+	Play_State,
 
-	PlayerIdleState,
+	Player_Idle_State,
 };
 
 class State {

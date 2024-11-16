@@ -31,7 +31,7 @@ void Player::handleMovement(float dt) {
 }
 
 void Player::update(float dt) {
-	m_inputManager.update(dt);
+	m_stateMachine.update(dt);
 	handleMovement(dt);
 }
 

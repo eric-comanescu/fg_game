@@ -1,12 +1,16 @@
 #include "../../include/StateMachine.h"
 #include "../../include/State.h"
 
+#include <iostream>
+
 StateMachine::StateMachine() {
 
 }
 
 StateMachine::~StateMachine() {
-
+	for (auto& x : m_states) {
+		delete x.second;
+	}
 }
 
 void StateMachine::add(State* state) {

@@ -21,8 +21,10 @@ public:
 	StateName name();
 
 private:
-	StateName m_name { StateName::PlayerIdleState };
+	StateName m_name { StateName::Player_Idle_State };
 	Player* m_player;
+
+	void handleMovement();
 };
 
 #endif

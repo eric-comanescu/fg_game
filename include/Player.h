@@ -11,6 +11,11 @@ class Player : public GameEntity {
 	friend class IdleState;
 
 public:
+	enum Direction {
+		Left,
+		Right
+	};
+
 	// TODO: change constructor to protected to avoid instantiation
 	Player();
 	~Player();
