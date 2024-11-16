@@ -3,6 +3,7 @@
 #include <iostream>
 
 #include "../include/StateMachine.h"
+#include "../include/PlayState.h"
 #include "../include/raylib.h"
 #include "../include/Player.h"
 
@@ -31,6 +32,8 @@ void Game::init() {
 
     // SetExitKey(0);
     SetTargetFPS(120);
+
+	m_stateMachine->push(new PlayState());
 }
 
 void Game::start() {

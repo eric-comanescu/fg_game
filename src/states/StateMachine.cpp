@@ -9,10 +9,7 @@
 
 StateMachine::StateMachine()
     : m_currentState {nullptr} 
-{
-	// TODO: Change this to main menu state
-	this->push(new PlayState());
-}
+{}
 
 StateMachine::~StateMachine() {
 	while (!m_statesList.empty()) {

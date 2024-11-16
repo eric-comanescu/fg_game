@@ -1,6 +1,7 @@
 #include "../../../include/Player.h"
 
 #include <list>
+#include <iostream>
 
 #include "../../../include/raylib.h"
 #include "../../../include/Input.h"
@@ -14,17 +15,17 @@ Player::~Player() {
 }
 
 void Player::handleMovement(float dt) {
-	const std::list<InputManager::Input>& inputs { m_inputManager.getInputList() };
-
 	constexpr uint8_t LEFT_BITMASK = 0b00000010;
 	constexpr uint8_t RIGHT_BITMASK = 0b00000001;
 
+	const std::list<InputManager::Input>& inputs { m_inputManager.getInputList() };
+
 	if ((inputs.back().directionHold & LEFT_BITMASK) > 0) {
-		m_position.x += 200 * dt;
+		m_position.x -= 200 * dt;
 	}
 
 	if ((inputs.back().directionHold & RIGHT_BITMASK) > 0) {
-		m_position.x -= 200 * dt;		
+		m_position.x += 200 * dt;
 	}
 }
 

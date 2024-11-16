@@ -2,6 +2,7 @@
 #define FIGHT_H
 
 #include "Player.h"
+#include <vector>
 
 class Fight {
 public:
@@ -13,7 +14,8 @@ public:
 
 private:
 	// TODO: Change to pointers when implementing characters
-	// Player m_player1 {};
+	//! SEGFAULT WHEN UNCOMMENTING PLAYER MEMBERS (WHY???)
+	Player m_player1 {};
 	// Player m_player2 {};
 };
 
