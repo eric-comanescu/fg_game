@@ -4,11 +4,13 @@
 #include "GameEntity.h"
 #include "Input.h"
 #include "StateMachine.h"
+#include "WalkingState.h"
 #include "IdleState.h"
 #include "raylib.h"
 
 class Player : public GameEntity {
 	friend class IdleState;
+	friend class WalkingState;
 
 public:
 	enum Direction {

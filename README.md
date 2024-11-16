@@ -5,6 +5,7 @@
 - Change Starting State in StateMachine constructor to main menu state
 
 ### TODO
+- Rewrite Makefile to reduce compilation time
 - Work on player class
 - Create Fight class to hold 2 players and add it to PlayState as a member
 - Command parser

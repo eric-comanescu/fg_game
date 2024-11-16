@@ -5,9 +5,11 @@
 
 #include "../../../include/raylib.h"
 #include "../../../include/IdleState.h"
+#include "../../../include/WalkingState.h"
 #include "../../../include/Input.h"
 
 Player::Player() {
+	m_stateMachine.add(new WalkingState(this));
 	m_stateMachine.add(new IdleState(this));
 }
 

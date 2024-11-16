@@ -18,7 +18,7 @@ void StateMachine::add(State* state) {
 	m_currentState = state;
 }
 
-void StateMachine::change(StateName name, void* params) {
+void StateMachine::change(StateName name, void* params = nullptr) {
 	m_currentState->exit();
 	m_currentState = m_states.at(name);
 	m_currentState->enter(params);
