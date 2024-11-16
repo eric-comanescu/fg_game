@@ -2,6 +2,7 @@
 #define PLAYSTATE_H
 
 #include "State.h"
+#include "Fight.h"
 
 class PlayState : public State {
 public:
@@ -14,7 +15,7 @@ public:
 	void render();
 
 private:
-	// Fight m_fight;
+	Fight m_fight {};
 	// UserInterface m_ui;
 };
 

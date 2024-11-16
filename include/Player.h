@@ -8,6 +8,7 @@
 
 class Player : public GameEntity {
 public:
+	// TODO: change constructor to protected to avoid instantiation
 	Player();
 	~Player();
 

@@ -3,6 +3,8 @@
 
 #include <iostream>
 
+#include "../../../include/Fight.h"
+
 PlayState::PlayState() : State{} {
 
 };
@@ -20,9 +22,9 @@ void PlayState::exit() {
 }
 
 void PlayState::update(float dt) {
-
+	m_fight.update(dt);
 }
 
 void PlayState::render() {
-
+	m_fight.render();
 }

@@ -6,6 +6,8 @@
 #include "../include/raylib.h"
 #include "../include/Player.h"
 
+#include "../include/Fight.h"
+
 Game::Game(StateMachine* stateMachine, int width, int height, int scale)
     : m_stateMachine {stateMachine }
     , m_width {width}, m_height {height}, m_scale {scale}

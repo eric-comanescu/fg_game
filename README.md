@@ -12,6 +12,10 @@
   - Has command sequence field
   - Has check for input method
 
+### Files with TODOs
+- Player.h
+- Fight.h & Fight.cpp
+
 ## Play State
 ### TODO
 - Fields

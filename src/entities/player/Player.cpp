@@ -34,6 +34,6 @@ void Player::update(float dt) {
 }
 
 void Player::render() {
-	// Temporary
+	// Temporary, for testing
 	DrawRectangle(m_position.x, m_position.y, 50, 90, BLUE);
 }
