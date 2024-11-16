@@ -14,7 +14,10 @@ public:
 	void update(float dt);
 	void render();
 
+	StateName name();
+
 private:
+	StateName m_name { StateName::PlayState };
 	Fight m_fight {};
 	// UserInterface m_ui;
 };

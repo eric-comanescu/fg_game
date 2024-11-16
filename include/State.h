@@ -1,14 +1,16 @@
 #ifndef STATE_H
 #define STATE_H
 
-class StateMachine;
+class StateStack;
 
 enum class StateName {
 	PlayState,
+
+	PlayerIdleState,
 };
 
 class State {
-    friend StateMachine;
+    friend StateStack;
 
     public:
 	State();
@@ -19,6 +21,8 @@ class State {
     virtual void exit() = 0;
     virtual void update(float dt) = 0;
     virtual void render() = 0;
+
+	virtual StateName name() = 0;
 
     private:
     StateName m_name;

@@ -1,26 +1,24 @@
 #ifndef STATE_MACHINE_H
 #define STATE_MACHINE_H
 
-#include <vector>
-#include <list>
+#include <unordered_map>
 
 #include "State.h"
 
 class StateMachine {
-    public:
-    StateMachine();
-    ~StateMachine();
+public:
+	StateMachine();
+	~StateMachine();
 
-    void push(State* state, void* params = nullptr);
-    void pop();
-	const State* top();
+	void add(State* state);
+	void change(StateName name);
 
-    void update(float dt);
-    void render();
+	void update(float dt);
+	void render();
 
-    private:
-	std::list<State*> m_statesList;
-    State* m_currentState;
+private:
+	std::unordered_map<StateName, State*> m_states;
+	State* m_currentState;
 };
 
 #endif

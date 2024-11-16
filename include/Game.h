@@ -1,14 +1,14 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include "StateMachine.h"
+#include "StateStack.h"
 #include "Input.h"
 #include "raylib.h"
 
 class Game {
     public:
     Game() = delete;
-    Game(StateMachine* stateMachine, int width, int height, int scale);
+    Game(StateStack* stateMachine, int width, int height, int scale);
     ~Game();
 
     void init();
@@ -17,8 +17,10 @@ class Game {
     private:
 	RenderTexture2D m_canvas;
 	InputManager i {};
+
     // Not heap allocated, no need to free
-    StateMachine* m_stateMachine;
+    StateStack* m_stateMachine;
+
     int m_width;
     int m_height;
     int m_scale;

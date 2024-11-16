@@ -28,3 +28,7 @@ void PlayState::update(float dt) {
 void PlayState::render() {
 	m_fight.render();
 }
+
+StateName PlayState::name() {
+	return m_name;
+}

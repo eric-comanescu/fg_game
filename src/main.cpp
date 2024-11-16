@@ -7,7 +7,7 @@ constexpr int WINDOW_WIDTH = 480;
 constexpr int WINDOW_HEIGHT = 270;
 constexpr int WINDOW_SCALE = 3;
 
-StateMachine sm {};
+StateStack sm {};
 InputManager i {};
 Game game(&sm, WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_SCALE);
 
