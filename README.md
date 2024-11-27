@@ -112,7 +112,3 @@ Built using the [raylib](https://www.raylib.com) graphics library to handle rend
 - Methods
   - Update
   - Render
-
-## States Relationship
-
-![States Relationship Diagram](./src/assets/game_states_relationship.png)
