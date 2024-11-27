@@ -28,25 +28,43 @@ There are a few ways for the round to end, the first one being running out of ti
 
 ## Requirements
 
+### Must Have
+
+1.  The players must be able to chose a character after selecting the play option.
+2.  The player can move left and right.
+3.  The player can use one button to attack
+4.  The player can attack on the ground.
+5.  The player can block by holding the direction opposite their opponent.
+6.  The player's attacks must be able to hit the opponent (hitbox collision).
+7.  The game's timer must count down to 0 to prevent rounds from lasting forever.
+8.  The players' health values must be able to be reduced so the game doesn't last forever.
+9.  When a player's health reaches 0 the round must end and grant the other player a point.
+10. When a player reaches 2 points the game must end and prompt the players with an option to keep playing or return to the main menu.
+
+### Nice to Have
+
 1.  The player can change their control scheme to allow them to use controls they are more comfortable with.
 2.  The game must save the player's chosen control scheme and load it on the startup of the game.
-3.  The players must be able to chose a character after selecting the play option.
-4.  The player can move left and right.
-5.  The player can jump.
-6.  The player can use one of 3 buttons to attack (Light, Medium, and Heavy).
-7.  The player can attack on the ground or in the air.
-8.  The player can block by holding the direction opposite their opponent.
-9.  The player can block low and mid attacks by crouch blocking and can block mid and high attacks by stand blocking.
-10. The player can throw their opponent by holding a movement direction and pressing the Heavy attack button while near their opponent.
-11. The player can tech their opponent's throw.
-12. The player can perform special moves by using motion inputs.
-13. Special moves must deal chip damage against blocking enemies.
-14. The player's attacks must be able to hit the opponent (hitbox collision).
-15. The player must be able to cancel some moves into other moves to allow combo flexibility.
-16. The game's timer must count down to 0 to prevent rounds from lasting forever.
-17. The players' health values must be able to be reduced so the game doesn't last forever.
-18. When a player's health reaches 0 the round must end and grant the other player a point.
-19. When a player reaches 2 points the game must end and prompt the players with an option to keep playing or return to the main menu.
+3.  The player can use one of 3 buttons to attack.
+4.  The player can jump.
+5.  The player can attack in the air.
+6.  The player can block low and mid attacks by crouch blocking and can block mid and high attacks by stand blocking.
+7.  The player can throw their opponent by holding a movement direction and pressing the Heavy attack button while near their opponent.
+8.  The player can tech their opponent's throw.
+9.  The player can perform special moves by using motion inputs.
+10. Special moves must deal chip damage against blocking enemies.
+11. The player must be able to cancel some moves into other moves to allow combo flexibility.
+12. Ability to jump cancel attacks.
+13. Counter hits and punishes.
+14. Combo Counter.
+
+## Game States Diagram
+
+[![](https://mermaid.ink/img/pako:eNqNVMlOwzAQ_RXLR9ReOEZVJRYBPZQWekCCcDDOEFtt7MpxKlVV_x0vNbGToJBL4pn33qzOCVNZAM5wrYmGe05KRarp4ToXyDwfV59oOp2jJeFiCaLZWJB3JSYHMuBceKcT60BO3jXghh1QzaVAsxllklOYz4PQYBIB30L6UpZwx4giVIPyZp9GhvwJCrTekeOYxmpvP-u2jIh_8Y1J2Pwj1kvDdVxeL8IftbaMwbosayEeSQXuHGUVW8fF_WwSTjS5FvHAS6ZvFRGUGcjw5OLpvcpGFAuhlYyWKDwdpyO4ABdsim49LTBkMoD8TdKC16SpIUzyiWtvGGN188u8Bb1JMUG2U-hZarQ6gBpTsmCLCzp2B0FZIefqlhqlm_Ykzh7dlGaiKTGNM1xDchH-J-LueHCf-3vTW-bT8Db4O3EpnjIiStOfLRy_uOmqVKiWFWjGRYl4sU0iuhee4ApURXhh_lwuRI41A9M_nJnPgqhtjnNhcaTRcnMUFGdaNTDBSjYlw9k32dXm1OyL9rf3a90T8S5lOJ9_AF6dmhE?type=png)](https://mermaid.live/edit#pako:eNqNVMlOwzAQ_RXLR9ReOEZVJRYBPZQWekCCcDDOEFtt7MpxKlVV_x0vNbGToJBL4pn33qzOCVNZAM5wrYmGe05KRarp4ToXyDwfV59oOp2jJeFiCaLZWJB3JSYHMuBceKcT60BO3jXghh1QzaVAsxllklOYz4PQYBIB30L6UpZwx4giVIPyZp9GhvwJCrTekeOYxmpvP-u2jIh_8Y1J2Pwj1kvDdVxeL8IftbaMwbosayEeSQXuHGUVW8fF_WwSTjS5FvHAS6ZvFRGUGcjw5OLpvcpGFAuhlYyWKDwdpyO4ABdsim49LTBkMoD8TdKC16SpIUzyiWtvGGN188u8Bb1JMUG2U-hZarQ6gBpTsmCLCzp2B0FZIefqlhqlm_Ykzh7dlGaiKTGNM1xDchH-J-LueHCf-3vTW-bT8Db4O3EpnjIiStOfLRy_uOmqVKiWFWjGRYl4sU0iuhee4ApURXhh_lwuRI41A9M_nJnPgqhtjnNhcaTRcnMUFGdaNTDBSjYlw9k32dXm1OyL9rf3a90T8S5lOJ9_AF6dmhE)
+
+## Ideal Player States Diagram (trust me it's optimal like this)
+
+[![](https://mermaid.ink/img/pako:eNqlll9v2jAQwL8KstSXKaA0AUKjCmlsmqZJ3cNAqtSxBytxSUQSI-O0Y4jvPidOyNmOgWk8Yd_vzvcvZx9RRGOCQrTnmJPPKd4wnA_fvHUxEL-fH34NhsP54DspOcPZsmKkBO7UyBN9IzkpeL2zt0AfOcfRNi02LSU5VddyoqbbQ0nu7u5sbwCdqQPUjzpKmSlfMFxEiSAeH6OEphGZz9sDYGJ0HDKGqUrhC2XvmMXPONuC2Kz4QoT8L_wnRssoaZN0Bf5W5jtQixsMLzLaleCKhkgRzIYe-CUPjKgvwWrI10klhj68U1AEXVCV6NRysm1U0uiqRnxjU1W0sMR4udMSrUug-30tqJ8LW6qxpZvX8eYTu5FuqgxoowPOMjWhYF5cIAznLVURQwC386JnCuizxCiYBFaH3dViAbITQvUKWiWMvuvtqENybXYh3DczAkz3fXYyHAiBWGEcLdLTdQa2IlHynBZxYxOeB11S27TzoYfWLP6HQiXoUbKYsLSZmlhTfjJTrFTJkuMzY0myKdcbw8Ir4A8SiXnMDlYFBegNTonRuMXrCbrkZQFO6LnCdcxi7WvKr9syob7ngEpJTvXC8raAigaCHJQTluM0Fs-kurJrxBPh4RqF4m-M2XaNHLmf4QMtuRSQTOyvi5PQxyWny0MRoZCzkjhIXESbBIWvONuLVbmLu7dXi-xw8UJpfobEGoVH9BuFnn8_CgLfvXe9if_gTr2Jgw5i2xsFY88LfN93p7PZOAhODvpTm3BHD94kmE3HUzfwg-nY9R1E4pRT9iQffxEtXtMNOv0FqqEpAQ?type=png)](https://mermaid.live/edit#pako:eNqlll9v2jAQwL8KstSXKaA0AUKjCmlsmqZJ3cNAqtSxBytxSUQSI-O0Y4jvPidOyNmOgWk8Yd_vzvcvZx9RRGOCQrTnmJPPKd4wnA_fvHUxEL-fH34NhsP54DspOcPZsmKkBO7UyBN9IzkpeL2zt0AfOcfRNi02LSU5VddyoqbbQ0nu7u5sbwCdqQPUjzpKmSlfMFxEiSAeH6OEphGZz9sDYGJ0HDKGqUrhC2XvmMXPONuC2Kz4QoT8L_wnRssoaZN0Bf5W5jtQixsMLzLaleCKhkgRzIYe-CUPjKgvwWrI10klhj68U1AEXVCV6NRysm1U0uiqRnxjU1W0sMR4udMSrUug-30tqJ8LW6qxpZvX8eYTu5FuqgxoowPOMjWhYF5cIAznLVURQwC386JnCuizxCiYBFaH3dViAbITQvUKWiWMvuvtqENybXYh3DczAkz3fXYyHAiBWGEcLdLTdQa2IlHynBZxYxOeB11S27TzoYfWLP6HQiXoUbKYsLSZmlhTfjJTrFTJkuMzY0myKdcbw8Ir4A8SiXnMDlYFBegNTonRuMXrCbrkZQFO6LnCdcxi7WvKr9syob7ngEpJTvXC8raAigaCHJQTluM0Fs-kurJrxBPh4RqF4m-M2XaNHLmf4QMtuRSQTOyvi5PQxyWny0MRoZCzkjhIXESbBIWvONuLVbmLu7dXi-xw8UJpfobEGoVH9BuFnn8_CgLfvXe9if_gTr2Jgw5i2xsFY88LfN93p7PZOAhODvpTm3BHD94kmE3HUzfwg-nY9R1E4pRT9iQffxEtXtMNOv0FqqEpAQ)
 
 ## References
 
