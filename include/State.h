@@ -5,7 +5,8 @@ class StateStack;
 
 enum class StateName {
 	Play_State,
-	Player_Walking_State,
+	Player_Forward_Walking_State,
+	Player_Backwards_Walking_State,
 
 	Player_Idle_State,
 };

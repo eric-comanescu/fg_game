@@ -5,6 +5,7 @@
 #include "Input.h"
 #include "StateMachine.h"
 #include "ForwardWalkState.h"
+#include "BackwardsWalkState.h"
 #include "IdleState.h"
 #include "Direction.h"
 #include "raylib.h"
@@ -14,6 +15,7 @@ class Fight;
 class Player : public GameEntity {
 	friend class IdleState;
 	friend class ForwardWalkState;
+	friend class BackwardsWalkState;
 
 	friend class Fight;
 public:

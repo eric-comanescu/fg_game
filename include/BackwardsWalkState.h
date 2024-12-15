@@ -1,5 +1,5 @@
-#ifndef FORWARD_WALK_STATE_H
-#define FORWARD_WALK_STATE_H
+#ifndef BACK_WALK_STATE_H
+#define BACK_WALK_STATE_H
 
 #include "State.h"
 #include "Player.h"
@@ -7,10 +7,10 @@
 
 class Player;
 
-class ForwardWalkState : public State {
+class BackwardsWalkState : public State {
 public:
-	ForwardWalkState(Player* player);
-	~ForwardWalkState();
+	BackwardsWalkState(Player* player);
+	~BackwardsWalkState();
 
 	void enter(void* params);
 	void exit();
@@ -20,10 +20,10 @@ public:
 	StateName name();
 
 private:
-	StateName m_name { StateName::Player_Forward_Walking_State };
+	StateName m_name { StateName::Player_Backwards_Walking_State };
 	Player* m_player;
 
-	void checkTransitions();
+	void checkTransition();
 	void handleMovement(float dt);
 };
 

@@ -9,8 +9,8 @@
 #include "../../../include/Direction.h"
 
 ForwardWalkState::ForwardWalkState(Player* player)
-	: State {},
-	m_player {player}
+	: State()
+	, m_player {player}
 {}
 
 ForwardWalkState::~ForwardWalkState() {
@@ -18,18 +18,7 @@ ForwardWalkState::~ForwardWalkState() {
 }
 
 void ForwardWalkState::enter(void* params = nullptr) {
-	constexpr uint8_t LEFT_BITMASK = 0b00000010;
-	constexpr uint8_t RIGHT_BITMASK = 0b00000001;
 
-	const std::list<InputManager::Input>& inputs { m_player->m_inputManager.getInputList() };
-
-	if ((inputs.back().directionHold & LEFT_BITMASK) > 0) {
-		m_walkingDirection = Direction::Left;
-	}
-
-	if ((inputs.back().directionHold & RIGHT_BITMASK) > 0) {
-		m_walkingDirection = Direction::Right;
-	}
 }
 
 void ForwardWalkState::exit() {
@@ -46,9 +35,9 @@ void ForwardWalkState::update(float dt) {
 
 void ForwardWalkState::render() {
 	if (m_player->m_isP1)
-		DrawText("P1 Walk", 0, 20, 24, WHITE);
+		DrawText("P1 Forward Walk", 0, 20, 24, WHITE);
 	else
-		DrawText("P2 Walk", 0, 40, 24, WHITE);
+		DrawText("P2 Forward Walk", 0, 40, 24, WHITE);
 }
 
 StateName ForwardWalkState::name() {

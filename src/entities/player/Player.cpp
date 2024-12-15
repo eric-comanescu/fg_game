@@ -6,11 +6,13 @@
 #include "../../../include/raylib.h"
 #include "../../../include/IdleState.h"
 #include "../../../include/ForwardWalkState.h"
+#include "../../../include/BackwardsWalkState.h"
 #include "../../../include/Input.h"
 
 Player::Player(Vector2 pos, bool isP1)
 	: m_isP1{isP1} {
 	m_stateMachine.add(new ForwardWalkState(this));
+	m_stateMachine.add(new BackwardsWalkState(this));
 	m_stateMachine.add(new IdleState(this));
 
 	m_position = pos;
@@ -43,8 +45,6 @@ Player::~Player() {
 
 void Player::update(float dt) {
 	m_stateMachine.update(dt);
-
-	std::cout << m_isP1 << '\n';
 }
 
 void Player::render() {
