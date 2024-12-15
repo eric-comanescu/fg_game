@@ -1,6 +1,7 @@
 #include "../include/Input.h"
 
 #include <cassert>
+#include <unordered_map>
 #include <sstream>
 #include <bitset>
 #include <list>

@@ -7,8 +7,8 @@
 #include "../include/Direction.h"
 
 Fight::Fight(Vector2 player1Pos, Vector2 player2Pos)
-	: m_player1(player1Pos)
-	, m_player2(player2Pos) {
+	: m_player1(player1Pos, true)
+	, m_player2(player2Pos, false) {
 
 }
 
