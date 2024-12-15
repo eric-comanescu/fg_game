@@ -7,7 +7,10 @@
 
 #include "raylib.h"
 
+class Player;
+
 class InputManager {
+	friend class Player;
 public:
 	enum Action {
 		Up_Input,
@@ -41,6 +44,7 @@ public:
         uint8_t attackRelease {0};
     };
 
+
     InputManager();
     ~InputManager();
 
@@ -51,15 +55,7 @@ public:
 
 private:
     std::list<Input> m_inputList {};
-    std::unordered_map<Action, KeyboardKey> m_keybinds {
-        { Action::Up_Input, KEY_W },
-        { Action::Down_Input, KEY_S },
-        { Action::Left_Input, KEY_A },
-        { Action::Right_Input, KEY_D },
-        { Action::Light_Input, KEY_I },
-        { Action::Medium_Input, KEY_O },
-        { Action::Heavy_Input, KEY_P },
-    };
+    std::unordered_map<Action, KeyboardKey> m_keybinds {};
 	float m_timeSinceLastInputBuild {0};
 
 

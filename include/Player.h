@@ -18,7 +18,7 @@ public:
 	Direction facing {};
 
 	// TODO: change constructor to protected to avoid instantiation
-	Player(Vector2 pos);
+	Player(Vector2 pos, bool isP1);
 	~Player();
 
 	void update(float dt);
@@ -28,6 +28,8 @@ private:
 	InputManager m_inputManager {};
 	StateMachine m_stateMachine {};
 	Vector2 m_position {0, 180};
+
+	bool m_isP1;
 
 	// TODO: Create State to handle this
 	void handleMovement(float dt);

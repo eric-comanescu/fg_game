@@ -16,7 +16,6 @@ class Game {
 
     private:
 	RenderTexture2D m_canvas;
-	InputManager i {};
 
     // Not heap allocated, no need to free
     StateStack* m_stateMachine;
