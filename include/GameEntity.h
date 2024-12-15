@@ -25,7 +25,7 @@ class GameEntity {
 
 protected:
 	Vector2 m_position {};
-	Vector2 m_nextPosition {};
+	Vector2 m_prevPosition {};
 	Vector2 m_dimensions {};
 
 	Hitbox m_hitbox {};
