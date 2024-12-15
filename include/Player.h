@@ -29,16 +29,12 @@ public:
 	void update(float dt);
 	void render();
 	bool didCollideWith(const Hitbox& target);
+	void onCollision(GameEntity* collider);
 	const Hitbox& hitbox();
 
 private:
 	InputManager m_inputManager {};
 	StateMachine m_stateMachine {};
-	// Vector2 m_position {0, 180};
-	// Vector2 m_dimensions {50, 90};
-
-	// Hitbox m_hitbox {};
-	// Hitbox m_hitboxOffsets {};
 
 	bool m_isP1;
 

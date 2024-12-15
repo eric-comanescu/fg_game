@@ -9,6 +9,7 @@
 #include "../../../include/BackwardsWalkState.h"
 #include "../../../include/Input.h"
 #include "../../../include/Hitbox.h"
+#include "../../../include/GameEntity.h"
 
 Player::Player(Vector2 pos, Vector2 dimensions, bool isP1, Hitbox hitboxOffsets)
 	: m_isP1{isP1} {
@@ -72,10 +73,10 @@ void Player::render() {
 
 	DrawRectangle(m_position.x, m_position.y, m_dimensions.x, m_dimensions.y, BLUE);
 
-	// if (facing == Direction::Right)
-	// 	DrawRectangle(m_position.x + 30, m_position.y, 20, 90, RED);
-	// else
-	// 	DrawRectangle(m_position.x, m_position.y, 20, 90, RED);
+	if (facing == Direction::Right)
+		DrawRectangle(m_position.x + 30, m_position.y, 20, 90, YELLOW);
+	else
+		DrawRectangle(m_position.x, m_position.y, 20, 90, YELLOW);
 
 	m_hitbox.render();
 }
@@ -86,4 +87,13 @@ bool Player::didCollideWith(const Hitbox& target) {
 
 const Hitbox& Player::hitbox() {
 	return m_hitbox;
+}
+
+void Player::onCollision(GameEntity* collider) {
+	if (collider == this) {
+		return;
+	}
+
+	printf("collided\n");
+	// set collider position outside of collidee
 }

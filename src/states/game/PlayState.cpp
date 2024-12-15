@@ -8,7 +8,7 @@
 
 PlayState::PlayState() 
 	: State()
-	, m_fight((Vector2){0, 180}, (Vector2){50, 90}, (Vector2){430, 180}, (Vector2){50, 90}) {
+	, m_fight((Vector2){0, 90}, (Vector2){50, 90}, (Vector2){270, 90}, (Vector2){50, 90}) {
 
 };
 

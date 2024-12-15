@@ -4,7 +4,10 @@
 #include "Hitbox.h"
 #include "raylib.h"
 
+class Player;
+
 class GameEntity {
+	friend class Player;
 	public:
 	GameEntity();
 	virtual ~GameEntity() {};
@@ -12,6 +15,7 @@ class GameEntity {
 	virtual void update(float dt) = 0;
 	virtual void render() = 0;
 	virtual bool didCollideWith(const Hitbox& target) = 0;
+	virtual void onCollision(GameEntity* collider) = 0;
 	virtual const Hitbox& hitbox() = 0;
 
 	float maxHp {200};
@@ -21,6 +25,7 @@ class GameEntity {
 
 protected:
 	Vector2 m_position {};
+	Vector2 m_nextPosition {};
 	Vector2 m_dimensions {};
 
 	Hitbox m_hitbox {};

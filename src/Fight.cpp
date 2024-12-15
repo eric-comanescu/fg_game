@@ -50,7 +50,7 @@ void Fight::updateEntities(float dt) {
 
 		for (auto entity2 : m_entities) {
 			if (entity2->didCollideWith(entity->hitbox())) {
-
+				entity->onCollision(entity2);
 			}
 		}
 	}
