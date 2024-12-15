@@ -2,6 +2,7 @@
 
 #include <list>
 #include <iostream>
+#include <typeinfo>
 
 #include "../../../include/raylib.h"
 #include "../../../include/IdleState.h"
@@ -18,6 +19,7 @@ Player::Player(Vector2 pos, Vector2 dimensions, bool isP1, Hitbox hitboxOffsets)
 	m_stateMachine.add(new IdleState(this));
 
 	m_position = pos;
+	m_prevPosition = pos;
 	m_dimensions = dimensions;
 
 	if (m_isP1)
@@ -94,6 +96,6 @@ void Player::onCollision(GameEntity* collider) {
 		return;
 	}
 
-	printf("collided\n");
 	// set collider position outside of collidee
+	m_position = m_prevPosition;
 }

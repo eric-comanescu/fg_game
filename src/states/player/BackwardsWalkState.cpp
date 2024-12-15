@@ -67,7 +67,12 @@ void BackwardsWalkState::checkTransition() {
 
 void BackwardsWalkState::handleMovement(float dt) {
 	if (m_player->facing == Direction::Right)
-		m_player->m_nextPosition.x -= 100 * dt;
+		m_player->m_position.x -= 60 * dt;
 	else
-		m_player->m_nextPosition.x += 100 * dt;
+		m_player->m_position.x += 60 * dt;
+
+	// if (m_player->facing == Direction::Right)
+	// 	m_player->m_nextPosition.x -= 100 * dt;
+	// else
+	// 	m_player->m_nextPosition.x += 100 * dt;
 }
