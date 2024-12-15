@@ -17,6 +17,8 @@ Fight::~Fight() {
 }
 
 void Fight::update(float dt) {
+	setPlayerDirections();
+
 	m_player1.update(dt);
 
 	// TODO: uncomment when done testing
@@ -28,4 +30,15 @@ void Fight::render() {
 
 	// TODO: uncomment when done testing
 	m_player2.render();
+}
+
+void Fight::setPlayerDirections() {
+	if (m_player1.m_position.x < m_player2.m_position.x) {
+		m_player1.facing = Direction::Right;
+		m_player2.facing = Direction::Left;
+	}
+	else {
+		m_player1.facing = Direction::Left;
+		m_player2.facing = Direction::Right;
+	}
 }

@@ -1,4 +1,4 @@
-#include "../../../include/WalkingState.h"
+#include "../../../include/ForwardWalkState.h"
 
 #include <iostream>
 #include <bitset>
@@ -8,16 +8,16 @@
 #include "../../../include/State.h"
 #include "../../../include/Direction.h"
 
-WalkingState::WalkingState(Player* player)
+ForwardWalkState::ForwardWalkState(Player* player)
 	: State {},
 	m_player {player}
 {}
 
-WalkingState::~WalkingState() {
+ForwardWalkState::~ForwardWalkState() {
 
 }
 
-void WalkingState::enter(void* params = nullptr) {
+void ForwardWalkState::enter(void* params = nullptr) {
 	constexpr uint8_t LEFT_BITMASK = 0b00000010;
 	constexpr uint8_t RIGHT_BITMASK = 0b00000001;
 
@@ -32,11 +32,11 @@ void WalkingState::enter(void* params = nullptr) {
 	}
 }
 
-void WalkingState::exit() {
+void ForwardWalkState::exit() {
 
 }
 
-void WalkingState::update(float dt) {
+void ForwardWalkState::update(float dt) {
 	m_player->m_inputManager.update(dt);
 
 	handleMovement(dt);
@@ -44,15 +44,18 @@ void WalkingState::update(float dt) {
 	checkTransitions();
 }
 
-void WalkingState::render() {
-	DrawText("Walk", 0, 20, 24, WHITE);
+void ForwardWalkState::render() {
+	if (m_player->m_isP1)
+		DrawText("P1 Walk", 0, 20, 24, WHITE);
+	else
+		DrawText("P2 Walk", 0, 40, 24, WHITE);
 }
 
-StateName WalkingState::name() {
+StateName ForwardWalkState::name() {
 	return m_name;
 }
 
-void WalkingState::checkTransitions() {
+void ForwardWalkState::checkTransitions() {
 	constexpr uint8_t MOVEMENT_BITMASKS = 0b00000011;
 
 	const std::list<InputManager::Input>& inputs { m_player->m_inputManager.getInputList() };
@@ -62,6 +65,9 @@ void WalkingState::checkTransitions() {
 	}
 }
 
-void WalkingState::handleMovement(float dt) {
-	m_player->m_position.x += 200 * dt;
+void ForwardWalkState::handleMovement(float dt) {
+	if (m_player->facing == Direction::Right)
+		m_player->m_position.x += 200 * dt;
+	else
+		m_player->m_position.x -= 200 * dt;
 }

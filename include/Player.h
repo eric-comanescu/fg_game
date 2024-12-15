@@ -4,16 +4,18 @@
 #include "GameEntity.h"
 #include "Input.h"
 #include "StateMachine.h"
-#include "WalkingState.h"
+#include "ForwardWalkState.h"
 #include "IdleState.h"
 #include "Direction.h"
 #include "raylib.h"
 
+class Fight;
 
 class Player : public GameEntity {
 	friend class IdleState;
-	friend class WalkingState;
+	friend class ForwardWalkState;
 
+	friend class Fight;
 public:
 	Direction facing {};
 

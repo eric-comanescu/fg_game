@@ -5,12 +5,12 @@
 
 #include "../../../include/raylib.h"
 #include "../../../include/IdleState.h"
-#include "../../../include/WalkingState.h"
+#include "../../../include/ForwardWalkState.h"
 #include "../../../include/Input.h"
 
 Player::Player(Vector2 pos, bool isP1)
 	: m_isP1{isP1} {
-	m_stateMachine.add(new WalkingState(this));
+	m_stateMachine.add(new ForwardWalkState(this));
 	m_stateMachine.add(new IdleState(this));
 
 	m_position = pos;
@@ -54,4 +54,9 @@ void Player::render() {
 	m_stateMachine.render();
 
 	DrawRectangle(m_position.x, m_position.y, 50, 90, BLUE);
+
+	if (facing == Direction::Right)
+		DrawRectangle(m_position.x + 30, m_position.y, 20, 90, RED);
+	else
+		DrawRectangle(m_position.x, m_position.y, 20, 90, RED);
 }

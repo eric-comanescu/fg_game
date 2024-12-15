@@ -5,7 +5,7 @@
 
 #include "../../../include/Player.h"
 #include "../../../include/State.h"
-#include "../../../include/WalkingState.h"
+#include "../../../include/ForwardWalkState.h"
 #include "../../../include/Input.h"
 
 IdleState::IdleState(Player* player)
@@ -32,7 +32,10 @@ void IdleState::update(float dt) {
 }
 
 void IdleState::render() {
-	DrawText("Idle", 0, 20, 24, WHITE);
+	if (m_player->m_isP1)
+		DrawText("P1 Idle", 0, 20, 24, WHITE);
+	else
+		DrawText("P2 Idle", 0, 40, 24, WHITE);
 }
 
 StateName IdleState::name() {

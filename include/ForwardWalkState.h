@@ -7,10 +7,10 @@
 class Player;
 enum class Direction;
 
-class WalkingState : public State {
+class ForwardWalkState : public State {
 public:
-	WalkingState(Player* player);
-	~WalkingState();
+	ForwardWalkState(Player* player);
+	~ForwardWalkState();
 
 	void enter(void* params);
 	void exit();
