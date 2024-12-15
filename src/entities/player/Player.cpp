@@ -10,13 +10,14 @@
 #include "../../../include/Input.h"
 #include "../../../include/Hitbox.h"
 
-Player::Player(Vector2 pos, bool isP1, Hitbox hitboxOffsets)
+Player::Player(Vector2 pos, Vector2 dimensions, bool isP1, Hitbox hitboxOffsets)
 	: m_isP1{isP1} {
 	m_stateMachine.add(new ForwardWalkState(this));
 	m_stateMachine.add(new BackwardsWalkState(this));
 	m_stateMachine.add(new IdleState(this));
 
 	m_position = pos;
+	m_dimensions = dimensions;
 
 	if (m_isP1)
 		m_inputManager.m_keybinds = {
@@ -77,4 +78,12 @@ void Player::render() {
 	// 	DrawRectangle(m_position.x, m_position.y, 20, 90, RED);
 
 	m_hitbox.render();
+}
+
+bool Player::didCollideWith(const Hitbox& target) {
+	return m_hitbox.didCollide(target);
+}
+
+const Hitbox& Player::hitbox() {
+	return m_hitbox;
 }

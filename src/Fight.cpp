@@ -6,10 +6,11 @@
 #include "../include/raylib.h"
 #include "../include/Direction.h"
 
-Fight::Fight(Vector2 player1Pos, Vector2 player2Pos)
-	: m_player1(player1Pos, true, Hitbox())
-	, m_player2(player2Pos, false, Hitbox()) {
-
+Fight::Fight(Vector2 player1Pos, Vector2 p1Dims, Vector2 player2Pos, Vector2 p2Dims)
+	: m_player1(new Player(player1Pos, p1Dims, true, Hitbox()))
+	, m_player2(new Player(player2Pos, p2Dims, false, Hitbox())) {
+	m_entities.push_back(m_player1);
+	m_entities.push_back(m_player2);
 }
 
 Fight::~Fight() {
@@ -19,26 +20,38 @@ Fight::~Fight() {
 void Fight::update(float dt) {
 	setPlayerDirections();
 
-	m_player1.update(dt);
-
-	// TODO: uncomment when done testing
-	m_player2.update(dt);
+	updateEntities(dt);
 }
 
 void Fight::render() {
-	m_player1.render();
-
-	// TODO: uncomment when done testing
-	m_player2.render();
+	for (const auto& entity : m_entities) {
+		entity->render();
+	}
 }
 
 void Fight::setPlayerDirections() {
-	if (m_player1.m_position.x < m_player2.m_position.x) {
-		m_player1.facing = Direction::Right;
-		m_player2.facing = Direction::Left;
+	if (m_player1->m_position.x < m_player2->m_position.x) {
+		m_player1->facing = Direction::Right;
+		m_player2->facing = Direction::Left;
 	}
 	else {
-		m_player1.facing = Direction::Left;
-		m_player2.facing = Direction::Right;
+		m_player1->facing = Direction::Left;
+		m_player2->facing = Direction::Right;
+	}
+}
+
+void Fight::updateEntities(float dt) {
+	for (auto entity : m_entities) {
+		if (entity->hp <= 0) {
+			// handle dead entity logic
+		}
+
+		entity->update(dt);
+
+		for (auto entity2 : m_entities) {
+			if (entity2->didCollideWith(entity->hitbox())) {
+
+			}
+		}
 	}
 }

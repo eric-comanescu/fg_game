@@ -9,7 +9,7 @@ public:
 	~Hitbox();
 
 	void set(float x, float y, float width, float height);
-	bool didCollide(Hitbox& target);
+	bool didCollide(const Hitbox& target);
 	void render();
 
 	Vector2 position() const;

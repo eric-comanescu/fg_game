@@ -18,7 +18,7 @@ void Hitbox::set(float x, float y, float width, float height) {
 	m_dimensions.y = height;
 }
 
-bool Hitbox::didCollide(Hitbox& target) {
+bool Hitbox::didCollide(const Hitbox& target) {
 	return m_position.x + m_dimensions.x >= target.m_position.x &&
 		m_position.x <= target.m_position.x + target.m_dimensions.x &&
 		m_position.y + m_dimensions.y >= target.m_position.y &&
