@@ -8,8 +8,9 @@
 #include "../../../include/ForwardWalkState.h"
 #include "../../../include/BackwardsWalkState.h"
 #include "../../../include/Input.h"
+#include "../../../include/Hitbox.h"
 
-Player::Player(Vector2 pos, bool isP1)
+Player::Player(Vector2 pos, bool isP1, Hitbox hitboxOffsets)
 	: m_isP1{isP1} {
 	m_stateMachine.add(new ForwardWalkState(this));
 	m_stateMachine.add(new BackwardsWalkState(this));
@@ -37,6 +38,14 @@ Player::Player(Vector2 pos, bool isP1)
 			{InputManager::Action::Medium_Input, KEY_RIGHT_BRACKET},
 			{InputManager::Action::Heavy_Input, KEY_BACKSLASH},
 		};
+	
+	m_hitboxOffsets = hitboxOffsets;
+	m_hitbox.set(
+		m_position.x + hitboxOffsets.position().x,
+		m_position.y + hitboxOffsets.position().y,
+		m_dimensions.x + hitboxOffsets.dimensions().x,
+		m_dimensions.y + hitboxOffsets.dimensions().y
+	);
 }
 
 Player::~Player() {
@@ -45,6 +54,13 @@ Player::~Player() {
 
 void Player::update(float dt) {
 	m_stateMachine.update(dt);
+
+	m_hitbox.set(
+		m_position.x + m_hitboxOffsets.position().x,
+		m_position.y + m_hitboxOffsets.position().y,
+		m_dimensions.x + m_hitboxOffsets.dimensions().x,
+		m_dimensions.y + m_hitboxOffsets.dimensions().y
+	);
 }
 
 void Player::render() {
@@ -53,10 +69,12 @@ void Player::render() {
 
 	m_stateMachine.render();
 
-	DrawRectangle(m_position.x, m_position.y, 50, 90, BLUE);
+	DrawRectangle(m_position.x, m_position.y, m_dimensions.x, m_dimensions.y, BLUE);
 
-	if (facing == Direction::Right)
-		DrawRectangle(m_position.x + 30, m_position.y, 20, 90, RED);
-	else
-		DrawRectangle(m_position.x, m_position.y, 20, 90, RED);
+	// if (facing == Direction::Right)
+	// 	DrawRectangle(m_position.x + 30, m_position.y, 20, 90, RED);
+	// else
+	// 	DrawRectangle(m_position.x, m_position.y, 20, 90, RED);
+
+	m_hitbox.render();
 }

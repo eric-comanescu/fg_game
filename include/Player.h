@@ -8,6 +8,7 @@
 #include "BackwardsWalkState.h"
 #include "IdleState.h"
 #include "Direction.h"
+#include "Hitbox.h"
 #include "raylib.h"
 
 class Fight;
@@ -22,7 +23,7 @@ public:
 	Direction facing {};
 
 	// TODO: change constructor to protected to avoid instantiation
-	Player(Vector2 pos, bool isP1);
+	Player(Vector2 pos, bool isP1, Hitbox hitboxOffsets);
 	~Player();
 
 	void update(float dt);
@@ -32,6 +33,10 @@ private:
 	InputManager m_inputManager {};
 	StateMachine m_stateMachine {};
 	Vector2 m_position {0, 180};
+	Vector2 m_dimensions {50, 90};
+
+	Hitbox m_hitbox {};
+	Hitbox m_hitboxOffsets {};
 
 	bool m_isP1;
 
