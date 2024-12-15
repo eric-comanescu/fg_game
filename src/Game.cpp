@@ -31,7 +31,7 @@ void Game::init() {
 	SetTextureFilter(m_canvas.texture, TEXTURE_FILTER_POINT);
 
     // SetExitKey(0);
-    SetTargetFPS(120);
+    SetTargetFPS(60);
 
 	m_stateMachine->push(new PlayState());
 }

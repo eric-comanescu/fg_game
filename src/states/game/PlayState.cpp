@@ -4,8 +4,11 @@
 #include <iostream>
 
 #include "../../../include/Fight.h"
+#include "../../../include/raylib.h"
 
-PlayState::PlayState() : State{} {
+PlayState::PlayState() 
+	: State()
+	, m_fight((Vector2){0, 180}, (Vector2){430, 180}) {
 
 };
 

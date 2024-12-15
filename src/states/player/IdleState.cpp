@@ -26,13 +26,13 @@ void IdleState::exit() {
 }
 
 void IdleState::update(float dt) {
-	checkTransitions();
-
 	m_player->m_inputManager.update(dt);
+
+	checkTransitions();
 }
 
 void IdleState::render() {
-
+	DrawText("Idle", 0, 20, 24, WHITE);
 }
 
 StateName IdleState::name() {

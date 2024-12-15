@@ -1,10 +1,12 @@
 #include "../../../include/WalkingState.h"
 
 #include <iostream>
+#include <bitset>
 
 #include "../../../include/Player.h"
 #include "../../../include/Input.h"
 #include "../../../include/State.h"
+#include "../../../include/Direction.h"
 
 WalkingState::WalkingState(Player* player)
 	: State {},
@@ -35,14 +37,15 @@ void WalkingState::exit() {
 }
 
 void WalkingState::update(float dt) {
-	checkTransitions();
+	m_player->m_inputManager.update(dt);
 
-	m_player->m_stateMachine.update(dt);
 	handleMovement(dt);
+
+	checkTransitions();
 }
 
 void WalkingState::render() {
-
+	DrawText("Walk", 0, 20, 24, WHITE);
 }
 
 StateName WalkingState::name() {
@@ -50,25 +53,15 @@ StateName WalkingState::name() {
 }
 
 void WalkingState::checkTransitions() {
-	printf("crash in check transitions\n");
-
 	constexpr uint8_t MOVEMENT_BITMASKS = 0b00000011;
 
 	const std::list<InputManager::Input>& inputs { m_player->m_inputManager.getInputList() };
 
-	if ((inputs.back().directionHold & MOVEMENT_BITMASKS) != 0) {
+	if ((inputs.back().directionHold & MOVEMENT_BITMASKS) == 0) {
 		m_player->m_stateMachine.change(StateName::Player_Idle_State, nullptr);
 	}
 }
 
 void WalkingState::handleMovement(float dt) {
-	printf("crash in handle movement");
-
-	if (m_walkingDirection == Direction::Left) {
-		m_player->m_position.x += 200 * dt;
-	}
-
-	if (m_walkingDirection == Direction::Right) {
-		m_player->m_position.x -= 200 * dt;
-	}
+	m_player->m_position.x += 200 * dt;
 }
