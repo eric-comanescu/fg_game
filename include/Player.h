@@ -6,20 +6,19 @@
 #include "StateMachine.h"
 #include "WalkingState.h"
 #include "IdleState.h"
+#include "Direction.h"
 #include "raylib.h"
 
-enum class Direction {
-	Left,
-	Right
-};
 
 class Player : public GameEntity {
 	friend class IdleState;
 	friend class WalkingState;
 
 public:
+	Direction facing {};
+
 	// TODO: change constructor to protected to avoid instantiation
-	Player();
+	Player(Vector2 pos);
 	~Player();
 
 	void update(float dt);

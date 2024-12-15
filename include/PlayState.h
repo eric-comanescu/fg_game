@@ -18,7 +18,7 @@ public:
 
 private:
 	StateName m_name { StateName::Play_State };
-	Fight m_fight {};
+	Fight m_fight;
 	// UserInterface m_ui;
 };
 
