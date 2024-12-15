@@ -45,12 +45,20 @@ StateName ForwardWalkState::name() {
 }
 
 void ForwardWalkState::checkTransitions() {
-	constexpr uint8_t MOVEMENT_BITMASKS = 0b00000011;
+	constexpr uint8_t LEFT_MOVEMENT_BITMASK = 0b00000010;
+	constexpr uint8_t RIGHT_MOVEMENT_BITMASK = 0b00000001;
 
 	const std::list<InputManager::Input>& inputs { m_player->m_inputManager.getInputList() };
 
-	if ((inputs.back().directionHold & MOVEMENT_BITMASKS) == 0) {
-		m_player->m_stateMachine.change(StateName::Player_Idle_State, nullptr);
+	if (m_player->facing == Direction::Right) {
+		if ((inputs.back().directionHold & RIGHT_MOVEMENT_BITMASK) == 0) {
+			m_player->m_stateMachine.change(StateName::Player_Idle_State, nullptr);
+		}
+	}
+	else {
+		if ((inputs.back().directionHold & LEFT_MOVEMENT_BITMASK) == 0) {
+			m_player->m_stateMachine.change(StateName::Player_Idle_State, nullptr);
+		}
 	}
 }
 
