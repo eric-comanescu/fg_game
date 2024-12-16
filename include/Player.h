@@ -9,11 +9,16 @@
 #include "IdleState.h"
 #include "CrouchState.h"
 #include "CrouchBlockState.h"
+#include "AttackState.h"
+#include "Attack.h"
 #include "Direction.h"
 #include "Hitbox.h"
 #include "raylib.h"
 
+#include <vector>
+
 class Fight;
+class Attack;
 
 class Player : public GameEntity {
 	friend class IdleState;
@@ -21,6 +26,7 @@ class Player : public GameEntity {
 	friend class BackwardsWalkState;
 	friend class CrouchState;
 	friend class CrouchBlockState;
+	friend class AttackState;
 
 	friend class Fight;
 public:
@@ -39,6 +45,8 @@ public:
 private:
 	InputManager m_inputManager {};
 	StateMachine m_stateMachine {};
+
+	std::vector<Attack*> m_attacks {};
 
 	bool m_isP1;
 	bool m_isBlocking {false};
