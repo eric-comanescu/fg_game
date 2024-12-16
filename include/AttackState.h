@@ -26,6 +26,8 @@ private:
 	Player* m_player;
 	Attack* m_attack;
 
+	float m_duration;
+
 	void checkTranstions();
 };
 

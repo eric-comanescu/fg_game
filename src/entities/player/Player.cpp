@@ -29,7 +29,7 @@ Player::Player(Vector2 pos, Vector2 dimensions, bool isP1, Hitbox hitboxOffsets)
 
 	m_attacks.push_back(new Attack(this, {
 		0b00001000,
-	}, 2, 0));
+	}, 1, 0));
 
 	std::sort(m_attacks.begin(), m_attacks.end(), [](Attack* a, Attack* b) {
 		return a->m_priority < b->m_priority;
@@ -45,9 +45,9 @@ Player::Player(Vector2 pos, Vector2 dimensions, bool isP1, Hitbox hitboxOffsets)
 			{InputManager::Action::Down_Input, KEY_S},
 			{InputManager::Action::Left_Input, KEY_A},
 			{InputManager::Action::Right_Input, KEY_D},
-			{InputManager::Action::Light_Input, KEY_I},
-			{InputManager::Action::Medium_Input, KEY_O},
-			{InputManager::Action::Heavy_Input, KEY_P},
+			{InputManager::Action::Light_Input, KEY_Y},
+			{InputManager::Action::Medium_Input, KEY_U},
+			{InputManager::Action::Heavy_Input, KEY_I},
 		};
 	else
 		m_inputManager.m_keybinds = {

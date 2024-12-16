@@ -47,7 +47,14 @@ void IdleState::checkTransitions() {
 	constexpr uint8_t LEFT_BITMASK = 0b00000010;
 	constexpr uint8_t RIGHT_BITMASK = 0b00000001;
 
+	constexpr uint8_t LATTACK_BITMASK = 0b00001000;
+
 	const std::list<InputManager::Input>& inputs { m_player->m_inputManager.getInputList() };
+
+	// TODO: Change to more complex attack detection when implementing multiple attacks
+	if ((inputs.back().attackPress & LATTACK_BITMASK) != 0) {
+		m_player->m_stateMachine.change(StateName::Player_Attack_State, m_player->m_attacks[0]);
+	}
 
 	if (m_player->facing == Direction::Left) {
 		if ((inputs.back().directionHold & LEFT_BITMASK) != 0) {
