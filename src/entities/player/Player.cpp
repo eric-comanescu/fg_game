@@ -8,6 +8,8 @@
 #include "../../../include/IdleState.h"
 #include "../../../include/ForwardWalkState.h"
 #include "../../../include/BackwardsWalkState.h"
+#include "../../../include/CrouchState.h"
+#include "../../../include/CrouchBlockState.h"
 #include "../../../include/Input.h"
 #include "../../../include/Hitbox.h"
 #include "../../../include/GameEntity.h"
@@ -17,6 +19,7 @@ Player::Player(Vector2 pos, Vector2 dimensions, bool isP1, Hitbox hitboxOffsets)
 	m_stateMachine.add(new ForwardWalkState(this));
 	m_stateMachine.add(new BackwardsWalkState(this));
 	m_stateMachine.add(new CrouchState(this));
+	m_stateMachine.add(new CrouchBlockState(this));
 	m_stateMachine.add(new IdleState(this));
 
 	m_position = pos;

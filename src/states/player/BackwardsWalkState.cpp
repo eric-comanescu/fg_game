@@ -17,11 +17,11 @@ BackwardsWalkState::~BackwardsWalkState() {
 }
 
 void BackwardsWalkState::enter(void* params = nullptr) {
-
+	m_player->m_isBlocking = true;
 }
 
 void BackwardsWalkState::exit() {
-
+	m_player->m_isBlocking = false;
 }
 
 void BackwardsWalkState::update(float dt) {

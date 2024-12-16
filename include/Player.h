@@ -8,6 +8,7 @@
 #include "BackwardsWalkState.h"
 #include "IdleState.h"
 #include "CrouchState.h"
+#include "CrouchBlockState.h"
 #include "Direction.h"
 #include "Hitbox.h"
 #include "raylib.h"
@@ -19,6 +20,7 @@ class Player : public GameEntity {
 	friend class ForwardWalkState;
 	friend class BackwardsWalkState;
 	friend class CrouchState;
+	friend class CrouchBlockState;
 
 	friend class Fight;
 public:
@@ -39,6 +41,7 @@ private:
 	StateMachine m_stateMachine {};
 
 	bool m_isP1;
+	bool m_isBlocking {false};
 
 	// TODO: Create State to handle this
 	void handleMovement(float dt);

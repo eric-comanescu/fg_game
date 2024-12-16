@@ -3,7 +3,7 @@ CCARGS := -flto -L../lib -I../include -std=c++17
 OUT := -O2 -o ../bin/game
 MAKE := make
 
-LIST := main.cpp Game.cpp Input.cpp ./states/StateMachine.cpp ./states/StateStack.cpp ./states/game/PlayState.cpp ./states/State.cpp ./entities/GameEntity.cpp ./entities/player/Player.cpp Fight.cpp ./states/player/IdleState.cpp ./states/player/ForwardWalkState.cpp ./states/player/BackwardsWalkState.cpp ./states/player/CrouchState.cpp ./objects/Hitbox.cpp
+LIST := main.cpp Game.cpp Input.cpp ./states/StateMachine.cpp ./states/StateStack.cpp ./states/game/PlayState.cpp ./states/State.cpp ./entities/GameEntity.cpp ./entities/player/Player.cpp Fight.cpp ./states/player/IdleState.cpp ./states/player/ForwardWalkState.cpp ./states/player/BackwardsWalkState.cpp ./states/player/CrouchState.cpp ./states/player/CrouchBlockState.cpp ./objects/Hitbox.cpp
 
 UNAME_S := $(shell uname -s)
 
