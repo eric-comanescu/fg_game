@@ -43,25 +43,21 @@ StateName IdleState::name() {
 }
 
 void IdleState::checkTransitions() {
+	constexpr uint8_t DOWN_BITMASK = 0b00000100;
 	constexpr uint8_t LEFT_BITMASK = 0b00000010;
 	constexpr uint8_t RIGHT_BITMASK = 0b00000001;
 
 	const std::list<InputManager::Input>& inputs { m_player->m_inputManager.getInputList() };
 
-	// if ((inputs.back().directionHold & LEFT_BITMASK) > 0)
-	// {
-	// 	m_player->m_stateMachine.change(StateName::Player_Backwards_Walking_State, nullptr);
-	// }
-	// else
-	// {
-	// 	m_player->m_stateMachine.change(StateName::Player_Forward_Walking_State, nullptr);
-	// }
 	if (m_player->facing == Direction::Left) {
 		if ((inputs.back().directionHold & LEFT_BITMASK) != 0) {
 			m_player->m_stateMachine.change(StateName::Player_Forward_Walking_State, nullptr);
 		}
 		else if ((inputs.back().directionHold & RIGHT_BITMASK) != 0) {
 			m_player->m_stateMachine.change(StateName::Player_Backwards_Walking_State, nullptr);
+		}
+		else if ((inputs.back().directionHold & DOWN_BITMASK) != 0) {
+			m_player->m_stateMachine.change(StateName::Player_Crouching_State, nullptr);
 		}
 	}
 	else {
@@ -70,6 +66,9 @@ void IdleState::checkTransitions() {
 		}
 		else if ((inputs.back().directionHold & RIGHT_BITMASK) != 0) {
 			m_player->m_stateMachine.change(StateName::Player_Forward_Walking_State, nullptr);
+		}
+		else if ((inputs.back().directionHold & DOWN_BITMASK) != 0) {
+			m_player->m_stateMachine.change(StateName::Player_Crouching_State, nullptr);
 		}
 	}
 }

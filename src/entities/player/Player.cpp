@@ -16,6 +16,7 @@ Player::Player(Vector2 pos, Vector2 dimensions, bool isP1, Hitbox hitboxOffsets)
 	: m_isP1{isP1} {
 	m_stateMachine.add(new ForwardWalkState(this));
 	m_stateMachine.add(new BackwardsWalkState(this));
+	m_stateMachine.add(new CrouchState(this));
 	m_stateMachine.add(new IdleState(this));
 
 	m_position = pos;
