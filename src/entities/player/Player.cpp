@@ -3,6 +3,7 @@
 #include <list>
 #include <iostream>
 #include <typeinfo>
+#include <algorithm>
 
 #include "../../../include/raylib.h"
 #include "../../../include/IdleState.h"
@@ -10,6 +11,7 @@
 #include "../../../include/BackwardsWalkState.h"
 #include "../../../include/CrouchState.h"
 #include "../../../include/CrouchBlockState.h"
+#include "../../../include/AttackState.h"
 #include "../../../include/Input.h"
 #include "../../../include/Hitbox.h"
 #include "../../../include/GameEntity.h"
@@ -20,7 +22,18 @@ Player::Player(Vector2 pos, Vector2 dimensions, bool isP1, Hitbox hitboxOffsets)
 	m_stateMachine.add(new BackwardsWalkState(this));
 	m_stateMachine.add(new CrouchState(this));
 	m_stateMachine.add(new CrouchBlockState(this));
+	m_stateMachine.add(new AttackState(this));
 	m_stateMachine.add(new IdleState(this));
+
+	m_stateMachine.change(StateName::Player_Idle_State, nullptr);
+
+	m_attacks.push_back(new Attack(this, {
+		0b00001000,
+	}, 2, 0));
+
+	std::sort(m_attacks.begin(), m_attacks.end(), [](Attack* a, Attack* b) {
+		return a->m_priority < b->m_priority;
+	});
 
 	m_position = pos;
 	m_prevPosition = pos;
@@ -57,7 +70,9 @@ Player::Player(Vector2 pos, Vector2 dimensions, bool isP1, Hitbox hitboxOffsets)
 }
 
 Player::~Player() {
-
+	for (auto& attack : m_attacks) {
+		delete attack;
+	}
 }
 
 void Player::update(float dt) {
@@ -72,9 +87,6 @@ void Player::update(float dt) {
 }
 
 void Player::render() {
-	// Temporary, for testing
-	// m_inputManager.debugRender();
-
 	m_stateMachine.render();
 
 	DrawRectangle(m_position.x, m_position.y, m_dimensions.x, m_dimensions.y, BLUE);
