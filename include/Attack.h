@@ -29,6 +29,7 @@ public:
 		Hitbox hitboxOffset,
 		AttackStrength attackStrength, 
 		bool isLow, 
+		float damage,
 		uint8_t priority
 	);
 	~Attack();
@@ -44,6 +45,7 @@ private:
 	AttackStrength m_attackStrength;
 	uint8_t m_priority;
 	float m_duration;
+	float m_damage;
 	bool m_isLow;
 };
 

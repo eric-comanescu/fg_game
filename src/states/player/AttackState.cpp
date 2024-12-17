@@ -66,6 +66,7 @@ void AttackState::update(float dt) {
 	}
 	else {
 		m_attack->m_hitbox.isActive = false;
+		m_attack->m_hitbox.isConsumed = false;
 		m_player->m_activeHitbox = nullptr;
 	}
 

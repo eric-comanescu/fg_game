@@ -13,6 +13,7 @@ Attack::Attack(
 	Hitbox hitboxOffsets,
 	AttackStrength AttackStrength, 
 	bool isLow, 
+	float damage,
 	uint8_t priority
 )
 	: m_inputs {inputs}
@@ -21,14 +22,9 @@ Attack::Attack(
 	, m_hitboxOffset {hitboxOffsets}
 	, m_attackStrength {AttackStrength}
 	, m_isLow {isLow}
+	, m_damage {damage}
 	, m_priority {priority} {
 	m_duration = m_animation->duration();
-	// m_hitbox.set(
-	// 	m_player->m_position.x + m_hitboxOffset.position().x,
-	// 	m_player->m_position.y + m_hitboxOffset.position().y,
-	// 	m_hitboxOffset.dimensions().x,
-	// 	m_hitboxOffset.dimensions().y
-	// );
 }
 
 Attack::~Attack() {

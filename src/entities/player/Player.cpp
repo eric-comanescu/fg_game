@@ -37,6 +37,7 @@ Player::Player(Vector2 pos, Vector2 dimensions, bool isP1, Hitbox hitboxOffsets)
 		Hitbox(40, 10, 40, 25, RED),
 		Attack::AttackStrength::Low, 
 		false, 
+		20,
 		0)
 	);
 	m_attacks.push_back(new Attack(
@@ -46,6 +47,7 @@ Player::Player(Vector2 pos, Vector2 dimensions, bool isP1, Hitbox hitboxOffsets)
 		Hitbox(40, 30, 40, 20, RED),
 		Attack::AttackStrength::Low, 
 		true, 
+		10,
 		0)
 	);
 
@@ -130,7 +132,9 @@ void Player::onCollision(GameEntity* collider) {
 
 void Player::onHit(Attack* attack) {
 	if (!attack->m_hitbox.isConsumed) {
-		printf("\nHit\n\n");
 		attack->m_hitbox.isConsumed = true;
+
+		hp -= attack->m_damage;
+		std::cout << hp << '\n';
 	}
 }
