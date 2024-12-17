@@ -27,6 +27,7 @@ class Player : public GameEntity {
 	friend class CrouchState;
 	friend class CrouchBlockState;
 	friend class AttackState;
+	friend class Attack;
 
 	friend class Fight;
 public:

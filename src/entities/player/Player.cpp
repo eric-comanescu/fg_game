@@ -15,6 +15,7 @@
 #include "../../../include/Input.h"
 #include "../../../include/Hitbox.h"
 #include "../../../include/GameEntity.h"
+#include "../../../include/Animation.h"
 
 Player::Player(Vector2 pos, Vector2 dimensions, bool isP1, Hitbox hitboxOffsets)
 	: m_isP1{isP1} {
@@ -27,8 +28,23 @@ Player::Player(Vector2 pos, Vector2 dimensions, bool isP1, Hitbox hitboxOffsets)
 
 	m_stateMachine.change(StateName::Player_Idle_State, nullptr);
 
-	m_attacks.push_back(new Attack(this, {0b00001000}, 9, Attack::AttackStrength::Low, false, 0));
-	m_attacks.push_back(new Attack(this, {0b00001000}, 9, Attack::AttackStrength::Low, true, 0));
+	m_attacks.push_back(new Attack(
+		this, 
+		new Animation({0, 1, 2}, 20, 0),
+		{0b00001000}, 
+		Hitbox(30, 10, 50, 30),
+		Attack::AttackStrength::Low, 
+		false, 0)
+	);
+	m_attacks.push_back(new Attack(
+		this, 
+		new Animation({0, 1, 2}, 20, 0),
+		{0b00001000}, 
+		Hitbox(30, 10, 50, 30),
+		Attack::AttackStrength::Low, 
+		true, 
+		0)
+	);
 
 	std::sort(m_attacks.begin(), m_attacks.end(), [](Attack* a, Attack* b) {
 		return a->m_priority < b->m_priority;
@@ -112,5 +128,5 @@ void Player::onCollision(GameEntity* collider) {
 	}
 
 	// set collider position outside of collidee
-	m_position = m_prevPosition;
+	m_position.x = m_prevPosition.x;
 }

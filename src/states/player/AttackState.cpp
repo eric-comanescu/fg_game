@@ -23,7 +23,6 @@ void AttackState::enter(void* params) {
 	m_attack = reinterpret_cast<Attack*>(params);
 	m_duration = m_attack->m_duration;
 
-	printf("%d\n", m_attack->m_isLow);
 	if (m_attack->m_isLow) {
 		m_player->m_dimensions = Player::CROUCHING_DIMENSIONS;
 		m_player->m_position.y += 40;
@@ -39,6 +38,13 @@ void AttackState::exit() {
 
 void AttackState::update(float dt) {
 	m_player->m_inputManager.update(dt);
+	m_attack->m_hitbox.set(
+		m_player->m_position.x + m_attack->m_hitboxOffset.position().x,
+		m_player->m_position.y + m_attack->m_hitboxOffset.position().y,
+		m_player->m_dimensions.x + m_attack->m_hitboxOffset.dimensions().x,
+		m_player->m_dimensions.y + m_attack->m_hitboxOffset.dimensions().y
+	);
+	m_attack->m_animation->update(dt);
 
 	m_duration -= dt;
 
@@ -49,7 +55,7 @@ void AttackState::render() {
 	std::stringstream ss;
 
 	if (m_player->m_isP1)
-		ss << "P1 Attack: " << m_duration;
+		ss << "P1 Attack Frame: " << m_attack->m_animation->currentFrame();
 	else
 		ss << "P2 Attack: " << m_duration;
 

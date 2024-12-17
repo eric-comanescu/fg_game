@@ -3,6 +3,8 @@
 
 #include "AttackState.h"
 #include "Player.h"
+#include "Animation.h"
+#include "Hitbox.h"
 
 #include <vector>
 
@@ -20,18 +22,29 @@ public:
 		Strong
 	};
 
-	Attack(Player* player, std::vector<uint8_t> inputs, uint8_t frameDuration, 
-		AttackStrength attackStrength, bool isLow, uint8_t priority);
+	Attack(
+		Player* player, 
+		Animation* animation, 
+		std::vector<uint8_t> inputs, 
+		Hitbox hitboxOffset,
+		AttackStrength attackStrength, 
+		bool isLow, 
+		uint8_t priority
+	);
 	~Attack();
 
 private:
 	Player* m_player;
+	Animation* m_animation;
 	std::vector<uint8_t> m_inputs;
 
-	float m_duration;
+	Hitbox m_hitbox;
+	Hitbox m_hitboxOffset;
+
 	AttackStrength m_attackStrength;
-	bool m_isLow;
 	uint8_t m_priority;
+	float m_duration;
+	bool m_isLow;
 };
 
 #endif
