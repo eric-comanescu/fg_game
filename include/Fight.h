@@ -8,7 +8,7 @@
 
 class Fight {
 public:
-	Fight(Vector2 player1Pos, Vector2 p1Dims, Vector2 player2Pos, Vector2 p2Dims);
+	Fight(Player* p1, Player* p2);
 	~Fight();
 
 	void update(float dt);

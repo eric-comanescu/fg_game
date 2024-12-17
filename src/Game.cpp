@@ -58,8 +58,6 @@ void Game::render() {
 	BeginTextureMode(m_canvas);
 	ClearBackground(BLANK);
 
-	DrawFPS(0, 0);
-
     m_stateMachine->render();
 
 	EndTextureMode();

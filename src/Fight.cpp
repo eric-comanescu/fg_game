@@ -6,9 +6,9 @@
 #include "../include/raylib.h"
 #include "../include/Direction.h"
 
-Fight::Fight(Vector2 player1Pos, Vector2 p1Dims, Vector2 player2Pos, Vector2 p2Dims)
-	: m_player1(new Player(player1Pos, Player::STANDING_DIMENSIONS, true, Hitbox()))
-	, m_player2(new Player(player2Pos, Player::STANDING_DIMENSIONS, false, Hitbox())) {
+Fight::Fight(Player* p1, Player* p2)
+	: m_player1(p1)
+	, m_player2(p2) {
 	m_entities.push_back(m_player1);
 	m_entities.push_back(m_player2);
 }

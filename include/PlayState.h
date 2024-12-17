@@ -3,6 +3,7 @@
 
 #include "State.h"
 #include "Fight.h"
+#include "UserInterface.h"
 
 class PlayState : public State {
 public:
@@ -18,8 +19,8 @@ public:
 
 private:
 	StateName m_name { StateName::Play_State };
-	Fight m_fight;
-	// UserInterface m_ui;
+	Fight* m_fight;
+	UserInterface* m_ui;
 };
 
 #endif
