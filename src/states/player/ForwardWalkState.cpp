@@ -92,7 +92,7 @@ void ForwardWalkState::checkTransitions() {
 
 void ForwardWalkState::handleMovement(float dt) {
 	if (m_player->facing == Direction::Right)
-		m_player->m_position.x += 100 * dt;
+		m_player->m_position.x = m_player->m_position.x + 100 * dt <= 320 ? m_player->m_position.x + 100 * dt : 320;
 	else
-		m_player->m_position.x -= 100 * dt;
+		m_player->m_position.x = m_player->m_position.x - 100 * dt >= 0 ? m_player->m_position.x - 100 * dt : 0;
 }
