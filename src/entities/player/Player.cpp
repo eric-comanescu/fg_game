@@ -135,6 +135,5 @@ void Player::onHit(Attack* attack) {
 		attack->m_hitbox.isConsumed = true;
 
 		hp -= attack->m_damage;
-		std::cout << hp << '\n';
 	}
 }

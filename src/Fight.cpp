@@ -44,11 +44,18 @@ void Fight::setPlayerDirections() {
 }
 
 void Fight::updateEntities(float dt) {
+	if (m_player1->hp <= 0 && m_player2->hp <= 0) {
+		// TODO: DRAW
+	}
+	else if (m_player1->hp <= 0) {
+		// TODO: P1 LOSS
+		m_player2->roundsWon++;
+	}
+	else if (m_player2->hp <= 0) {
+		// TODO: P2 LOSS
+		m_player1->roundsWon++;
+	}
 	for (auto entity : m_entities) {
-		if (entity->hp <= 0) {
-			// handle dead entity logic
-		}
-
 		entity->update(dt);
 
 		for (auto entity2 : m_entities) {

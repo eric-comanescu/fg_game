@@ -47,6 +47,8 @@ public:
 	static constexpr Vector2 CROUCHING_DIMENSIONS { (Vector2){50, 50} };
 	static constexpr Vector2 STANDING_DIMENSIONS { (Vector2){50, 90} };
 
+	int roundsWon = 0;
+
 private:
 	InputManager m_inputManager {};
 	StateMachine m_stateMachine {};
