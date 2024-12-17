@@ -16,6 +16,7 @@ public:
 	Vector2 dimensions() const;
 
 	bool isActive;
+	bool isConsumed = false;
 
 private:
 	Vector2 m_position;

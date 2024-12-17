@@ -41,6 +41,7 @@ public:
 	void render();
 	bool didCollideWith(const Hitbox& target);
 	void onCollision(GameEntity* collider);
+	void onHit(Attack * attack);
 	const Hitbox& hitbox();
 
 	static constexpr Vector2 CROUCHING_DIMENSIONS { (Vector2){50, 50} };
@@ -49,6 +50,9 @@ public:
 private:
 	InputManager m_inputManager {};
 	StateMachine m_stateMachine {};
+
+	Hitbox* m_activeHitbox {nullptr};
+	Attack* m_activeAttack {nullptr};
 
 	std::vector<Attack*> m_attacks {};
 

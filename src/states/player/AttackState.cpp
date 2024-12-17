@@ -23,6 +23,8 @@ void AttackState::enter(void* params) {
 	m_attack = reinterpret_cast<Attack*>(params);
 	m_duration = m_attack->m_duration;
 
+	m_player->m_activeAttack = m_attack;
+
 	if (m_attack->m_isLow) {
 		m_player->m_dimensions = Player::CROUCHING_DIMENSIONS;
 		m_player->m_position.y += 40;
@@ -32,23 +34,40 @@ void AttackState::enter(void* params) {
 void AttackState::exit() {
 	m_player->m_dimensions = Player::STANDING_DIMENSIONS;
 
+	m_player->m_activeAttack = nullptr;
+
 	if (m_attack->m_isLow)
 		m_player->m_position.y -= 40;
 }
 
 void AttackState::update(float dt) {
 	m_player->m_inputManager.update(dt);
-	m_attack->m_hitbox.set(
-		m_player->m_position.x + m_attack->m_hitboxOffset.position().x,
-		m_player->m_position.y + m_attack->m_hitboxOffset.position().y,
-		m_attack->m_hitboxOffset.dimensions().x,
-		m_attack->m_hitboxOffset.dimensions().y
-	);
 
-	if (m_attack->m_animation->currentFrame() == 1)
+	if (m_player->facing == Direction::Right) {
+		m_attack->m_hitbox.set(
+			m_player->m_position.x + m_attack->m_hitboxOffset.position().x,
+			m_player->m_position.y + m_attack->m_hitboxOffset.position().y,
+			m_attack->m_hitboxOffset.dimensions().x,
+			m_attack->m_hitboxOffset.dimensions().y
+		);
+	}
+	else {
+		m_attack->m_hitbox.set(
+			m_player->m_position.x - m_attack->m_hitboxOffset.dimensions().x + m_player->m_dimensions.x - m_attack->m_hitboxOffset.dimensions().x,
+			m_player->m_position.y + m_attack->m_hitboxOffset.position().y,
+			m_attack->m_hitboxOffset.dimensions().x,
+			m_attack->m_hitboxOffset.dimensions().y
+		);
+	}
+
+	if (m_attack->m_animation->currentFrame() == 1) {
 		m_attack->m_hitbox.isActive = true;
-	else
+		m_player->m_activeHitbox = &m_attack->m_hitbox;
+	}
+	else {
 		m_attack->m_hitbox.isActive = false;
+		m_player->m_activeHitbox = nullptr;
+	}
 
 	m_attack->m_animation->update(dt);
 

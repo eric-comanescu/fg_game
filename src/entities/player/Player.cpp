@@ -13,6 +13,7 @@
 #include "../../../include/CrouchState.h"
 #include "../../../include/CrouchBlockState.h"
 #include "../../../include/AttackState.h"
+#include "../../../include/Attack.h"
 #include "../../../include/Input.h"
 #include "../../../include/Hitbox.h"
 #include "../../../include/GameEntity.h"
@@ -125,4 +126,11 @@ void Player::onCollision(GameEntity* collider) {
 
 	// set collider position outside of collidee
 	m_position.x = m_prevPosition.x;
+}
+
+void Player::onHit(Attack* attack) {
+	if (!attack->m_hitbox.isConsumed) {
+		printf("\nHit\n\n");
+		attack->m_hitbox.isConsumed = true;
+	}
 }

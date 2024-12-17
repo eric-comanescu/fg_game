@@ -93,6 +93,6 @@ void BackwardsWalkState::handleMovement(float dt) {
 		m_player->m_position.x = m_player->m_position.x - 60 * dt >= 0 ? m_player->m_position.x - 60 * dt : 0;
 	}
 	else {
-		m_player->m_position.x = m_player->m_position.x + 60 * dt >= 320 ? m_player->m_position.x + 60 * dt : 320;
+		m_player->m_position.x = m_player->m_position.x + 60 * dt + m_player->m_dimensions.x <= 320 ? m_player->m_position.x + 60 * dt : 320 - m_player->m_dimensions.x;
 	}
 }
