@@ -16,8 +16,11 @@ private:
 	Player* m_player1;
 	Player* m_player2;
 
-	float m_p1HpWidth;
-	float m_p2HpWidth;
+	float m_p1HpWidth = UserInterface::HP_BAR_WIDTH;
+	float m_p2HpWidth = UserInterface::HP_BAR_WIDTH;
+
+	float m_p1TargetWidth = UserInterface::HP_BAR_WIDTH;
+	float m_p2TargetWidth = UserInterface::HP_BAR_WIDTH;
 };
 
 #endif
