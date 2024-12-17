@@ -41,9 +41,15 @@ void AttackState::update(float dt) {
 	m_attack->m_hitbox.set(
 		m_player->m_position.x + m_attack->m_hitboxOffset.position().x,
 		m_player->m_position.y + m_attack->m_hitboxOffset.position().y,
-		m_player->m_dimensions.x + m_attack->m_hitboxOffset.dimensions().x,
-		m_player->m_dimensions.y + m_attack->m_hitboxOffset.dimensions().y
+		m_attack->m_hitboxOffset.dimensions().x,
+		m_attack->m_hitboxOffset.dimensions().y
 	);
+
+	if (m_attack->m_animation->currentFrame() == 1)
+		m_attack->m_hitbox.isActive = true;
+	else
+		m_attack->m_hitbox.isActive = false;
+
 	m_attack->m_animation->update(dt);
 
 	m_duration -= dt;
@@ -57,12 +63,14 @@ void AttackState::render() {
 	if (m_player->m_isP1)
 		ss << "P1 Attack Frame: " << m_attack->m_animation->currentFrame();
 	else
-		ss << "P2 Attack: " << m_duration;
+		ss << "P2 Attack Frame: " << m_attack->m_animation->currentFrame();
 
 	if (m_player->m_isP1)
 		DrawText(ss.str().c_str(), 0, 20, 24, WHITE);
 	else
 		DrawText(ss.str().c_str(), 0, 40, 24, WHITE);
+
+	m_attack->m_hitbox.render();
 }
 
 StateName AttackState::name() {

@@ -15,6 +15,8 @@ public:
 	Vector2 position() const;
 	Vector2 dimensions() const;
 
+	bool isActive;
+
 private:
 	Vector2 m_position;
 	Vector2 m_dimensions;

@@ -1,11 +1,16 @@
 #include "../../include/Hitbox.h"
+
+#include <iostream>
+
 #include "../../include/raylib.h"
 
 Hitbox::Hitbox(float x, float y, float width, float height, Color color)
 	: m_position {(Vector2){x, y}}
 	, m_dimensions {(Vector2){width, height}}
 	, m_color {color}
-{}
+{
+
+}
 
 Hitbox::~Hitbox() {
 
@@ -34,5 +39,6 @@ Vector2 Hitbox::dimensions() const {
 }
 
 void Hitbox::render() {
-	DrawRectangleLines(m_position.x, m_position.y, m_dimensions.x, m_dimensions.y, m_color);
+	if (isActive)
+		DrawRectangleLines(m_position.x, m_position.y, m_dimensions.x, m_dimensions.y, m_color);
 }

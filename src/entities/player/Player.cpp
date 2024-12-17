@@ -4,6 +4,7 @@
 #include <iostream>
 #include <typeinfo>
 #include <algorithm>
+#include <sstream>
 
 #include "../../../include/raylib.h"
 #include "../../../include/IdleState.h"
@@ -30,17 +31,18 @@ Player::Player(Vector2 pos, Vector2 dimensions, bool isP1, Hitbox hitboxOffsets)
 
 	m_attacks.push_back(new Attack(
 		this, 
-		new Animation({0, 1, 2}, 20, 0),
+		new Animation({0, 1, 1, 2}, 5, 0),
 		{0b00001000}, 
-		Hitbox(30, 10, 50, 30),
+		Hitbox(40, 10, 40, 25, RED),
 		Attack::AttackStrength::Low, 
-		false, 0)
+		false, 
+		0)
 	);
 	m_attacks.push_back(new Attack(
 		this, 
-		new Animation({0, 1, 2}, 20, 0),
+		new Animation({0, 1, 1, 2}, 5, 0),
 		{0b00001000}, 
-		Hitbox(30, 10, 50, 30),
+		Hitbox(40, 30, 40, 20, RED),
 		Attack::AttackStrength::Low, 
 		true, 
 		0)
@@ -82,6 +84,7 @@ Player::Player(Vector2 pos, Vector2 dimensions, bool isP1, Hitbox hitboxOffsets)
 		m_dimensions.x + hitboxOffsets.dimensions().x,
 		m_dimensions.y + hitboxOffsets.dimensions().y
 	);
+	m_hurtbox.isActive = true;
 }
 
 Player::~Player() {
@@ -102,16 +105,9 @@ void Player::update(float dt) {
 }
 
 void Player::render() {
-	m_stateMachine.render();
-
-	DrawRectangle(m_position.x, m_position.y, m_dimensions.x, m_dimensions.y, BLUE);
-
-	if (facing == Direction::Right)
-		DrawRectangle(m_position.x + 30, m_position.y, 20, 90, YELLOW);
-	else
-		DrawRectangle(m_position.x, m_position.y, 20, 90, YELLOW);
-
 	m_hurtbox.render();
+
+	m_stateMachine.render();
 }
 
 bool Player::didCollideWith(const Hitbox& target) {

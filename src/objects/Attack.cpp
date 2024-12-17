@@ -24,10 +24,10 @@ Attack::Attack(
 	, m_priority {priority} {
 	m_duration = m_animation->duration();
 	m_hitbox.set(
-		m_player->m_position.x + m_hitbox.position().x,
-		m_player->m_position.y + m_hitbox.position().y,
-		m_player->m_dimensions.x + m_hitbox.dimensions().x,
-		m_player->m_dimensions.y + m_hitbox.dimensions().y
+		m_player->m_position.x + m_hitboxOffset.position().x,
+		m_player->m_position.y + m_hitboxOffset.position().y,
+		m_hitboxOffset.dimensions().x,
+		m_hitboxOffset.dimensions().y
 	);
 }
 
