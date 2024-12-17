@@ -7,8 +7,8 @@
 #include "../include/Direction.h"
 
 Fight::Fight(Vector2 player1Pos, Vector2 p1Dims, Vector2 player2Pos, Vector2 p2Dims)
-	: m_player1(new Player(player1Pos, p1Dims, true, Hitbox()))
-	, m_player2(new Player(player2Pos, p2Dims, false, Hitbox())) {
+	: m_player1(new Player(player1Pos, Player::STANDING_DIMENSIONS, true, Hitbox()))
+	, m_player2(new Player(player2Pos, Player::STANDING_DIMENSIONS, false, Hitbox())) {
 	m_entities.push_back(m_player1);
 	m_entities.push_back(m_player2);
 }

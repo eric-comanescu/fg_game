@@ -42,6 +42,9 @@ public:
 	void onCollision(GameEntity* collider);
 	const Hitbox& hitbox();
 
+	static constexpr Vector2 CROUCHING_DIMENSIONS { (Vector2){50, 50} };
+	static constexpr Vector2 STANDING_DIMENSIONS { (Vector2){50, 90} };
+
 private:
 	InputManager m_inputManager {};
 	StateMachine m_stateMachine {};

@@ -22,10 +22,19 @@ AttackState::~AttackState() {
 void AttackState::enter(void* params) {
 	m_attack = reinterpret_cast<Attack*>(params);
 	m_duration = m_attack->m_duration;
+
+	printf("%d\n", m_attack->m_isLow);
+	if (m_attack->m_isLow) {
+		m_player->m_dimensions = Player::CROUCHING_DIMENSIONS;
+		m_player->m_position.y += 40;
+	}
 }
 
 void AttackState::exit() {
+	m_player->m_dimensions = Player::STANDING_DIMENSIONS;
 
+	if (m_attack->m_isLow)
+		m_player->m_position.y -= 40;
 }
 
 void AttackState::update(float dt) {
@@ -55,9 +64,64 @@ StateName AttackState::name() {
 }
 
 void AttackState::checkTranstions() {
+	// TODO: Check if consumed to allow cancels
 	if (m_duration > 0)
 		return;
 	
-	// do stuff
-	m_player->m_stateMachine.change(StateName::Player_Idle_State, nullptr);
+	constexpr uint8_t LEFT_BITMASK = 0b00000010;
+	constexpr uint8_t RIGHT_BITMASK = 0b00000001;
+	constexpr uint8_t DOWN_BITMASK = 0b00000100;
+
+	constexpr uint8_t LATTACK_BITMASK = 0b00001000;
+
+	const InputManager::Input& input { m_player->m_inputManager.getInputList().back() };
+
+	// TODO: More complex (check idle state)
+	if ((input.attackPress & LATTACK_BITMASK) != 0) {
+		if ((input.directionHold & DOWN_BITMASK) != 0)
+			m_player->m_stateMachine.change(StateName::Player_Attack_State, m_player->m_attacks[1]);
+		else
+			m_player->m_stateMachine.change(StateName::Player_Attack_State, m_player->m_attacks[0]);
+	}
+
+	if (m_player->facing == Direction::Right) {
+		if ((input.directionHold & DOWN_BITMASK) == 0) {
+			if ((input.directionHold & RIGHT_BITMASK) != 0) {
+				m_player->m_stateMachine.change(StateName::Player_Forward_Walking_State, nullptr);
+			}
+			else if((input.directionHold & LEFT_BITMASK) != 0) {
+				m_player->m_stateMachine.change(StateName::Player_Backwards_Walking_State, nullptr);
+			}
+			// TODO: Add else if for jump (UP_BITMASK)
+			else {
+				m_player->m_stateMachine.change(StateName::Player_Idle_State, nullptr);
+			}
+		}
+		else if ((input.directionHold & LEFT_BITMASK) != 0) {
+			m_player->m_stateMachine.change(StateName::Player_Crouch_Blocking_State, nullptr);
+		}
+		else {
+			m_player->m_stateMachine.change(StateName::Player_Crouching_State, nullptr);
+		}
+	}
+	else {
+		if ((input.directionHold & DOWN_BITMASK) == 0) {
+			if ((input.directionHold & LEFT_BITMASK) != 0) {
+				m_player->m_stateMachine.change(StateName::Player_Forward_Walking_State, nullptr);
+			}
+			else if((input.directionHold & RIGHT_BITMASK) != 0) {
+				m_player->m_stateMachine.change(StateName::Player_Backwards_Walking_State, nullptr);
+			}
+			// TODO: Add else if for jump (UP_BITMASK)
+			else {
+				m_player->m_stateMachine.change(StateName::Player_Idle_State, nullptr);
+			}
+		}
+		else if ((input.directionHold & RIGHT_BITMASK) != 0) {
+			m_player->m_stateMachine.change(StateName::Player_Crouch_Blocking_State, nullptr);
+		}
+		else {
+			m_player->m_stateMachine.change(StateName::Player_Crouching_State, nullptr);
+		}
+	}
 }

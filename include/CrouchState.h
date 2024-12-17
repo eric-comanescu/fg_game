@@ -24,7 +24,6 @@ private:
 	StateName m_name { StateName::Player_Crouching_State };
 	Player* m_player;
 	Vector2 m_originalPos;
-	Vector2 m_originalDim;
 
 	void checkTransitions();
 };

@@ -27,9 +27,8 @@ Player::Player(Vector2 pos, Vector2 dimensions, bool isP1, Hitbox hitboxOffsets)
 
 	m_stateMachine.change(StateName::Player_Idle_State, nullptr);
 
-	m_attacks.push_back(new Attack(this, {
-		0b00001000,
-	}, 1, 0));
+	m_attacks.push_back(new Attack(this, {0b00001000}, 9, Attack::AttackStrength::Low, false, 0));
+	m_attacks.push_back(new Attack(this, {0b00001000}, 9, Attack::AttackStrength::Low, true, 0));
 
 	std::sort(m_attacks.begin(), m_attacks.end(), [](Attack* a, Attack* b) {
 		return a->m_priority < b->m_priority;
@@ -60,8 +59,8 @@ Player::Player(Vector2 pos, Vector2 dimensions, bool isP1, Hitbox hitboxOffsets)
 			{InputManager::Action::Heavy_Input, KEY_BACKSLASH},
 		};
 	
-	m_hitboxOffsets = hitboxOffsets;
-	m_hitbox.set(
+	m_hurtboxOffsets = hitboxOffsets;
+	m_hurtbox.set(
 		m_position.x + hitboxOffsets.position().x,
 		m_position.y + hitboxOffsets.position().y,
 		m_dimensions.x + hitboxOffsets.dimensions().x,
@@ -78,11 +77,11 @@ Player::~Player() {
 void Player::update(float dt) {
 	m_stateMachine.update(dt);
 
-	m_hitbox.set(
-		m_position.x + m_hitboxOffsets.position().x,
-		m_position.y + m_hitboxOffsets.position().y,
-		m_dimensions.x + m_hitboxOffsets.dimensions().x,
-		m_dimensions.y + m_hitboxOffsets.dimensions().y
+	m_hurtbox.set(
+		m_position.x + m_hurtboxOffsets.position().x,
+		m_position.y + m_hurtboxOffsets.position().y,
+		m_dimensions.x + m_hurtboxOffsets.dimensions().x,
+		m_dimensions.y + m_hurtboxOffsets.dimensions().y
 	);
 }
 
@@ -96,15 +95,15 @@ void Player::render() {
 	else
 		DrawRectangle(m_position.x, m_position.y, 20, 90, YELLOW);
 
-	m_hitbox.render();
+	m_hurtbox.render();
 }
 
 bool Player::didCollideWith(const Hitbox& target) {
-	return m_hitbox.didCollide(target);
+	return m_hurtbox.didCollide(target);
 }
 
 const Hitbox& Player::hitbox() {
-	return m_hitbox;
+	return m_hurtbox;
 }
 
 void Player::onCollision(GameEntity* collider) {

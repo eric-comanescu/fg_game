@@ -21,15 +21,14 @@ CrouchState::~CrouchState() {
 
 void CrouchState::enter(void* params) {
 	m_originalPos = m_player->m_position;
-	m_originalDim = m_player->m_dimensions;
 
 	m_player->m_position.y += 40;
-	m_player->m_dimensions.y -= 40;
+	m_player->m_dimensions = Player::CROUCHING_DIMENSIONS;
 }
 
 void CrouchState::exit() {
 	m_player->m_position = m_originalPos;
-	m_player->m_dimensions = m_originalDim;
+	m_player->m_dimensions = Player::STANDING_DIMENSIONS;
 }
 
 void CrouchState::update(float dt) {
@@ -60,7 +59,10 @@ void CrouchState::checkTransitions() {
 
 	// TODO: More complex (check idle state)
 	if ((input.attackPress & LATTACK_BITMASK) != 0) {
-		m_player->m_stateMachine.change(StateName::Player_Attack_State, m_player->m_attacks[0]);
+		if ((input.directionHold & DOWN_BITMASK) != 0)
+			m_player->m_stateMachine.change(StateName::Player_Attack_State, m_player->m_attacks[1]);
+		else
+			m_player->m_stateMachine.change(StateName::Player_Attack_State, m_player->m_attacks[0]);
 	}
 
 	if (m_player->facing == Direction::Right) {

@@ -18,16 +18,15 @@ CrouchBlockState::~CrouchBlockState() {
 
 void CrouchBlockState::enter(void* params) {
 	m_originalPos = m_player->m_position;
-	m_originalDim = m_player->m_dimensions;
 	m_player->m_isBlocking = true;
 
 	m_player->m_position.y += 40;
-	m_player->m_dimensions.y -= 40;
+	m_player->m_dimensions = Player::CROUCHING_DIMENSIONS;
 }
 
 void CrouchBlockState::exit() {
 	m_player->m_position = m_originalPos;
-	m_player->m_dimensions = m_originalDim;
+	m_player->m_dimensions = Player::STANDING_DIMENSIONS;
 	m_player->m_isBlocking = false;
 }
 
@@ -60,7 +59,10 @@ void CrouchBlockState::checkTransitions() {
 
 	// TODO: Check idle state for more to do
 	if ((attackPress & LATTACK_BITMASK) != 0) {
-		m_player->m_stateMachine.change(StateName::Player_Attack_State, m_player->m_attacks[0]);
+		if ((directionHold & DOWN_BITMASK) != 0)
+			m_player->m_stateMachine.change(StateName::Player_Attack_State, m_player->m_attacks[1]);
+		else
+			m_player->m_stateMachine.change(StateName::Player_Attack_State, m_player->m_attacks[0]);
 	}
 
 	if (m_player->facing == Direction::Right) {

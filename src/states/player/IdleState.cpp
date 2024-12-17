@@ -53,7 +53,12 @@ void IdleState::checkTransitions() {
 
 	// TODO: Change to more complex attack detection when implementing multiple attacks
 	if ((inputs.back().attackPress & LATTACK_BITMASK) != 0) {
-		m_player->m_stateMachine.change(StateName::Player_Attack_State, m_player->m_attacks[0]);
+		if ((inputs.back().directionHold & DOWN_BITMASK) == 0) {
+			m_player->m_stateMachine.change(StateName::Player_Attack_State, m_player->m_attacks[0]);
+		}
+		else {
+			m_player->m_stateMachine.change(StateName::Player_Attack_State, m_player->m_attacks[1]);
+		}
 	}
 
 	if (m_player->facing == Direction::Left) {

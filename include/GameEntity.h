@@ -28,8 +28,8 @@ protected:
 	Vector2 m_prevPosition {};
 	Vector2 m_dimensions {};
 
-	Hitbox m_hitbox {};
-	Hitbox m_hitboxOffsets {};
+	Hitbox m_hurtbox {};
+	Hitbox m_hurtboxOffsets {};
 };
 
 #endif
