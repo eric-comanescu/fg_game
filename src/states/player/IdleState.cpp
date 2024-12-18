@@ -18,7 +18,7 @@ IdleState::~IdleState() {
 }
 
 void IdleState::enter(void* params = nullptr) {
-
+	m_player->m_position.y = Player::STANDING_POS;
 }
 
 void IdleState::exit() {

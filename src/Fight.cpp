@@ -6,12 +6,15 @@
 #include "../include/raylib.h"
 #include "../include/Direction.h"
 #include "../include/StateStack.h"
+#include "../include/UserInterface.h"
+#include "../include/RoundIntroState.h"
 
-Fight::Fight(Player* p1, Player* p2, float* timer, StateStack* sm)
+Fight::Fight(Player* p1, Player* p2, float* timer, StateStack* sm, UserInterface* ui)
 	: m_player1(p1)
 	, m_player2(p2)
 	, m_timer {timer}
-	, m_sm {sm} {
+	, m_sm {sm}
+	, m_ui {ui} {
 	m_entities.push_back(m_player1);
 	m_entities.push_back(m_player2);
 }
@@ -90,6 +93,13 @@ void Fight::handleRoundEnd() {
 		else if (m_player2->hp <= 0) {
 			// TODO: P2 LOSS
 			m_player1->roundsWon++;
+
+			m_sm->push(new RoundIntroState(m_sm), new RoundIntroState::RoundIntroEnterParams {
+				m_ui,
+				m_player1,
+				m_player2,
+				1
+			});
 		}
 	}
 	else {
@@ -105,4 +115,17 @@ void Fight::handleRoundEnd() {
 			m_player2->roundsWon++;
 		}
 	}
+}
+
+void Fight::reset() {
+	m_player1->m_position = Player::PLAYER1_STARTING_POS;
+	m_player2->m_position = Player::PLAYER2_STARTING_POS;
+
+	m_player1->m_dimensions = Player::STANDING_DIMENSIONS;
+	m_player2->m_dimensions = Player::STANDING_DIMENSIONS;
+
+	m_player1->hp = m_player1->maxHp;
+	m_player2->hp = m_player2->maxHp;
+
+	*m_timer = 99.9f;
 }

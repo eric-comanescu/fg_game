@@ -3,9 +3,11 @@
 #include <typeinfo>
 #include <string.h>
 #include <cassert>
+#include <iostream>
 
 #include "../../include/PlayState.h"
 #include "../../include/State.h"
+#include "../../include/RoundIntroState.h"
 
 StateStack::StateStack()
     : m_currentState {nullptr} 
@@ -29,7 +31,12 @@ void StateStack::pop() {
 	m_statesList.back()->exit();
 
 	State* removedState = m_statesList.back();
+
 	m_statesList.pop_back();
+
+	m_statesList.back()->enter(nullptr);
+
+	std::cout << static_cast<int>(m_statesList.back()->name()) << '\n';
 
 	delete removedState;
 }

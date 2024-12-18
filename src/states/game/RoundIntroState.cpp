@@ -65,6 +65,8 @@ void RoundIntroState::render() {
 	m_ui->render();
 	m_p1->render();
 	m_p2->render();
+
+	DrawText("Round Intro State",0,0,24, WHITE);
 }
 
 StateName RoundIntroState::name() {

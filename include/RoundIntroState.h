@@ -7,6 +7,8 @@
 #include "StateStack.h"
 
 class RoundIntroState : public State {
+	friend class StateStack;
+
 public:
 	RoundIntroState(StateStack* sm);
 	~RoundIntroState();

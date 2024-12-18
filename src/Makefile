@@ -3,7 +3,7 @@ CCARGS := -flto -L../lib -I../include -std=c++17
 OUT := -O2 -o ../bin/game
 MAKE := make
 
-LIST := main.cpp Game.cpp Input.cpp ./states/StateMachine.cpp ./states/StateStack.cpp ./states/game/PlayState.cpp ./states/State.cpp ./entities/GameEntity.cpp ./entities/player/Player.cpp Fight.cpp ./states/player/IdleState.cpp ./states/player/ForwardWalkState.cpp ./states/player/BackwardsWalkState.cpp ./states/player/CrouchState.cpp ./states/player/CrouchBlockState.cpp ./states/player/AttackState.cpp ./states/player/BlockstunState.cpp ./states/player/HitstunState.cpp ./objects/Hitbox.cpp ./objects/Attack.cpp ./services/Animation.cpp ./services/UserInterface.cpp
+LIST := main.cpp Game.cpp Input.cpp ./states/StateMachine.cpp ./states/StateStack.cpp ./states/game/PlayState.cpp ./states/game/RoundIntroState.cpp ./states/State.cpp ./entities/GameEntity.cpp ./entities/player/Player.cpp Fight.cpp ./states/player/IdleState.cpp ./states/player/ForwardWalkState.cpp ./states/player/BackwardsWalkState.cpp ./states/player/CrouchState.cpp ./states/player/CrouchBlockState.cpp ./states/player/AttackState.cpp ./states/player/BlockstunState.cpp ./states/player/HitstunState.cpp ./objects/Hitbox.cpp ./objects/Attack.cpp ./services/Animation.cpp ./services/UserInterface.cpp
 
 UNAME_S := $(shell uname -s)
 

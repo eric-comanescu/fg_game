@@ -20,17 +20,21 @@ PlayState::~PlayState() {
 }
 
 void PlayState::enter(void* params) {
-	assert(params != nullptr && "No null in playstate enter");
+	if (params != nullptr) {
+		PlayStateEnterParams* enterParams = reinterpret_cast<PlayStateEnterParams*>(params);
 
-	PlayStateEnterParams* enterParams = reinterpret_cast<PlayStateEnterParams*>(params);
-
-	Player* p1 = enterParams->p1;
-	Player* p2 = enterParams->p2;
+		Player* p1 = enterParams->p1;
+		Player* p2 = enterParams->p2;
 	
-	m_fight = new Fight(p1, p2, &m_timer, m_sm);
-	m_ui = new UserInterface(p1, p2, &m_timer);
+		m_ui = new UserInterface(p1, p2, &m_timer);
+		m_fight = new Fight(p1, p2, &m_timer, m_sm, m_ui);
 
-	// delete enterParams;
+		delete enterParams;
+	}
+	else {
+		assert(m_fight != nullptr && "Pass in a PlayStateEnterParams when first initializing PlayState");
+		m_fight->reset();
+	}
 }
 
 void PlayState::exit() {
