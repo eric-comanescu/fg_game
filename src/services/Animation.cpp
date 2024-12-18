@@ -40,6 +40,12 @@ Rectangle Animation::currentSprite() {
 	return m_frames[m_currentFrame];
 }
 
+Rectangle Animation::currentSpriteFlipped() {
+	Rectangle original = m_frames[m_currentFrame];
+
+	return (Rectangle){original.x, original.y, -original.width, original.height};
+}
+
 float Animation::duration() {
 	return m_interval * static_cast<float>(m_frames.size());
 }

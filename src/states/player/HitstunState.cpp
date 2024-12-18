@@ -75,25 +75,49 @@ void HitstunState::update(float dt) {
 }
 
 void HitstunState::render() {
-	if (m_player->m_isCrouching) {
-		DrawTexturePro(
-			m_player->m_sprites,
-			(Rectangle){100.0f,500.0f,100.0f,100.0f},
-			(Rectangle){m_player->m_position.x,m_player->m_position.y,m_player->m_dimensions.x,m_player->m_dimensions.y},
-			{0.0f,0.0f},
-			0.0f,
-			WHITE
-		);
+	if (m_player->facing == Direction::Right) {
+		if (m_player->m_isCrouching)
+		{
+			DrawTexturePro(
+				m_player->m_sprites,
+				(Rectangle){100.0f, 500.0f, 100.0f, 100.0f},
+				(Rectangle){m_player->m_position.x, m_player->m_position.y, m_player->m_dimensions.x, m_player->m_dimensions.y},
+				{0.0f, 0.0f},
+				0.0f,
+				WHITE);
+		}
+		else
+		{
+			DrawTexturePro(
+				m_player->m_sprites,
+				(Rectangle){100.0f, 200.0f, 100.0f, 100.0f},
+				(Rectangle){m_player->m_position.x, m_player->m_position.y, m_player->m_dimensions.x, m_player->m_dimensions.y},
+				{0.0f, 0.0f},
+				0.0f,
+				WHITE);
+		}
 	}
 	else {
-		DrawTexturePro(
-			m_player->m_sprites,
-			(Rectangle){100.0f,200.0f,100.0f,100.0f},
-			(Rectangle){m_player->m_position.x,m_player->m_position.y,m_player->m_dimensions.x,m_player->m_dimensions.y},
-			{0.0f,0.0f},
-			0.0f,
-			WHITE
-		);
+		if (m_player->m_isCrouching)
+		{
+			DrawTexturePro(
+				m_player->m_sprites,
+				(Rectangle){100.0f, 500.0f, -100.0f, 100.0f},
+				(Rectangle){m_player->m_position.x, m_player->m_position.y, m_player->m_dimensions.x, m_player->m_dimensions.y},
+				{0.0f, 0.0f},
+				0.0f,
+				WHITE);
+		}
+		else
+		{
+			DrawTexturePro(
+				m_player->m_sprites,
+				(Rectangle){100.0f, 200.0f, -100.0f, 100.0f},
+				(Rectangle){m_player->m_position.x, m_player->m_position.y, m_player->m_dimensions.x, m_player->m_dimensions.y},
+				{0.0f, 0.0f},
+				0.0f,
+				WHITE);
+		}
 	}
 }
 

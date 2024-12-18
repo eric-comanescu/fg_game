@@ -13,6 +13,7 @@ public:
 	void update(float dt);
 	int currentFrame();
 	Rectangle currentSprite();
+	Rectangle currentSpriteFlipped();
 	float duration();
 	bool isDone();
 	void reset();
