@@ -20,6 +20,9 @@ ForwardWalkState::~ForwardWalkState() {
 
 void ForwardWalkState::enter(void* params = nullptr) {
 	m_player->m_hurtboxOffsets.position().y = 10;
+
+	m_player->m_hurtboxOffsets.position() = Player::FWALK_HURTBOX_OFFSETS;
+	m_player->m_hurtboxOffsets.dimensions() = Player::FWALK_HURTBOX_DIMENSIONS;
 }
 
 void ForwardWalkState::exit() {

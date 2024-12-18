@@ -42,8 +42,12 @@ void BlockstunState::enter(void* params) {
 	};
 
 	if (m_player->m_isCrouching) {
-		m_player->m_hurtboxOffsets.dimensions() = Player::CROUCHING_DIMENSIONS;
-		m_player->m_hurtboxOffsets.position().y = 50;
+		m_player->m_hurtboxOffsets.position() = Player::CROUCH_HURTBOX_OFFSETS;
+		m_player->m_hurtboxOffsets.dimensions() = Player::CROUCH_HURTBOX_DIMENSIONS;
+	}
+	else {
+		m_player->m_hurtboxOffsets.position() = Player::CROUCH_HURTBOX_OFFSETS;
+		m_player->m_hurtboxOffsets.dimensions() = Player::CROUCH_HURTBOX_DIMENSIONS;
 	}
 }
 

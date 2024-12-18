@@ -123,10 +123,14 @@ void Player::render() {
 
 	DrawRectangleLines(m_position.x, m_position.y, m_dimensions.x, m_dimensions.y, BLUE);
 
-	// DrawTexturePro(
-	// 	m_sprites,
-	// 	(Rectangle){0.0f,0.0f,100.0f,100.0f},
-	// );
+	DrawTexturePro(
+		m_sprites,
+		(Rectangle){0.0f,400.0f,100.0f,100.0f},
+		(Rectangle){m_position.x,m_position.y,m_dimensions.x,m_dimensions.y},
+		{0.0f,0.0f},
+		0.0f,
+		WHITE
+	);
 
 	m_stateMachine.render();
 }

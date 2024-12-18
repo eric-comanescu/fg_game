@@ -54,7 +54,17 @@ public:
 	static constexpr Vector2 DIMENSIONS { (Vector2){100, 100} };
 	static constexpr Vector2 PLAYER1_STARTING_POS { (Vector2){20, 45} };
 	static constexpr Vector2 PLAYER2_STARTING_POS { (Vector2){205, 45} };
-	static constexpr float STANDING_POS = 45.0f;
+
+	static constexpr Vector2 IDLE_HURTBOX_OFFSETS {(Vector2){35, 14}};
+	static constexpr Vector2 IDLE_HURTBOX_DIMENSIONS {(Vector2){30, 81}};
+	static constexpr Vector2 CROUCH_HURTBOX_OFFSETS {(Vector2){35, 40}};
+	static constexpr Vector2 CROUCH_HURTBOX_DIMENSIONS {(Vector2){30, 60}};
+	static constexpr Vector2 FWALK_HURTBOX_OFFSETS {(Vector2){30, 14}};
+	static constexpr Vector2 FWALK_HURTBOX_DIMENSIONS {(Vector2){40, 77}};
+	static constexpr Vector2 BWALK_HURTBOX_OFFSETS {(Vector2){30, 14}};
+	static constexpr Vector2 BWALK_HURTBOX_DIMENSIONS {(Vector2){40, 77}};
+
+	static constexpr float STANDING_POS = 14.0f;
 	static constexpr float CROUCHING_POS = 85.0f;
 
 	int roundsWon = 0;

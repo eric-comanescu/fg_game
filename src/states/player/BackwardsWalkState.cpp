@@ -18,7 +18,8 @@ BackwardsWalkState::~BackwardsWalkState() {
 
 void BackwardsWalkState::enter(void* params = nullptr) {
 	m_player->m_isBlocking = true;
-	m_player->m_hurtboxOffsets.position().y = 10;
+	m_player->m_hurtboxOffsets.position() = Player::BWALK_HURTBOX_OFFSETS;
+	m_player->m_hurtboxOffsets.dimensions() = Player::BWALK_HURTBOX_DIMENSIONS;
 }
 
 void BackwardsWalkState::exit() {

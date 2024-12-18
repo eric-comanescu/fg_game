@@ -36,8 +36,8 @@ void Game::init() {
     SetTargetFPS(60);
 
 	m_stateStack->push(new PlayState(m_stateStack), new PlayState::PlayStateEnterParams {
-		new Player(Player::PLAYER1_STARTING_POS, Player::DIMENSIONS, true, Hitbox(25, 10, 50, 90)),
-		new Player(Player::PLAYER2_STARTING_POS, Player::DIMENSIONS, false, Hitbox(25, 10, 50, 90)),
+		new Player(Player::PLAYER1_STARTING_POS, Player::DIMENSIONS, true, Hitbox(35, 14, 30, 81)),
+		new Player(Player::PLAYER2_STARTING_POS, Player::DIMENSIONS, false, Hitbox(35, 14, 30, 81)),
 	});
 }
 

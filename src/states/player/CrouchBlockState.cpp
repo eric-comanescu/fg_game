@@ -21,8 +21,8 @@ void CrouchBlockState::enter(void* params) {
 	m_player->m_isBlocking = true;
 	m_player->m_isCrouching = true;
 
-	m_player->m_hurtboxOffsets.position().y = 50;
-	m_player->m_hurtboxOffsets.dimensions() = Player::CROUCHING_DIMENSIONS;
+	m_player->m_hurtboxOffsets.position() = Player::CROUCH_HURTBOX_OFFSETS;
+	m_player->m_hurtboxOffsets.dimensions() = Player::CROUCH_HURTBOX_DIMENSIONS;
 }
 
 void CrouchBlockState::exit() {

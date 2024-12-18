@@ -44,8 +44,8 @@ void UserInterface::render() {
 	DrawRectangle(190, 10, m_p2HpWidth, 10, GREEN);
 
 	// HP BAR OUTLINE
-	DrawRectangleLines(10, 10, UserInterface::HP_BAR_WIDTH, 10, GRAY);
-	DrawRectangleLines(320 - 130, 10, UserInterface::HP_BAR_WIDTH, 10, GRAY);
+	DrawRectangleLines(10, 10, UserInterface::HP_BAR_WIDTH, 10, WHITE);
+	DrawRectangleLines(320 - 130, 10, UserInterface::HP_BAR_WIDTH, 10, WHITE);
 
 	// P1 Rounds won indicator
 	if (m_player1->roundsWon > 0) {
@@ -55,8 +55,8 @@ void UserInterface::render() {
 		DrawCircle(35, 30, 5, RED);
 	}
 
-	DrawCircleLines(20, 30, 5, GRAY);
-	DrawCircleLines(35, 30, 5, GRAY);
+	DrawCircleLines(20, 30, 5, WHITE);
+	DrawCircleLines(35, 30, 5, WHITE);
 
 	// P2 Rounds won indicator
 	if (m_player2->roundsWon > 0) {
@@ -66,8 +66,8 @@ void UserInterface::render() {
 		DrawCircle(285, 30, 5, RED);
 	}
 
-	DrawCircleLines(300, 30, 5, GRAY);
-	DrawCircleLines(285, 30, 5, GRAY);
+	DrawCircleLines(300, 30, 5, WHITE);
+	DrawCircleLines(285, 30, 5, WHITE);
 
 	// Timer
 	std::stringstream ss;
