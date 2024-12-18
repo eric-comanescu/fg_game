@@ -22,7 +22,7 @@ private:
 	int m_bgFrames {0};
 	int m_currentBgFrame {0};
 	unsigned int m_nextFrameDataOffset;
-	float m_bgInterval = 0.4f;
+	float m_bgInterval = 25.0f / 60.0f;
 	float m_currentInterval = 0.0f;
 
 	float m_p1HpWidth = UserInterface::HP_BAR_WIDTH;

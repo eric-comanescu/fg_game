@@ -11,7 +11,14 @@
 IdleState::IdleState(Player* player)
 	: State{}
 	, m_player { player }
-{};
+{
+	m_animation = new Animation({
+		(Rectangle){0.0f,0.0f,100.0f,100.0f},
+		(Rectangle){100.0f,0.0f,100.0f,100.0f},
+		(Rectangle){200.0f,0.0f,100.0f,100.0f},
+		(Rectangle){300.0f,0.0f,100.0f,100.0f}
+	}, 25);
+};
 
 IdleState::~IdleState() {
 
@@ -31,6 +38,8 @@ void IdleState::exit() {
 void IdleState::update(float dt) {
 	m_player->m_inputManager.update(dt);
 
+	m_animation->update(dt);
+
 	checkTransitions();
 }
 
@@ -38,7 +47,7 @@ void IdleState::render() {
 	if (m_player->facing == Direction::Right) {
 		DrawTexturePro(
 			m_player->m_sprites,
-			(Rectangle){0.0f, 0.0f, 100.0f, 100.0f},
+			m_animation->currentSprite(),
 			(Rectangle){m_player->m_position.x, m_player->m_position.y, m_player->m_dimensions.x, m_player->m_dimensions.y},
 			{0.0f, 0.0f},
 			0.0f,
@@ -47,7 +56,7 @@ void IdleState::render() {
 	else {
 		DrawTexturePro(
 			m_player->m_sprites,
-			(Rectangle){0.0f, 0.0f, -100.0f, 100.0f},
+			m_animation->currentSpriteFlipped(),
 			(Rectangle){m_player->m_position.x, m_player->m_position.y, m_player->m_dimensions.x, m_player->m_dimensions.y},
 			{0.0f, 0.0f},
 			0.0f,

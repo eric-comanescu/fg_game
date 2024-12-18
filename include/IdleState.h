@@ -3,6 +3,7 @@
 
 #include "State.h"
 #include "Player.h"
+#include "Animation.h"
 
 // IDK why i needed a forward declaration here i inclue player (resolve circular dependency?)
 class Player;
@@ -21,6 +22,7 @@ public:
 
 private:
 	StateName m_name { StateName::Player_Idle_State };
+	Animation* m_animation;
 	Player* m_player;
 
 	void checkTransitions();
