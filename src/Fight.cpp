@@ -95,6 +95,7 @@ void Fight::handleRoundEnd() {
 			m_player1->roundsWon++;
 
 			m_sm->push(new RoundIntroState(m_sm), new RoundIntroState::RoundIntroEnterParams {
+				this,
 				m_ui,
 				m_player1,
 				m_player2,

@@ -11,6 +11,7 @@ public:
 
 	void update(float dt);
 	void render();
+	void reset();
 
 private:
 	Player* m_player1;

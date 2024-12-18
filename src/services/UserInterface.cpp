@@ -88,3 +88,10 @@ void UserInterface::updateBg(float dt) {
 		UpdateTexture(m_texBg, ((unsigned char *)m_imBg.data) + m_nextFrameDataOffset);
 	}
 }
+
+void UserInterface::reset() {
+	m_p1HpWidth = UserInterface::HP_BAR_WIDTH;
+	m_p1TargetWidth = UserInterface::HP_BAR_WIDTH;
+	m_p2HpWidth = UserInterface::HP_BAR_WIDTH;
+	m_p2TargetWidth = UserInterface::HP_BAR_WIDTH;
+}
