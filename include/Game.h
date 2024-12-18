@@ -15,6 +15,7 @@ class Game {
     void start();
 
 	static Font Font;
+	static Sound Music;
 
     private:
 	RenderTexture2D m_canvas;

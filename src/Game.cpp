@@ -10,6 +10,7 @@
 #include "../include/Fight.h"
 
 Font Game::Font = LoadFont("../src/assets/fonts/alagard.png");
+Sound Game::Music = LoadSound("../src/assets/punch_your_way_through.ogg");
 
 Game::Game(StateStack* stateMachine, int width, int height, int scale)
     : m_stateStack {stateMachine }
@@ -39,6 +40,8 @@ void Game::init() {
 		new Player(Player::PLAYER1_STARTING_POS, Player::DIMENSIONS, true, Hitbox(35, 14, 30, 81)),
 		new Player(Player::PLAYER2_STARTING_POS, Player::DIMENSIONS, false, Hitbox(35, 14, 30, 81)),
 	});
+
+	SetSoundVolume(Game::Music, 0.1f);
 }
 
 void Game::start() {

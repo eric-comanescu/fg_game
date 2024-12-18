@@ -9,6 +9,7 @@
 #include "../../../include/Player.h"
 #include "../../../include/raylib.h"
 #include "../../../include/StateStack.h"
+#include "../../../include/Game.h"
 
 RoundIntroState::RoundIntroState(StateStack* sm)
 	: State()
@@ -42,6 +43,9 @@ void RoundIntroState::enter(void* params) {
 		m_p1->change(StateName::Player_Death_State, nullptr);
 	}
 
+	if (m_p1->roundsWon >= 2 || m_p2->roundsWon >= 2)
+		m_fadeDelay = 2.0f;
+
 	delete enterParams;
 }
 
@@ -49,6 +53,7 @@ void RoundIntroState::exit() {
 	m_startTween = false;
 	m_undoTween = false;
 	m_singleUpdate = false;
+	m_drawWinnerText = false;
 	m_tweenTimer = 1.0f;
 	m_reverseTimer = 0.0f;
 	m_timer = 3.0f;
@@ -74,6 +79,7 @@ void RoundIntroState::update(float dt) {
 	}
 
 	if (m_tweenTimer <= 0 && m_fadeDelay > 0) {
+		m_drawWinnerText = true;
 		m_fight->reset();
 		m_fight->render();
 
@@ -93,6 +99,7 @@ void RoundIntroState::update(float dt) {
 	}
 
 	if (m_fadeDelay <= 0 && m_reverseTimer < 1) {
+		m_drawWinnerText = false;
 		m_undoTween = true;
 		m_reverseTimer += dt;
 	}
@@ -112,6 +119,15 @@ void RoundIntroState::render() {
 	}
 	else if (m_undoTween) {
 		DrawRectangle(0, 0, 320, 180, (Color){0, 0, 0, static_cast<unsigned char>(m_tweenTimer / 1.0f * 255)});
+	}
+
+	if (m_drawWinnerText) {
+		if (m_p1->roundsWon >= 2) {
+			DrawTextEx(Game::Font, "Player 1 Wins", (Vector2){95.0f, 80.0f}, 24, 1, WHITE);
+		}
+		else if (m_p2->roundsWon >= 2) {
+			DrawTextEx(Game::Font, "Player 2 Wins", (Vector2){95.0f, 80.0f}, 24, 1, WHITE);
+		}
 	}
 }
 

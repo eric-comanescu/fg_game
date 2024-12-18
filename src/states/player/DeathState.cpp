@@ -19,6 +19,7 @@ DeathState::DeathState(Player* player)
 		(Rectangle){400.0f, 600.0f,100.0f,100.0f},
 		(Rectangle){500.0f, 600.0f,100.0f,100.0f},
 		(Rectangle){600.0f, 600.0f,100.0f,100.0f},
+		(Rectangle){600.0f, 700.0f,100.0f,100.0f},
 	}, 10, 1);
 }
 
@@ -35,31 +36,30 @@ void DeathState::exit() {
 }
 
 void DeathState::update(float dt) {
-	m_animation->update(dt);
+	if (m_animation->currentFrame() != 7)
+		m_animation->update(dt);
 }
 
 void DeathState::render() {
-	if (!m_animation->isDone()) {
-		if (m_player->facing == Direction::Right)
-		{
-			DrawTexturePro(
-				m_player->m_sprites,
-				m_animation->currentSprite(),
-				(Rectangle){m_player->m_position.x, m_player->m_position.y, m_player->m_dimensions.x, m_player->m_dimensions.y},
-				{0.0f, 0.0f},
-				0.0f,
-				WHITE);
-		}
-		else
-		{
-			DrawTexturePro(
-				m_player->m_sprites,
-				m_animation->currentSpriteFlipped(),
-				(Rectangle){m_player->m_position.x, m_player->m_position.y, m_player->m_dimensions.x, m_player->m_dimensions.y},
-				{0.0f, 0.0f},
-				0.0f,
-				WHITE);
-		}
+	if (m_player->facing == Direction::Right)
+	{
+		DrawTexturePro(
+			m_player->m_sprites,
+			m_animation->currentSprite(),
+			(Rectangle){m_player->m_position.x, m_player->m_position.y, m_player->m_dimensions.x, m_player->m_dimensions.y},
+			{0.0f, 0.0f},
+			0.0f,
+			WHITE);
+	}
+	else
+	{
+		DrawTexturePro(
+			m_player->m_sprites,
+			m_animation->currentSpriteFlipped(),
+			(Rectangle){m_player->m_position.x, m_player->m_position.y, m_player->m_dimensions.x, m_player->m_dimensions.y},
+			{0.0f, 0.0f},
+			0.0f,
+			WHITE);
 	}
 }
 

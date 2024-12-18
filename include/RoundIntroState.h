@@ -44,6 +44,7 @@ private:
 	bool m_undoTween {false};
 	bool m_shouldPop {false};
 	bool m_singleUpdate {false};
+	bool m_drawWinnerText {false};
 
 	int m_roundNumber;
 

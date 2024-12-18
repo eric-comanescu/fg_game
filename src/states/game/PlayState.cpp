@@ -8,6 +8,7 @@
 #include "../../../include/UserInterface.h"
 #include "../../../include/StateStack.h"
 #include "../../../include/raylib.h"
+#include "../../../include/Game.h"
 
 PlayState::PlayState(StateStack* sm) 
 	: State()
