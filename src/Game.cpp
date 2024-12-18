@@ -4,6 +4,7 @@
 
 #include "../include/StateStack.h"
 #include "../include/PlayState.h"
+#include "../include/MainMenuState.h"
 #include "../include/raylib.h"
 #include "../include/Player.h"
 
@@ -11,6 +12,7 @@
 
 Font Game::Font = LoadFont("../src/assets/fonts/alagard.png");
 Sound Game::Music = LoadSound("../src/assets/punch_your_way_through.ogg");
+bool Game::shouldClose = false;
 
 Game::Game(StateStack* stateMachine, int width, int height, int scale)
     : m_stateStack {stateMachine }
@@ -24,7 +26,7 @@ Game::~Game() {
 }
 
 void Game::init() {
-    InitWindow(m_width * m_scale, m_height * m_scale, "Gaem");
+    InitWindow(m_width * m_scale, m_height * m_scale, "Yet Another Fighting Game");
     InitAudioDevice();
 
 	m_canvas = LoadRenderTexture(m_width, m_height);
@@ -36,10 +38,7 @@ void Game::init() {
     // SetExitKey(0);
     SetTargetFPS(60);
 
-	m_stateStack->push(new PlayState(m_stateStack), new PlayState::PlayStateEnterParams {
-		new Player(Player::PLAYER1_STARTING_POS, Player::DIMENSIONS, true, Hitbox(35, 14, 30, 81)),
-		new Player(Player::PLAYER2_STARTING_POS, Player::DIMENSIONS, false, Hitbox(35, 14, 30, 81)),
-	});
+	m_stateStack->push(new MainMenuState(m_stateStack));
 
 	SetSoundVolume(Game::Music, 0.1f);
 }
@@ -49,7 +48,7 @@ void Game::start() {
 }
 
 void Game::gameLoop() {
-    while (!WindowShouldClose()) {
+    while (!WindowShouldClose() && !Game::shouldClose) {
         float frameTime { GetFrameTime() };
         float dt { frameTime > 0.1f ? 0.1f : GetFrameTime() };
 

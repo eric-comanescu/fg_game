@@ -43,8 +43,10 @@ void RoundIntroState::enter(void* params) {
 		m_p1->change(StateName::Player_Death_State, nullptr);
 	}
 
-	if (m_p1->roundsWon >= 2 || m_p2->roundsWon >= 2)
+	if (m_p1->roundsWon >= 2 || m_p2->roundsWon >= 2) {
 		m_fadeDelay = 2.0f;
+		m_drawWinnerText = true;
+	}
 
 	delete enterParams;
 }
@@ -79,7 +81,6 @@ void RoundIntroState::update(float dt) {
 	}
 
 	if (m_tweenTimer <= 0 && m_fadeDelay > 0) {
-		m_drawWinnerText = true;
 		m_fight->reset();
 		m_fight->render();
 
@@ -99,6 +100,10 @@ void RoundIntroState::update(float dt) {
 	}
 
 	if (m_fadeDelay <= 0 && m_reverseTimer < 1) {
+		if (m_drawWinnerText) {
+			m_sm->pop();
+			m_sm->pop();
+		}
 		m_drawWinnerText = false;
 		m_undoTween = true;
 		m_reverseTimer += dt;
@@ -121,7 +126,7 @@ void RoundIntroState::render() {
 		DrawRectangle(0, 0, 320, 180, (Color){0, 0, 0, static_cast<unsigned char>(m_tweenTimer / 1.0f * 255)});
 	}
 
-	if (m_drawWinnerText) {
+	if (m_drawWinnerText && m_tweenTimer <= 0) {
 		if (m_p1->roundsWon >= 2) {
 			DrawTextEx(Game::Font, "Player 1 Wins", (Vector2){95.0f, 80.0f}, 24, 1, WHITE);
 		}

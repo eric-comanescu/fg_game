@@ -16,6 +16,7 @@ class Game {
 
 	static Font Font;
 	static Sound Music;
+	static bool shouldClose;
 
     private:
 	RenderTexture2D m_canvas;

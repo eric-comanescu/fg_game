@@ -122,7 +122,7 @@ void AttackState::render() {
 			0.0f,
 			WHITE);
 
-	m_attack->m_hitbox.render();
+	// m_attack->m_hitbox.render();
 }
 
 StateName AttackState::name() {

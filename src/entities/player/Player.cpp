@@ -67,7 +67,7 @@ Player::Player(Vector2 pos, Vector2 dimensions, bool isP1, Hitbox hitboxOffsets)
 		Hitbox(30, 30, 32, 16, RED),
 		Attack::AttackStrength::Low, 
 		true, 
-		10,
+		200,
 		0)
 	);
 
