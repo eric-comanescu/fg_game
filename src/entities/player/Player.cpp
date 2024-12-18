@@ -171,7 +171,7 @@ void Player::onHit(Player* attacker, Attack* attack) {
 		return;
 	}
 
-	if (!m_isBlocking) {
+	if (!m_isBlocking || (m_isBlocking && !m_isCrouching && attack->m_isLow)) {
 		hp -= attack->m_damage;
 
 		// Apply pushback on hit
