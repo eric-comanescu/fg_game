@@ -31,20 +31,15 @@ void RoundIntroState::enter(void* params) {
 	m_p1 = enterParams->p1;
 	m_p2 = enterParams->p2;
 
-	if (m_winner == 1) {
-		m_p1->change(StateName::Player_Idle_State, nullptr);
-
-		// TODO: Change lose to die state
-		m_p2->change(StateName::Player_Idle_State, nullptr);
+	if (m_p1->isDead && m_p2->isDead) {
+		m_p1->change(StateName::Player_Death_State, nullptr);
+		m_p2->change(StateName::Player_Death_State, nullptr);
 	}
-	else if (m_winner == 2) {
-		m_p2->change(StateName::Player_Idle_State, nullptr);
-
-		// TODO: Change lose to die state
-		m_p1->change(StateName::Player_Idle_State, nullptr);
+	else if (m_p2->isDead) {
+		m_p2->change(StateName::Player_Death_State, nullptr);
 	}
 	else {
-		// TODO: Tie
+		m_p1->change(StateName::Player_Death_State, nullptr);
 	}
 
 	delete enterParams;
@@ -53,13 +48,22 @@ void RoundIntroState::enter(void* params) {
 void RoundIntroState::exit() {
 	m_startTween = false;
 	m_undoTween = false;
+	m_singleUpdate = false;
 	m_tweenTimer = 1.0f;
 	m_reverseTimer = 0.0f;
 	m_timer = 3.0f;
+
+	m_p1->isDead = false;
+	m_p2->isDead = false;
 }
 
 void RoundIntroState::update(float dt) {
 	m_ui->update(dt);
+
+	if (m_p1->isDead)
+		m_p1->update(dt);
+	if (m_p2->isDead)
+		m_p2->update(dt);
 
 	if (m_timer -= dt; m_timer <= 0) {
 		m_startTween = true;
@@ -75,6 +79,15 @@ void RoundIntroState::update(float dt) {
 
 		m_ui->reset();
 		m_ui->render();
+
+		m_p1->change(StateName::Player_Idle_State, nullptr);
+		m_p2->change(StateName::Player_Idle_State, nullptr);
+
+		if (!m_singleUpdate) {
+			m_p1->update(dt);
+			m_p2->update(dt);
+			m_singleUpdate = true;
+		}
 
 		m_fadeDelay -= dt;
 	}

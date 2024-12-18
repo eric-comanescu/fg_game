@@ -26,7 +26,6 @@ public:
 		UserInterface* ui;
 		Player* p1;
 		Player* p2;
-		int winner;
 	};
 
 private:
@@ -35,7 +34,6 @@ private:
 	UserInterface* m_ui;
 	Player* m_p1;
 	Player* m_p2;
-	int m_winner;
 
 	float m_timer {3.0f};
 	float m_tweenTimer {1.0f};
@@ -45,6 +43,7 @@ private:
 	bool m_startTween {false};
 	bool m_undoTween {false};
 	bool m_shouldPop {false};
+	bool m_singleUpdate {false};
 
 	int m_roundNumber;
 

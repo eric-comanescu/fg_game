@@ -15,6 +15,7 @@ enum class StateName {
 	Player_BlockStun_State,
 	Player_HitStun_State,
 	Player_Idle_State,
+	Player_Death_State
 };
 
 class State {

@@ -32,6 +32,7 @@ Player::Player(Vector2 pos, Vector2 dimensions, bool isP1, Hitbox hitboxOffsets)
 	m_stateMachine.add(new IdleState(this));
 	m_stateMachine.add(new BlockstunState(this));
 	m_stateMachine.add(new HitstunState(this));
+	m_stateMachine.add(new DeathState(this));
 
 	m_stateMachine.change(StateName::Player_Idle_State, nullptr);
 
@@ -134,8 +135,6 @@ void Player::update(float dt) {
 
 void Player::render() {
 	m_stateMachine.render();
-
-	m_hurtbox.render();
 }
 
 bool Player::didCollideWith(const Hitbox& target) {

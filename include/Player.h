@@ -12,6 +12,7 @@
 #include "BlockstunState.h"
 #include "AttackState.h"
 #include "HitstunState.h"
+#include "DeathState.h"
 #include "Attack.h"
 #include "Direction.h"
 #include "Hitbox.h"
@@ -32,7 +33,7 @@ class Player : public GameEntity {
 	friend class Attack;
 	friend class BlockstunState;
 	friend class HitstunState;
-
+	friend class DeathState;
 	friend class Fight;
 public:
 	Direction facing {};

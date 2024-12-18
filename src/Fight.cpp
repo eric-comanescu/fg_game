@@ -86,18 +86,18 @@ void Fight::updateEntities(float dt) {
 void Fight::handleRoundEnd() {
 	if (*m_timer > 0) {
 		if (m_player1->hp <= 0 && m_player2->hp <= 0) {
-			// TODO: DRAW
+			m_player1->isDead = true;
+			m_player2->isDead = true;
 
 			m_sm->push(new RoundIntroState(m_sm), new RoundIntroState::RoundIntroEnterParams {
 				this,
 				m_ui,
 				m_player1,
 				m_player2,
-				0
 			});
 		}
 		else if (m_player1->hp <= 0) {
-			// TODO: P1 LOSS
+			m_player1->isDead = true;
 			m_player2->roundsWon++;
 
 			m_sm->push(new RoundIntroState(m_sm), new RoundIntroState::RoundIntroEnterParams {
@@ -105,11 +105,10 @@ void Fight::handleRoundEnd() {
 				m_ui,
 				m_player1,
 				m_player2,
-				2
 			});
 		}
 		else if (m_player2->hp <= 0) {
-			// TODO: P2 LOSS
+			m_player2->isDead = true;
 			m_player1->roundsWon++;
 
 			m_sm->push(new RoundIntroState(m_sm), new RoundIntroState::RoundIntroEnterParams {
@@ -117,24 +116,23 @@ void Fight::handleRoundEnd() {
 				m_ui,
 				m_player1,
 				m_player2,
-				1
 			});
 		}
 	}
 	else {
 		if (m_player1->hp == m_player2->hp) {
-			// TODO: Draw
+			m_player1->isDead = true;
+			m_player2->isDead = true;
 
 			m_sm->push(new RoundIntroState(m_sm), new RoundIntroState::RoundIntroEnterParams {
 				this,
 				m_ui,
 				m_player1,
 				m_player2,
-				0
 			});
 		}
 		else if (m_player1->hp > m_player2->hp) {
-			// TODO: P1 win
+			m_player2->isDead = true;
 			m_player1->roundsWon++;
 
 			m_sm->push(new RoundIntroState(m_sm), new RoundIntroState::RoundIntroEnterParams {
@@ -142,11 +140,10 @@ void Fight::handleRoundEnd() {
 				m_ui,
 				m_player1,
 				m_player2,
-				1
 			});
 		}
 		else {
-			// TODO: P2 win
+			m_player1->isDead = true;
 			m_player2->roundsWon++;
 
 			m_sm->push(new RoundIntroState(m_sm), new RoundIntroState::RoundIntroEnterParams {
@@ -154,7 +151,6 @@ void Fight::handleRoundEnd() {
 				m_ui,
 				m_player1,
 				m_player2,
-				2
 			});
 		}
 	}
