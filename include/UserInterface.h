@@ -6,7 +6,7 @@
 class UserInterface {
 	const static int HP_BAR_WIDTH = 120;
 public:
-	UserInterface(Player* p1, Player* p2);
+	UserInterface(Player* p1, Player* p2, float* timer);
 	~UserInterface();
 
 	void update(float dt);
@@ -21,6 +21,8 @@ private:
 
 	float m_p1TargetWidth = UserInterface::HP_BAR_WIDTH;
 	float m_p2TargetWidth = UserInterface::HP_BAR_WIDTH;
+
+	float* m_timer;
 };
 
 #endif

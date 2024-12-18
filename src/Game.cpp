@@ -9,6 +9,8 @@
 
 #include "../include/Fight.h"
 
+Font Game::Font = LoadFont("../src/assets/fonts/alagard.png");
+
 Game::Game(StateStack* stateMachine, int width, int height, int scale)
     : m_stateMachine {stateMachine }
     , m_width {width}, m_height {height}, m_scale {scale}

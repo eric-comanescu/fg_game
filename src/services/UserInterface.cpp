@@ -1,12 +1,16 @@
 #include "../../include/UserInterface.h"
 
 #include <iostream>
+#include <sstream>
 
 #include "../../include/Player.h"
+#include "../../include/Game.h"
+#include "../../include/raylib.h"
 
-UserInterface::UserInterface(Player* p1, Player* p2)
+UserInterface::UserInterface(Player* p1, Player* p2, float* timer)
 	: m_player1 {p1}
-	, m_player2 {p2} {
+	, m_player2 {p2}
+	, m_timer {timer} {
 
 }
 
@@ -57,4 +61,10 @@ void UserInterface::render() {
 
 	DrawCircleLines(300, 30, 5, GRAY);
 	DrawCircleLines(285, 30, 5, GRAY);
+
+	// Timer
+	std::stringstream ss;
+	ss << static_cast<int>(*m_timer);
+
+	DrawTextEx(Game::Font, ss.str().c_str(), (Vector2){148, 10}, 24, 1, WHITE);
 }

@@ -14,6 +14,8 @@ class Game {
     void init();
     void start();
 
+	static Font Font;
+
     private:
 	RenderTexture2D m_canvas;
 

@@ -6,9 +6,10 @@
 #include "../include/raylib.h"
 #include "../include/Direction.h"
 
-Fight::Fight(Player* p1, Player* p2)
+Fight::Fight(Player* p1, Player* p2, float* timer)
 	: m_player1(p1)
-	, m_player2(p2) {
+	, m_player2(p2)
+	, m_timer {timer} {
 	m_entities.push_back(m_player1);
 	m_entities.push_back(m_player2);
 }
@@ -19,6 +20,12 @@ Fight::~Fight() {
 
 void Fight::update(float dt) {
 	setPlayerDirections();
+
+	*m_timer -= dt;
+
+	if (*m_timer <= 0) {
+		handleRoundEnd();
+	}
 
 	updateEntities(dt);
 
@@ -44,17 +51,8 @@ void Fight::setPlayerDirections() {
 }
 
 void Fight::updateEntities(float dt) {
-	if (m_player1->hp <= 0 && m_player2->hp <= 0) {
-		// TODO: DRAW
-	}
-	else if (m_player1->hp <= 0) {
-		// TODO: P1 LOSS
-		m_player2->roundsWon++;
-	}
-	else if (m_player2->hp <= 0) {
-		// TODO: P2 LOSS
-		m_player1->roundsWon++;
-	}
+	handleRoundEnd();
+
 	for (auto entity : m_entities) {
 		entity->update(dt);
 
@@ -74,6 +72,35 @@ void Fight::updateEntities(float dt) {
 			if (m_player1->didCollideWith(*m_player2->m_activeHitbox)) {
 				m_player1->onHit(m_player2, m_player2->m_activeAttack);
 			}
+		}
+	}
+}
+
+void Fight::handleRoundEnd() {
+	if (*m_timer > 0) {
+		if (m_player1->hp <= 0 && m_player2->hp <= 0) {
+			// TODO: DRAW
+		}
+		else if (m_player1->hp <= 0) {
+			// TODO: P1 LOSS
+			m_player2->roundsWon++;
+		}
+		else if (m_player2->hp <= 0) {
+			// TODO: P2 LOSS
+			m_player1->roundsWon++;
+		}
+	}
+	else {
+		if (m_player1->hp == m_player2->hp) {
+			// TODO: Draw
+		}
+		else if (m_player1->hp > m_player2->hp) {
+			// TODO: P1 win
+			m_player1->roundsWon++;
+		}
+		else {
+			// TODO: P2 win
+			m_player2->roundsWon++;
 		}
 	}
 }

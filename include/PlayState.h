@@ -21,6 +21,8 @@ private:
 	StateName m_name { StateName::Play_State };
 	Fight* m_fight;
 	UserInterface* m_ui;
+
+	float m_timer {99.9f};
 };
 
 #endif
