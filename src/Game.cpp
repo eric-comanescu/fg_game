@@ -11,7 +11,9 @@
 #include "../include/Fight.h"
 
 Font Game::Font = LoadFont("../src/assets/fonts/alagard.png");
-Sound Game::Music = LoadSound("../src/assets/punch_your_way_through.ogg");
+Sound* Game::Sfx = nullptr;
+Sound* Game::Whiff = nullptr;
+Sound* Game::Music = nullptr;
 bool Game::shouldClose = false;
 
 Game::Game(StateStack* stateMachine, int width, int height, int scale)
@@ -20,6 +22,10 @@ Game::Game(StateStack* stateMachine, int width, int height, int scale)
 { this->init(); }
 
 Game::~Game() {
+	UnloadSound(m_sfx);
+	UnloadSound(m_whiff);
+	UnloadSound(m_music);
+
     CloseAudioDevice();
 	UnloadRenderTexture(m_canvas);
     CloseWindow();
@@ -40,7 +46,21 @@ void Game::init() {
 
 	m_stateStack->push(new MainMenuState(m_stateStack));
 
-	SetSoundVolume(Game::Music, 0.1f);
+	m_sfx = LoadSound("../src/assets/swish_4.wav");
+	m_whiff = LoadSound("../src/assets/swish_2.wav");
+	m_music = LoadSound("../src/assets/punch_your_way_through.ogg");
+
+	while (!IsSoundReady(m_sfx)) {}
+	while (!IsSoundReady(m_whiff)) {}
+	while (!IsSoundReady(m_music)) {}
+
+	Game::Sfx = &m_sfx;
+	Game::Whiff = &m_whiff;
+	Game::Music = &m_music;
+
+	SetSoundVolume(*Game::Sfx, 0.2f);
+	SetSoundVolume(*Game::Whiff, 0.2f);
+	SetSoundVolume(*Game::Music, 0.02f);
 }
 
 void Game::start() {
@@ -58,6 +78,9 @@ void Game::gameLoop() {
 }
 
 void Game::update(float dt) {
+	if (!IsSoundPlaying(*Game::Music)) {
+		PlaySound(*Game::Music);
+	}
     m_stateStack->update(dt);
 }
 

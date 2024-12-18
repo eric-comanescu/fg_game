@@ -9,6 +9,7 @@
 #include "../../../include/State.h"
 #include "../../../include/Direction.h"
 #include "../../../include/raylib.h"
+#include "../../../include/Game.h"
 
 AttackState::AttackState(Player* player)
 	: State()
@@ -38,6 +39,8 @@ void AttackState::enter(void* params) {
 	}
 
 	m_player->renderPriority = 1;
+
+	PlaySound(*Game::Whiff);
 }
 
 void AttackState::exit() {

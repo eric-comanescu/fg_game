@@ -8,6 +8,7 @@
 #include <cassert>
 
 #include "../../../include/raylib.h"
+#include "../../../include/Game.h"
 #include "../../../include/IdleState.h"
 #include "../../../include/ForwardWalkState.h"
 #include "../../../include/BackwardsWalkState.h"
@@ -67,7 +68,7 @@ Player::Player(Vector2 pos, Vector2 dimensions, bool isP1, Hitbox hitboxOffsets)
 		Hitbox(30, 30, 32, 16, RED),
 		Attack::AttackStrength::Low, 
 		true, 
-		200,
+		11,
 		0)
 	);
 
@@ -164,6 +165,7 @@ void Player::onCollision(GameEntity* collider) {
 void Player::onHit(Player* attacker, Attack* attack) {
 	if (!attack->m_hitbox.isConsumed) {
 		attack->m_hitbox.isConsumed = true;
+		PlaySound(*Game::Sfx);
 	}
 	else {
 		return;

@@ -15,11 +15,17 @@ class Game {
     void start();
 
 	static Font Font;
-	static Sound Music;
+	static Sound* Sfx;
+	static Sound* Whiff;
+	static Sound* Music;
 	static bool shouldClose;
 
     private:
 	RenderTexture2D m_canvas;
+
+	Sound m_sfx;
+	Sound m_whiff;
+	Sound m_music;
 
     // Not heap allocated, no need to free
     StateStack* m_stateStack;

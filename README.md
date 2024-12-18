@@ -84,6 +84,15 @@ Built using the [raylib](https://www.raylib.com) graphics library to handle rend
 
 [Figthing Game Glossary](https://glossary.infil.net/)
 
+### Sound Effects and Music
+
+[SFX](https://opengameart.org/content/battle-sound-effects)
+[Music](https://opengameart.org/content/punch-your-way-through)
+
+### Art and Assets
+
+[My boyfriend ❤️](https://github.com/Saul-Sotocinal)
+
 ## Ignore, not part of the proposal
 
 ### Before Submitting:
