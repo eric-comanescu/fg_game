@@ -51,7 +51,7 @@ void MainMenuState::update(float dt) {
 }
 
 void MainMenuState::render() {
-	DrawTextEx(Game::Font, "Yet Another", (Vector2){20, 10}, 36, 1, WHITE);
+	DrawTextEx(Game::Font, "Not Another", (Vector2){20, 10}, 36, 1, WHITE);
 	DrawTextEx(Game::Font, "Fighting Game", (Vector2){22,40}, 36, 1, WHITE);
 
 	for (auto& button : m_buttons) {

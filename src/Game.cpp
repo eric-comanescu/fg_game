@@ -32,7 +32,7 @@ Game::~Game() {
 }
 
 void Game::init() {
-    InitWindow(m_width * m_scale, m_height * m_scale, "Yet Another Fighting Game");
+    InitWindow(m_width * m_scale, m_height * m_scale, "Not Another Fighting Game");
     InitAudioDevice();
 
 	m_canvas = LoadRenderTexture(m_width, m_height);
