@@ -46,6 +46,8 @@ void HitstunState::enter(void* params) {
 		m_player->m_hurtboxOffsets.position() = Player::BWALK_HURTBOX_OFFSETS;
 		m_player->m_hurtboxOffsets.dimensions() = Player::BWALK_HURTBOX_DIMENSIONS;
 	}
+
+	m_player->renderPriority = -1;
 }
 
 void HitstunState::exit() {
@@ -53,6 +55,8 @@ void HitstunState::exit() {
 		m_player->m_hurtboxOffsets.dimensions() = Player::STANDING_DIMENSIONS;
 		m_player->m_hurtboxOffsets.position().y = 10;
 	}
+
+	m_player->renderPriority = 0;
 }
 
 void HitstunState::update(float dt) {

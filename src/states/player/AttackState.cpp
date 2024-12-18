@@ -36,6 +36,8 @@ void AttackState::enter(void* params) {
 		m_player->m_hurtboxOffsets.position() = Player::IDLE_HURTBOX_OFFSETS;
 		m_player->m_hurtboxOffsets.dimensions() = Player::IDLE_HURTBOX_DIMENSIONS;
 	}
+
+	m_player->renderPriority = 1;
 }
 
 void AttackState::exit() {
@@ -50,6 +52,8 @@ void AttackState::exit() {
 
 	if (m_attack->m_isLow)
 		m_player->m_hurtboxOffsets.position().y = 10;
+
+	m_player->renderPriority = 0;
 }
 
 void AttackState::update(float dt) {

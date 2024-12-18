@@ -1,6 +1,7 @@
 #include "../include/Fight.h"
 
 #include <iostream>
+#include <algorithm>
 
 #include "../include/Player.h"
 #include "../include/raylib.h"
@@ -39,6 +40,10 @@ void Fight::update(float dt) {
 }
 
 void Fight::render() {
+	std::sort(m_entities.begin(), m_entities.end(), [](GameEntity* a, GameEntity* b) {
+		return a->renderPriority < b->renderPriority;
+	});
+
 	for (const auto& entity : m_entities) {
 		entity->render();
 	}

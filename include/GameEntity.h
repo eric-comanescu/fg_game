@@ -23,6 +23,8 @@ class GameEntity {
 
 	bool isDead {false};
 
+	int renderPriority = 0;
+
 protected:
 	Vector2 m_position {};
 	Vector2 m_prevPosition {};
