@@ -36,7 +36,7 @@ Player::Player(Vector2 pos, Vector2 dimensions, bool isP1, Hitbox hitboxOffsets)
 
 	m_attacks.push_back(new Attack(
 		this, 
-		new Animation({0, 0, 1, 2}, 10, 0),
+		new Animation({0, 0, 1, 1, 2, 2}, 5, 0),
 		{0b00001000}, 
 		Hitbox(40, 10, 40, 25, RED),
 		Attack::AttackStrength::Low, 
@@ -46,7 +46,7 @@ Player::Player(Vector2 pos, Vector2 dimensions, bool isP1, Hitbox hitboxOffsets)
 	);
 	m_attacks.push_back(new Attack(
 		this, 
-		new Animation({0, 0, 1, 2}, 10, 0),
+		new Animation({0, 0, 1, 1, 2, 2}, 5, 0),
 		{0b00001000}, 
 		Hitbox(40, 30, 40, 20, RED),
 		Attack::AttackStrength::Low, 
@@ -151,22 +151,22 @@ void Player::onHit(Player* attacker, Attack* attack) {
 			if (attacker->m_position.x - PUSHBLOCK_DISTANCE < 0) {
 				float overflow = attacker->m_position.x - PUSHBLOCK_DISTANCE;
 
-				attacker->m_pushBlockDistance = PUSHBLOCK_DISTANCE + overflow;
-				m_pushBlockDistance = -overflow;
+				attacker->m_pushBlockDistance += PUSHBLOCK_DISTANCE + overflow;
+				m_pushBlockDistance += -overflow;
 			}
 			else {
-				attacker->m_pushBlockDistance = PUSHBLOCK_DISTANCE;
+				attacker->m_pushBlockDistance += PUSHBLOCK_DISTANCE;
 			}
 		}
 		else {
 			if (attacker->m_position.x + attacker->m_dimensions.x + PUSHBLOCK_DISTANCE > 320) {
 				float overflow = -(attacker->m_position.x + attacker->m_dimensions.x + PUSHBLOCK_DISTANCE - 320);
 
-				attacker->m_pushBlockDistance = PUSHBLOCK_DISTANCE + overflow;
-				m_pushBlockDistance = -overflow;
+				attacker->m_pushBlockDistance += PUSHBLOCK_DISTANCE + overflow;
+				m_pushBlockDistance += -overflow;
 			}
 			else {
-				attacker->m_pushBlockDistance = PUSHBLOCK_DISTANCE;
+				attacker->m_pushBlockDistance += PUSHBLOCK_DISTANCE;
 			}
 		}
 
