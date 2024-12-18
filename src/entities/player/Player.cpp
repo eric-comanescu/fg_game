@@ -130,10 +130,69 @@ void Player::onCollision(GameEntity* collider) {
 	m_position.x = m_prevPosition.x;
 }
 
-void Player::onHit(Attack* attack) {
+void Player::onHit(Player* attacker, Attack* attack) {
 	if (!attack->m_hitbox.isConsumed) {
 		attack->m_hitbox.isConsumed = true;
+	}
+	else {
+		return;
+	}
 
+	if (!m_isBlocking) {
 		hp -= attack->m_damage;
+
+		// Apply pushblock
+		constexpr float PUSHBLOCK_DISTANCE = 2.0f;
+		if (attacker->facing == Direction::Right) {
+			if (attacker->m_position.x - PUSHBLOCK_DISTANCE < 0) {
+				float overflow = attacker->m_position.x - PUSHBLOCK_DISTANCE;
+
+				attacker->m_pushBlockDistance = PUSHBLOCK_DISTANCE + overflow;
+				m_pushBlockDistance = -overflow;
+			}
+			else {
+				attacker->m_pushBlockDistance = PUSHBLOCK_DISTANCE;
+			}
+		}
+		else {
+			if (attacker->m_position.x + attacker->m_dimensions.x + PUSHBLOCK_DISTANCE > 320) {
+				float overflow = attacker->m_position.x + attacker->m_dimensions.x - 320;
+
+				attacker->m_pushBlockDistance = PUSHBLOCK_DISTANCE + overflow;
+				m_pushBlockDistance = -overflow;
+			}
+			else {
+				attacker->m_pushBlockDistance = PUSHBLOCK_DISTANCE;
+			}
+		}
+	}
+	else {
+		// TODO: Remove chip on normals
+		hp -= attack->m_damage / 5.0f;
+
+		// Apply pushblock
+		constexpr float PUSHBLOCK_DISTANCE = 5.0f;
+		if (attacker->facing == Direction::Right) {
+			if (attacker->m_position.x - PUSHBLOCK_DISTANCE < 0) {
+				float overflow = attacker->m_position.x - PUSHBLOCK_DISTANCE;
+
+				attacker->m_pushBlockDistance = PUSHBLOCK_DISTANCE + overflow;
+				m_pushBlockDistance = -overflow;
+			}
+			else {
+				attacker->m_pushBlockDistance = PUSHBLOCK_DISTANCE;
+			}
+		}
+		else {
+			if (attacker->m_position.x + attacker->m_dimensions.x + PUSHBLOCK_DISTANCE > 320) {
+				float overflow = attacker->m_position.x + attacker->m_dimensions.x - 320;
+
+				attacker->m_pushBlockDistance = PUSHBLOCK_DISTANCE + overflow;
+				m_pushBlockDistance = -overflow;
+			}
+			else {
+				attacker->m_pushBlockDistance = PUSHBLOCK_DISTANCE;
+			}
+		}
 	}
 }

@@ -41,7 +41,7 @@ public:
 	void render();
 	bool didCollideWith(const Hitbox& target);
 	void onCollision(GameEntity* collider);
-	void onHit(Attack * attack);
+	void onHit(Player* attacker, Attack * attack);
 	const Hitbox& hitbox();
 
 	static constexpr Vector2 CROUCHING_DIMENSIONS { (Vector2){50, 50} };
@@ -60,6 +60,8 @@ private:
 
 	bool m_isP1;
 	bool m_isBlocking {false};
+
+	float m_pushBlockDistance = 0;
 
 	// TODO: Create State to handle this
 	void handleMovement(float dt);

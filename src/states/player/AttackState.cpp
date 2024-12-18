@@ -60,6 +60,17 @@ void AttackState::update(float dt) {
 		);
 	}
 
+	if (m_player->m_pushBlockDistance > 0) {
+		m_player->m_pushBlockDistance -= 1.0f;
+
+		if (m_player->facing == Direction::Right) {
+			m_player->m_position.x -= 1.0f;
+		}
+		else {
+			m_player->m_position.x += 1.0f;
+		}
+	}
+
 	if (m_attack->m_animation->currentFrame() == 1) {
 		m_attack->m_hitbox.isActive = true;
 		m_player->m_activeHitbox = &m_attack->m_hitbox;

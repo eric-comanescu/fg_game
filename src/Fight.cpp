@@ -66,13 +66,13 @@ void Fight::updateEntities(float dt) {
 
 		if (m_player1->m_activeHitbox != nullptr && m_player1->m_activeHitbox->isActive) {
 			if (m_player2->didCollideWith(*m_player1->m_activeHitbox)) {
-				m_player2->onHit(m_player1->m_activeAttack);
+				m_player2->onHit(m_player1, m_player1->m_activeAttack);
 			}
 		}
 
 		if (m_player2->m_activeHitbox != nullptr && m_player2->m_activeHitbox->isActive) {
 			if (m_player1->didCollideWith(*m_player2->m_activeHitbox)) {
-				m_player1->onHit(m_player2->m_activeAttack);
+				m_player1->onHit(m_player2, m_player2->m_activeAttack);
 			}
 		}
 	}
