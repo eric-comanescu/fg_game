@@ -65,31 +65,26 @@ void RoundIntroState::update(float dt) {
 		m_startTween = true;
 	}
 
-	if (m_startTween) {
+	if (m_startTween && m_tweenTimer > 0) {
 		m_tweenTimer -= dt;
 	}
 
-	if (m_tweenTimer <= 0) {
-		m_undoTween = true;
-		m_startTween = false;
-	}
-
-	if (m_undoTween) {
+	if (m_tweenTimer <= 0 && m_fadeDelay > 0) {
 		m_fight->reset();
-		m_fight->update(dt);
+		m_fight->render();
+
 		m_ui->reset();
+		m_ui->render();
 
-		if (m_fadeDelay -= dt; m_fadeDelay <= 0) {
-			m_reverseTimer += dt;
-		}
-
-		if (m_reverseTimer > 1) {
-			m_reverseTimer = 1;
-			m_shouldPop = true;
-		};
+		m_fadeDelay -= dt;
 	}
 
-	if (m_shouldPop) {
+	if (m_fadeDelay <= 0 && m_reverseTimer < 1) {
+		m_undoTween = true;
+		m_reverseTimer += dt;
+	}
+
+	if (m_reverseTimer >= 1) {
 		m_sm->pop();
 	}
 }
