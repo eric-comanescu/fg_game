@@ -1,6 +1,7 @@
 #include "../../../include/AttackState.h"
 
 #include <sstream>
+#include <iostream>
 
 #include "../../../include/Player.h"
 #include "../../../include/Attack.h"
@@ -25,6 +26,8 @@ void AttackState::enter(void* params) {
 
 	m_player->m_activeAttack = m_attack;
 
+	m_canCancel = false;
+
 	if (m_attack->m_isLow) {
 		m_player->m_dimensions = Player::CROUCHING_DIMENSIONS;
 		m_player->m_position.y += 40;
@@ -35,6 +38,11 @@ void AttackState::exit() {
 	m_player->m_dimensions = Player::STANDING_DIMENSIONS;
 
 	m_player->m_activeAttack = nullptr;
+	m_player->m_activeHitbox = nullptr;
+
+	m_canCancel = false;
+
+	m_attack->m_animation->reset();
 
 	if (m_attack->m_isLow)
 		m_player->m_position.y -= 40;
@@ -69,6 +77,10 @@ void AttackState::update(float dt) {
 		else {
 			m_player->m_position.x += 1.0f;
 		}
+	}
+
+	if (m_attack->m_hitbox.isConsumed) {
+		m_canCancel = true;
 	}
 
 	if (m_attack->m_animation->currentFrame() == 1) {
@@ -109,6 +121,25 @@ StateName AttackState::name() {
 }
 
 void AttackState::checkTranstions() {
+	const InputManager::Input& input { m_player->m_inputManager.getInputList().back() };
+
+	// Checking for valid attack cancels if hit was consumed
+	if (m_canCancel) {
+		std::cout << "Entered cancel block with animation frame " << m_attack->m_animation->currentFrame() << '\n';
+		constexpr uint8_t DOWN_BITMASK = 0b00000100;
+
+		constexpr uint8_t LATTACK_BITMASK = 0b00001000;
+
+		if ((input.attackPress & LATTACK_BITMASK) != 0) {
+			if ((input.directionHold & DOWN_BITMASK) != 0) {
+				m_player->m_stateMachine.change(StateName::Player_Attack_State, m_player->m_attacks[1]);
+			}
+			else {
+				m_player->m_stateMachine.change(StateName::Player_Attack_State, m_player->m_attacks[0]);
+			}
+		}
+	}
+
 	// TODO: Check if consumed to allow cancels
 	if (m_duration > 0)
 		return;
@@ -119,7 +150,6 @@ void AttackState::checkTranstions() {
 
 	constexpr uint8_t LATTACK_BITMASK = 0b00001000;
 
-	const InputManager::Input& input { m_player->m_inputManager.getInputList().back() };
 
 	// TODO: More complex (check idle state)
 	if ((input.attackPress & LATTACK_BITMASK) != 0) {

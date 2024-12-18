@@ -44,5 +44,5 @@ bool Animation::isDone() {
 
 void Animation::reset() {
 	m_currentFrame = 0;
-	m_timesPLayed = 0;
+	m_timesPLayed = -1;
 }

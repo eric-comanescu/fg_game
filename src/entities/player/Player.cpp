@@ -36,17 +36,17 @@ Player::Player(Vector2 pos, Vector2 dimensions, bool isP1, Hitbox hitboxOffsets)
 
 	m_attacks.push_back(new Attack(
 		this, 
-		new Animation({0, 1, 1, 2}, 5, 0),
+		new Animation({0, 0, 1, 2}, 10, 0),
 		{0b00001000}, 
 		Hitbox(40, 10, 40, 25, RED),
 		Attack::AttackStrength::Low, 
 		false, 
-		20,
+		7,
 		0)
 	);
 	m_attacks.push_back(new Attack(
 		this, 
-		new Animation({0, 1, 1, 2}, 5, 0),
+		new Animation({0, 0, 1, 2}, 10, 0),
 		{0b00001000}, 
 		Hitbox(40, 30, 40, 20, RED),
 		Attack::AttackStrength::Low, 

@@ -55,7 +55,6 @@ void HitstunState::update(float dt) {
 	m_player->m_inputManager.update(dt);
 
 	m_duration -= dt;
-	printf("%f\n", m_duration);
 
 	if (m_player->m_pushBlockDistance > 0) {
 		m_player->m_pushBlockDistance -= 1.0f;

@@ -27,6 +27,7 @@ private:
 	Attack* m_attack;
 
 	float m_duration;
+	bool m_canCancel {false};
 
 	void checkTranstions();
 };
