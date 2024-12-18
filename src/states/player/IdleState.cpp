@@ -33,10 +33,14 @@ void IdleState::update(float dt) {
 }
 
 void IdleState::render() {
-	if (m_player->m_isP1)
-		DrawText("P1 Idle", 0, 20, 24, WHITE);
-	else
-		DrawText("P2 Idle", 0, 40, 24, WHITE);
+	DrawTexturePro(
+		m_player->m_sprites,
+		(Rectangle){0.0f,0.0f,100.0f,100.0f},
+		(Rectangle){m_player->m_position.x,m_player->m_position.y,m_player->m_dimensions.x,m_player->m_dimensions.y},
+		{0.0f,0.0f},
+		0.0f,
+		WHITE
+	);
 }
 
 StateName IdleState::name() {

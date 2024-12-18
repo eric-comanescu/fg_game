@@ -38,10 +38,14 @@ void CrouchBlockState::update(float dt) {
 }
 
 void CrouchBlockState::render() {
-	if (m_player->facing == Direction::Right) 
-		DrawText("P1 Crouch Block", 0, 20, 24, WHITE);
-	else
-		DrawText("P2 Crouch Block", 0, 40, 24, WHITE);
+	DrawTexturePro(
+		m_player->m_sprites,
+		(Rectangle){0.0f,400.0f,100.0f,100.0f},
+		(Rectangle){m_player->m_position.x,m_player->m_position.y,m_player->m_dimensions.x,m_player->m_dimensions.y},
+		{0.0f,0.0f},
+		0.0f,
+		WHITE
+	);
 }
 
 StateName CrouchBlockState::name() {

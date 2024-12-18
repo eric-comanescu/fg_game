@@ -29,8 +29,12 @@ void AttackState::enter(void* params) {
 	m_canCancel = false;
 
 	if (m_attack->m_isLow) {
-		m_player->m_hurtboxOffsets.dimensions() = Player::CROUCHING_DIMENSIONS;
-		m_player->m_hurtboxOffsets.position().y = 50;
+		m_player->m_hurtboxOffsets.position() = Player::CROUCH_HURTBOX_OFFSETS;
+		m_player->m_hurtboxOffsets.dimensions() = Player::CROUCH_HURTBOX_DIMENSIONS;
+	}
+	else {
+		m_player->m_hurtboxOffsets.position() = Player::IDLE_HURTBOX_OFFSETS;
+		m_player->m_hurtboxOffsets.dimensions() = Player::IDLE_HURTBOX_DIMENSIONS;
 	}
 }
 
