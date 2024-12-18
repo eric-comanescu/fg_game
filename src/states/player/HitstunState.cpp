@@ -1,4 +1,4 @@
-#include "../../../include/BlockstunState.h"
+#include "../../../include/HitstunState.h"
 
 #include <cassert>
 #include <iostream>
@@ -10,36 +10,33 @@
 #include "../../../include/Direction.h"
 #include "../../../include/raylib.h"
 
-BlockstunState::BlockstunState(Player* player)
-	: State()
+HitstunState::HitstunState(Player* player) 
+	:State()
 	, m_player {player} {
 
 }
 
-BlockstunState::~BlockstunState() {
+HitstunState::~HitstunState() {
 
 }
 
-void BlockstunState::enter(void* params) {
-	m_player->m_isBlocking = true;
+void HitstunState::enter(void* params) {
+	assert(params != nullptr && "Don't pass in nullptr as params to Hitstun State");
+	Attack::AttackStrength* attackStr = reinterpret_cast<Attack::AttackStrength*>(params);
 
-	// reinterpret cast to attack strength
-	assert(params != nullptr && "Don't pass in nullptr as params to BlockstunState");
-	Attack::AttackStrength* attackStrength = reinterpret_cast<Attack::AttackStrength*>(params);
-
-	switch (*attackStrength) {
+	switch (*attackStr) {
 		case Attack::AttackStrength::Low:
-			m_duration = 8.0f / 60.0f;
-			break;
-
-		case Attack::AttackStrength::Medium:
 			m_duration = 14.0f / 60.0f;
+			break;
+		
+		case Attack::AttackStrength::Medium:
+			m_duration = 23.0f / 60.0f;
 			break;
 
 		case Attack::AttackStrength::Strong:
-			m_duration = 23.0f / 60.0f;
+			m_duration = 32.0f / 60.0f;
 			break;
-	};
+	}
 
 	if (m_player->m_isCrouching) {
 		m_player->m_dimensions = Player::CROUCHING_DIMENSIONS;
@@ -47,18 +44,18 @@ void BlockstunState::enter(void* params) {
 	}
 }
 
-void BlockstunState::exit() {
-	m_player->m_isBlocking = false;
+void HitstunState::exit() {
 	if (!m_player->m_isCrouching) {
 		m_player->m_dimensions = Player::STANDING_DIMENSIONS;
 		m_player->m_position.y = Player::STANDING_POS;
 	}
 }
 
-void BlockstunState::update(float dt) {
+void HitstunState::update(float dt) {
 	m_player->m_inputManager.update(dt);
 
 	m_duration -= dt;
+	printf("%f\n", m_duration);
 
 	if (m_player->m_pushBlockDistance > 0) {
 		m_player->m_pushBlockDistance -= 1.0f;
@@ -74,24 +71,23 @@ void BlockstunState::update(float dt) {
 	checkTransitions();
 }
 
-void BlockstunState::render() {
+void HitstunState::render() {
 	if (m_player->facing == Direction::Right) {
-		DrawText("P1 Blockstun", 0, 20, 24, WHITE);
+		DrawText("P1 Hitstun", 0, 20, 24, WHITE);
 	}
 	else {
-		DrawText("P2 Blockstun", 0, 40, 24, WHITE);
+		DrawText("P2 Hitstun", 0, 40, 24, WHITE);
 	}
 }
 
-StateName BlockstunState::name() {
+StateName HitstunState::name() {
 	return m_name;
 }
 
-void BlockstunState::checkTransitions() {
+void HitstunState::checkTransitions() {
 	if (m_duration > 0)
 		return;
 
-	// do the rest here
 	constexpr uint8_t DOWN_BITMASK = 0b00000100;
 	constexpr uint8_t LEFT_BITMASK = 0b00000010;
 	constexpr uint8_t RIGHT_BITMASK = 0b00000001;

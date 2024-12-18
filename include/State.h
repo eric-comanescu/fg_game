@@ -11,6 +11,7 @@ enum class StateName {
 	Player_Crouch_Blocking_State,
 	Player_Attack_State,
 	Player_BlockStun_State,
+	Player_HitStun_State,
 
 	Player_Idle_State,
 };

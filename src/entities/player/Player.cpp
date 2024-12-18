@@ -14,6 +14,7 @@
 #include "../../../include/CrouchBlockState.h"
 #include "../../../include/AttackState.h"
 #include "../../../include/BlockstunState.h"
+#include "../../../include/HitstunState.h"
 #include "../../../include/Attack.h"
 #include "../../../include/Input.h"
 #include "../../../include/Hitbox.h"
@@ -29,6 +30,7 @@ Player::Player(Vector2 pos, Vector2 dimensions, bool isP1, Hitbox hitboxOffsets)
 	m_stateMachine.add(new AttackState(this));
 	m_stateMachine.add(new IdleState(this));
 	m_stateMachine.add(new BlockstunState(this));
+	m_stateMachine.add(new HitstunState(this));
 
 	m_stateMachine.change(StateName::Player_Idle_State, nullptr);
 
@@ -169,6 +171,7 @@ void Player::onHit(Player* attacker, Attack* attack) {
 		}
 
 		// TODO: add flinch state
+		m_stateMachine.change(StateName::Player_HitStun_State, &attack->m_attackStrength);
 	}
 	else {
 		// TODO: Remove chip on normals
@@ -199,7 +202,6 @@ void Player::onHit(Player* attacker, Attack* attack) {
 			}
 		}
 
-		// TODO: find what to pass
 		m_stateMachine.change(StateName::Player_BlockStun_State, &attack->m_attackStrength);
 	}
 }

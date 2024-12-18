@@ -11,6 +11,7 @@
 #include "CrouchBlockState.h"
 #include "BlockstunState.h"
 #include "AttackState.h"
+#include "HitstunState.h"
 #include "Attack.h"
 #include "Direction.h"
 #include "Hitbox.h"
@@ -30,6 +31,7 @@ class Player : public GameEntity {
 	friend class AttackState;
 	friend class Attack;
 	friend class BlockstunState;
+	friend class HitstunState;
 
 	friend class Fight;
 public:

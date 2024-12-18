@@ -55,7 +55,12 @@ void BackwardsWalkState::checkTransition() {
 
 	// TODO: Check idle for more to do
 	if ((attackPress & LATTACK_BITMASK) != 0) {
-		m_player->m_stateMachine.change(StateName::Player_Attack_State, m_player->m_attacks[0]);
+		if ((directionHold & DOWN_BITMASK) == 0) {
+			m_player->m_stateMachine.change(StateName::Player_Attack_State, m_player->m_attacks[0]);
+		}
+		else {
+			m_player->m_stateMachine.change(StateName::Player_Attack_State, m_player->m_attacks[1]);
+		}
 	}
 
 	if (m_player->facing == Direction::Right) {
