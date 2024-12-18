@@ -21,14 +21,16 @@ CrouchState::~CrouchState() {
 
 void CrouchState::enter(void* params) {
 	m_originalPos = m_player->m_position;
+	m_player->m_isCrouching = true;
 
-	m_player->m_position.y += 40;
+	m_player->m_position.y = Player::CROUCHING_POS;
 	m_player->m_dimensions = Player::CROUCHING_DIMENSIONS;
 }
 
 void CrouchState::exit() {
-	m_player->m_position = m_originalPos;
+	m_player->m_position.y = Player::STANDING_POS;
 	m_player->m_dimensions = Player::STANDING_DIMENSIONS;
+	m_player->m_isCrouching = false;
 }
 
 void CrouchState::update(float dt) {
@@ -68,13 +70,16 @@ void CrouchState::checkTransitions() {
 	if (m_player->facing == Direction::Right) {
 		if ((input.directionHold & DOWN_BITMASK) == 0) {
 			if ((input.directionHold & RIGHT_BITMASK) != 0) {
+				m_player->m_isCrouching = false;
 				m_player->m_stateMachine.change(StateName::Player_Forward_Walking_State, nullptr);
 			}
 			else if((input.directionHold & LEFT_BITMASK) != 0) {
+				m_player->m_isCrouching = false;
 				m_player->m_stateMachine.change(StateName::Player_Backwards_Walking_State, nullptr);
 			}
 			// TODO: Add else if for jump (UP_BITMASK)
 			else {
+				m_player->m_isCrouching = false;
 				m_player->m_stateMachine.change(StateName::Player_Idle_State, nullptr);
 			}
 		}
@@ -85,13 +90,16 @@ void CrouchState::checkTransitions() {
 	else {
 		if ((input.directionHold & DOWN_BITMASK) == 0) {
 			if ((input.directionHold & LEFT_BITMASK) != 0) {
+				m_player->m_isCrouching = false;
 				m_player->m_stateMachine.change(StateName::Player_Forward_Walking_State, nullptr);
 			}
 			else if((input.directionHold & RIGHT_BITMASK) != 0) {
+				m_player->m_isCrouching = false;
 				m_player->m_stateMachine.change(StateName::Player_Backwards_Walking_State, nullptr);
 			}
 			// TODO: Add else if for jump (UP_BITMASK)
 			else {
+				m_player->m_isCrouching = false;
 				m_player->m_stateMachine.change(StateName::Player_Idle_State, nullptr);
 			}
 		}

@@ -9,6 +9,7 @@
 #include "IdleState.h"
 #include "CrouchState.h"
 #include "CrouchBlockState.h"
+#include "BlockstunState.h"
 #include "AttackState.h"
 #include "Attack.h"
 #include "Direction.h"
@@ -28,6 +29,7 @@ class Player : public GameEntity {
 	friend class CrouchBlockState;
 	friend class AttackState;
 	friend class Attack;
+	friend class BlockstunState;
 
 	friend class Fight;
 public:
@@ -46,6 +48,8 @@ public:
 
 	static constexpr Vector2 CROUCHING_DIMENSIONS { (Vector2){50, 50} };
 	static constexpr Vector2 STANDING_DIMENSIONS { (Vector2){50, 90} };
+	static constexpr float STANDING_POS = 90.0f;
+	static constexpr float CROUCHING_POS = 130.0f;
 
 	int roundsWon = 0;
 
@@ -60,6 +64,7 @@ private:
 
 	bool m_isP1;
 	bool m_isBlocking {false};
+	bool m_isCrouching {false};
 
 	float m_pushBlockDistance = 0;
 

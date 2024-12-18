@@ -13,6 +13,7 @@
 #include "../../../include/CrouchState.h"
 #include "../../../include/CrouchBlockState.h"
 #include "../../../include/AttackState.h"
+#include "../../../include/BlockstunState.h"
 #include "../../../include/Attack.h"
 #include "../../../include/Input.h"
 #include "../../../include/Hitbox.h"
@@ -27,6 +28,7 @@ Player::Player(Vector2 pos, Vector2 dimensions, bool isP1, Hitbox hitboxOffsets)
 	m_stateMachine.add(new CrouchBlockState(this));
 	m_stateMachine.add(new AttackState(this));
 	m_stateMachine.add(new IdleState(this));
+	m_stateMachine.add(new BlockstunState(this));
 
 	m_stateMachine.change(StateName::Player_Idle_State, nullptr);
 
@@ -141,7 +143,7 @@ void Player::onHit(Player* attacker, Attack* attack) {
 	if (!m_isBlocking) {
 		hp -= attack->m_damage;
 
-		// Apply pushblock
+		// Apply pushback on hit
 		constexpr float PUSHBLOCK_DISTANCE = 2.0f;
 		if (attacker->facing == Direction::Right) {
 			if (attacker->m_position.x - PUSHBLOCK_DISTANCE < 0) {
@@ -156,7 +158,7 @@ void Player::onHit(Player* attacker, Attack* attack) {
 		}
 		else {
 			if (attacker->m_position.x + attacker->m_dimensions.x + PUSHBLOCK_DISTANCE > 320) {
-				float overflow = attacker->m_position.x + attacker->m_dimensions.x - 320;
+				float overflow = -(attacker->m_position.x + attacker->m_dimensions.x + PUSHBLOCK_DISTANCE - 320);
 
 				attacker->m_pushBlockDistance = PUSHBLOCK_DISTANCE + overflow;
 				m_pushBlockDistance = -overflow;
@@ -165,12 +167,14 @@ void Player::onHit(Player* attacker, Attack* attack) {
 				attacker->m_pushBlockDistance = PUSHBLOCK_DISTANCE;
 			}
 		}
+
+		// TODO: add flinch state
 	}
 	else {
 		// TODO: Remove chip on normals
 		hp -= attack->m_damage / 5.0f;
 
-		// Apply pushblock
+		// Apply pushback on block
 		constexpr float PUSHBLOCK_DISTANCE = 5.0f;
 		if (attacker->facing == Direction::Right) {
 			if (attacker->m_position.x - PUSHBLOCK_DISTANCE < 0) {
@@ -185,7 +189,7 @@ void Player::onHit(Player* attacker, Attack* attack) {
 		}
 		else {
 			if (attacker->m_position.x + attacker->m_dimensions.x + PUSHBLOCK_DISTANCE > 320) {
-				float overflow = attacker->m_position.x + attacker->m_dimensions.x - 320;
+				float overflow = -(attacker->m_position.x + attacker->m_dimensions.x + PUSHBLOCK_DISTANCE - 320);
 
 				attacker->m_pushBlockDistance = PUSHBLOCK_DISTANCE + overflow;
 				m_pushBlockDistance = -overflow;
@@ -194,5 +198,8 @@ void Player::onHit(Player* attacker, Attack* attack) {
 				attacker->m_pushBlockDistance = PUSHBLOCK_DISTANCE;
 			}
 		}
+
+		// TODO: find what to pass
+		m_stateMachine.change(StateName::Player_BlockStun_State, &attack->m_attackStrength);
 	}
 }

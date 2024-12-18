@@ -19,13 +19,14 @@ CrouchBlockState::~CrouchBlockState() {
 void CrouchBlockState::enter(void* params) {
 	m_originalPos = m_player->m_position;
 	m_player->m_isBlocking = true;
+	m_player->m_isCrouching = true;
 
-	m_player->m_position.y += 40;
+	m_player->m_position.y = Player::CROUCHING_POS;
 	m_player->m_dimensions = Player::CROUCHING_DIMENSIONS;
 }
 
 void CrouchBlockState::exit() {
-	m_player->m_position = m_originalPos;
+	m_player->m_position.y = Player::STANDING_POS;
 	m_player->m_dimensions = Player::STANDING_DIMENSIONS;
 	m_player->m_isBlocking = false;
 }
@@ -68,13 +69,16 @@ void CrouchBlockState::checkTransitions() {
 	if (m_player->facing == Direction::Right) {
 		if ((directionHold & DOWN_BITMASK) == 0) {
 			if ((directionHold & RIGHT_BITMASK) != 0) {
+				m_player->m_isCrouching = false;
 				m_player->m_stateMachine.change(StateName::Player_Forward_Walking_State, nullptr);
 			}
 			else if ((directionHold & LEFT_BITMASK) != 0) {
+				m_player->m_isCrouching = false;
 				m_player->m_stateMachine.change(StateName::Player_Backwards_Walking_State, nullptr);
 			}
 			// TODO: Add jump detection
 			else {
+				m_player->m_isCrouching = false;
 				m_player->m_stateMachine.change(StateName::Player_Idle_State, nullptr);
 			}
 		}
@@ -85,13 +89,16 @@ void CrouchBlockState::checkTransitions() {
 	else {
 		if ((directionHold & DOWN_BITMASK) == 0) {
 			if ((directionHold & LEFT_BITMASK) != 0) {
+				m_player->m_isCrouching = false;
 				m_player->m_stateMachine.change(StateName::Player_Forward_Walking_State, nullptr);
 			}
 			else if ((directionHold & RIGHT_BITMASK) != 0) {
+				m_player->m_isCrouching = false;
 				m_player->m_stateMachine.change(StateName::Player_Backwards_Walking_State, nullptr);
 			}
 			// TODO: Add jump detection
 			else {
+				m_player->m_isCrouching = false;
 				m_player->m_stateMachine.change(StateName::Player_Idle_State, nullptr);
 			}
 		}
