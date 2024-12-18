@@ -50,8 +50,10 @@ public:
 
 	static constexpr Vector2 CROUCHING_DIMENSIONS { (Vector2){50, 50} };
 	static constexpr Vector2 STANDING_DIMENSIONS { (Vector2){50, 90} };
-	static constexpr float STANDING_POS = 90.0f;
-	static constexpr float CROUCHING_POS = 130.0f;
+	static constexpr Vector2 PLAYER1_STARTING_POS { (Vector2){45, 55} };
+	static constexpr Vector2 PLAYER2_STARTING_POS { (Vector2){225, 55} };
+	static constexpr float STANDING_POS = 55.0f;
+	static constexpr float CROUCHING_POS = 95.0f;
 
 	int roundsWon = 0;
 

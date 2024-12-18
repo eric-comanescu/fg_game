@@ -11,19 +11,26 @@ UserInterface::UserInterface(Player* p1, Player* p2, float* timer)
 	: m_player1 {p1}
 	, m_player2 {p2}
 	, m_timer {timer} {
-
+	m_imBg = LoadImageAnim("../src/assets/bg.gif", &m_bgFrames);
+	m_texBg = LoadTextureFromImage(m_imBg);
 }
 
 UserInterface::~UserInterface() {
-
+	UnloadTexture(m_texBg);
+	UnloadImage(m_imBg);
 }
 
 void UserInterface::update(float dt) {
+	updateBg(dt);
+
 	m_p1TargetWidth = m_player1->hp / m_player1->maxHp * UserInterface::HP_BAR_WIDTH;
 	m_p2TargetWidth = m_player2->hp / m_player2->maxHp * UserInterface::HP_BAR_WIDTH;
 }
 
 void UserInterface::render() {
+	// render bg
+	DrawTexture(m_texBg, 0, 0, WHITE);
+
 	// P1 HP BAR
 	if (m_p1HpWidth > m_p1TargetWidth) {
 		m_p1HpWidth -= 0.5f;
@@ -66,5 +73,18 @@ void UserInterface::render() {
 	std::stringstream ss;
 	ss << static_cast<int>(*m_timer);
 
-	DrawTextEx(Game::Font, ss.str().c_str(), (Vector2){148, 10}, 24, 1, WHITE);
+	DrawTextEx(Game::Font, ss.str().c_str(), (Vector2){148, 3}, 24, 1, WHITE);
+}
+
+void UserInterface::updateBg(float dt) {
+	if (m_currentInterval += dt; m_currentInterval >= m_bgInterval) {
+		m_currentInterval = 0.0f;
+
+		m_currentBgFrame++;
+		if (m_currentBgFrame >= m_bgFrames) m_currentBgFrame = 0;
+
+		m_nextFrameDataOffset = m_imBg.width*m_imBg.height*4*m_currentBgFrame;
+
+		UpdateTexture(m_texBg, ((unsigned char *)m_imBg.data) + m_nextFrameDataOffset);
+	}
 }

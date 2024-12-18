@@ -125,7 +125,6 @@ void AttackState::checkTranstions() {
 
 	// Checking for valid attack cancels if hit was consumed
 	if (m_canCancel) {
-		std::cout << "Entered cancel block with animation frame " << m_attack->m_animation->currentFrame() << '\n';
 		constexpr uint8_t DOWN_BITMASK = 0b00000100;
 
 		constexpr uint8_t LATTACK_BITMASK = 0b00001000;
