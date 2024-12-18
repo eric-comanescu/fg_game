@@ -31,14 +31,14 @@ There are a few ways for the round to end, the first one being running out of ti
 ### Must Have
 
 1.  The players must be able to chose a character after selecting the play option.
-2.  The player can move left and right.
-3.  The player can use one button to attack
-4.  The player can attack on the ground.
+2.  The player can move left and right. (Done)
+3.  The player can use one button to attack. (Done)
+4.  The player can attack on the ground. (Done)
 5.  The player can block by holding the direction opposite their opponent.
-6.  The player's attacks must be able to hit the opponent (hitbox collision).
+6.  The player's attacks must be able to hit the opponent (hitbox collision). (Done)
 7.  The game's timer must count down to 0 to prevent rounds from lasting forever.
-8.  The players' health values must be able to be reduced so the game doesn't last forever.
-9.  When a player's health reaches 0 the round must end and grant the other player a point.
+8.  The players' health values must be able to be reduced so the game doesn't last forever. (Done)
+9.  When a player's health reaches 0 the round must end and grant the other player a point. (Done)
 10. When a player reaches 2 points the game must end and prompt the players with an option to keep playing or return to the main menu.
 
 ### Nice to Have
