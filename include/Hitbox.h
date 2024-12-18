@@ -12,8 +12,8 @@ public:
 	bool didCollide(const Hitbox& target);
 	void render();
 
-	Vector2 position() const;
-	Vector2 dimensions() const;
+	Vector2& position();
+	Vector2& dimensions();
 
 	bool isActive;
 	bool isConsumed = false;

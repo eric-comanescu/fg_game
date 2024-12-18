@@ -51,10 +51,11 @@ public:
 
 	static constexpr Vector2 CROUCHING_DIMENSIONS { (Vector2){50, 50} };
 	static constexpr Vector2 STANDING_DIMENSIONS { (Vector2){50, 90} };
-	static constexpr Vector2 PLAYER1_STARTING_POS { (Vector2){45, 55} };
-	static constexpr Vector2 PLAYER2_STARTING_POS { (Vector2){225, 55} };
-	static constexpr float STANDING_POS = 55.0f;
-	static constexpr float CROUCHING_POS = 95.0f;
+	static constexpr Vector2 DIMENSIONS { (Vector2){100, 100} };
+	static constexpr Vector2 PLAYER1_STARTING_POS { (Vector2){20, 45} };
+	static constexpr Vector2 PLAYER2_STARTING_POS { (Vector2){205, 45} };
+	static constexpr float STANDING_POS = 45.0f;
+	static constexpr float CROUCHING_POS = 85.0f;
 
 	int roundsWon = 0;
 
@@ -66,6 +67,8 @@ private:
 	Attack* m_activeAttack {nullptr};
 
 	std::vector<Attack*> m_attacks {};
+
+	Texture2D m_sprites;
 
 	bool m_isP1;
 	bool m_isBlocking {false};

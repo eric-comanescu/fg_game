@@ -5,6 +5,7 @@
 #include <typeinfo>
 #include <algorithm>
 #include <sstream>
+#include <cassert>
 
 #include "../../../include/raylib.h"
 #include "../../../include/IdleState.h"
@@ -55,6 +56,10 @@ Player::Player(Vector2 pos, Vector2 dimensions, bool isP1, Hitbox hitboxOffsets)
 		0)
 	);
 
+	m_sprites = LoadTexture("../src/assets/fer_sprites.png");
+
+	assert(IsTextureReady(m_sprites) && "Player spritesheet Texture failed to load");
+
 	std::sort(m_attacks.begin(), m_attacks.end(), [](Attack* a, Attack* b) {
 		return a->m_priority < b->m_priority;
 	});
@@ -98,21 +103,30 @@ Player::~Player() {
 	for (auto& attack : m_attacks) {
 		delete attack;
 	}
+
+	UnloadTexture(m_sprites);
 }
 
 void Player::update(float dt) {
-	m_stateMachine.update(dt);
-
 	m_hurtbox.set(
 		m_position.x + m_hurtboxOffsets.position().x,
 		m_position.y + m_hurtboxOffsets.position().y,
-		m_dimensions.x + m_hurtboxOffsets.dimensions().x,
-		m_dimensions.y + m_hurtboxOffsets.dimensions().y
+		m_hurtboxOffsets.dimensions().x,
+		m_hurtboxOffsets.dimensions().y
 	);
+
+	m_stateMachine.update(dt);
 }
 
 void Player::render() {
 	m_hurtbox.render();
+
+	DrawRectangleLines(m_position.x, m_position.y, m_dimensions.x, m_dimensions.y, BLUE);
+
+	// DrawTexturePro(
+	// 	m_sprites,
+	// 	(Rectangle){0.0f,0.0f,100.0f,100.0f},
+	// );
 
 	m_stateMachine.render();
 }

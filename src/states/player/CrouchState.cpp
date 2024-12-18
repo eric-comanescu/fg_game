@@ -20,21 +20,27 @@ CrouchState::~CrouchState() {
 }
 
 void CrouchState::enter(void* params) {
-	m_originalPos = m_player->m_position;
 	m_player->m_isCrouching = true;
 
-	m_player->m_position.y = Player::CROUCHING_POS;
-	m_player->m_dimensions = Player::CROUCHING_DIMENSIONS;
+	m_player->m_hurtboxOffsets.dimensions() = Player::CROUCHING_DIMENSIONS;
+	m_player->m_hurtboxOffsets.position().y = 50;
 }
 
 void CrouchState::exit() {
-	m_player->m_position.y = Player::STANDING_POS;
-	m_player->m_dimensions = Player::STANDING_DIMENSIONS;
+	m_player->m_hurtboxOffsets.position().y = 10;
+	m_player->m_hurtboxOffsets.dimensions() = Player::STANDING_DIMENSIONS;
 	m_player->m_isCrouching = false;
 }
 
 void CrouchState::update(float dt) {
 	m_player->m_inputManager.update(dt);
+
+	// m_player->m_hurtbox.set(
+	// 	m_player->m_position.x + m_player->m_hurtboxOffsets.position().x,
+	// 	m_player->m_position.y + m_player->m_hurtboxOffsets.position().y,
+	// 	m_player->m_hurtboxOffsets.dimensions().x,
+	// 	m_player->m_hurtboxOffsets.dimensions().y
+	// );
 
 	checkTransitions();
 }

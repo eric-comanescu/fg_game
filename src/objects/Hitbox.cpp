@@ -30,11 +30,11 @@ bool Hitbox::didCollide(const Hitbox& target) {
 		m_position.y <= target.m_position.y + target.m_dimensions.y;
 }
 
-Vector2 Hitbox::position() const {
+Vector2& Hitbox::position() {
 	return m_position;
 }
 
-Vector2 Hitbox::dimensions() const {
+Vector2& Hitbox::dimensions() {
 	return m_dimensions;
 }
 
