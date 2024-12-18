@@ -34,6 +34,8 @@ void Fight::update(float dt) {
 
 	updateEntities(dt);
 
+	m_player1->m_prevPosition = m_player1->m_position;
+	m_player2->m_prevPosition = m_player2->m_position;
 }
 
 void Fight::render() {
@@ -62,10 +64,6 @@ void Fight::updateEntities(float dt) {
 		for (auto entity2 : m_entities) {
 			if (entity->didCollideWith(entity2->hitbox())) {
 				entity->onCollision(entity2);
-			}
-			else {
-				m_player1->m_prevPosition = m_player1->m_position;
-				m_player2->m_prevPosition = m_player2->m_position;
 			}
 		}
 

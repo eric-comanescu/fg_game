@@ -87,6 +87,8 @@ private:
 
 	float m_pushBlockDistance = 0;
 
+	float m_dx {0};
+
 	// TODO: Create State to handle this
 	void handleMovement(float dt);
 };

@@ -4,6 +4,7 @@
 class StateStack;
 
 enum class StateName {
+	Main_Menu_State,
 	Play_State,
 	Round_Intro_State,
 

@@ -151,7 +151,14 @@ void Player::onCollision(GameEntity* collider) {
 	}
 
 	// set collider position outside of collidee
-	m_position.x = m_prevPosition.x;
+	if (facing == Direction::Right) {
+		if (m_prevPosition.x < m_position.x)
+			m_position = m_prevPosition;
+	}
+	else {
+		if (m_prevPosition.x > m_position.x)
+			m_position = m_prevPosition;
+	}
 }
 
 void Player::onHit(Player* attacker, Attack* attack) {

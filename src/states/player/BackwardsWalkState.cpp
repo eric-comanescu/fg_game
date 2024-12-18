@@ -110,10 +110,10 @@ void BackwardsWalkState::checkTransition() {
 
 void BackwardsWalkState::handleMovement(float dt) {
 	if (m_player->facing == Direction::Right) {
-		m_player->m_position.x = m_player->m_hurtbox.position().x - 60 * dt >= 0 ? m_player->m_position.x - 60 * dt : -25;
+		m_player->m_position.x = m_player->m_hurtbox.position().x - 60 * dt >= 0 ? m_player->m_position.x - 60 * dt : -30;
 	}
 	else {
 		m_player->m_position.x = m_player->m_hurtbox.position().x + 60 * dt + m_player->m_hurtbox.dimensions().x <= 320 ?
-			m_player->m_position.x + 60 * dt : 245; 
+			m_player->m_position.x + 60 * dt : 250; 
 	}
 }
