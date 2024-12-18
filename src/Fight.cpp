@@ -5,11 +5,13 @@
 #include "../include/Player.h"
 #include "../include/raylib.h"
 #include "../include/Direction.h"
+#include "../include/StateStack.h"
 
-Fight::Fight(Player* p1, Player* p2, float* timer)
+Fight::Fight(Player* p1, Player* p2, float* timer, StateStack* sm)
 	: m_player1(p1)
 	, m_player2(p2)
-	, m_timer {timer} {
+	, m_timer {timer}
+	, m_sm {sm} {
 	m_entities.push_back(m_player1);
 	m_entities.push_back(m_player2);
 }

@@ -5,6 +5,8 @@ class StateStack;
 
 enum class StateName {
 	Play_State,
+	Round_Intro_State,
+
 	Player_Forward_Walking_State,
 	Player_Backwards_Walking_State,
 	Player_Crouching_State,
@@ -12,7 +14,6 @@ enum class StateName {
 	Player_Attack_State,
 	Player_BlockStun_State,
 	Player_HitStun_State,
-
 	Player_Idle_State,
 };
 

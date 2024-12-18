@@ -12,7 +12,7 @@
 Font Game::Font = LoadFont("../src/assets/fonts/alagard.png");
 
 Game::Game(StateStack* stateMachine, int width, int height, int scale)
-    : m_stateMachine {stateMachine }
+    : m_stateStack {stateMachine }
     , m_width {width}, m_height {height}, m_scale {scale}
 { this->init(); }
 
@@ -35,7 +35,10 @@ void Game::init() {
     // SetExitKey(0);
     SetTargetFPS(60);
 
-	m_stateMachine->push(new PlayState());
+	m_stateStack->push(new PlayState(m_stateStack), new PlayState::PlayStateEnterParams {
+		new Player(Player::PLAYER1_STARTING_POS, Player::STANDING_DIMENSIONS, true, Hitbox()),
+		new Player(Player::PLAYER2_STARTING_POS, Player::STANDING_DIMENSIONS, false, Hitbox()),
+	});
 }
 
 void Game::start() {
@@ -53,14 +56,14 @@ void Game::gameLoop() {
 }
 
 void Game::update(float dt) {
-    m_stateMachine->update(dt);
+    m_stateStack->update(dt);
 }
 
 void Game::render() {
 	BeginTextureMode(m_canvas);
 	ClearBackground(BLANK);
 
-    m_stateMachine->render();
+    m_stateStack->render();
 
 	EndTextureMode();
 

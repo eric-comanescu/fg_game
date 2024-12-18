@@ -205,3 +205,7 @@ void Player::onHit(Player* attacker, Attack* attack) {
 		m_stateMachine.change(StateName::Player_BlockStun_State, &attack->m_attackStrength);
 	}
 }
+
+void Player::change(StateName stateName, void* params) {
+	m_stateMachine.change(stateName, params);
+}

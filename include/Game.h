@@ -20,7 +20,7 @@ class Game {
 	RenderTexture2D m_canvas;
 
     // Not heap allocated, no need to free
-    StateStack* m_stateMachine;
+    StateStack* m_stateStack;
 
     int m_width;
     int m_height;

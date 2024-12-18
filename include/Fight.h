@@ -4,11 +4,13 @@
 #include "Player.h"
 #include "GameEntity.h"
 #include "raylib.h"
+#include "StateStack.h"
+
 #include <vector>
 
 class Fight {
 public:
-	Fight(Player* p1, Player* p2, float* timer);
+	Fight(Player* p1, Player* p2, float* timer, StateStack* sm);
 	~Fight();
 
 	void update(float dt);
@@ -19,6 +21,7 @@ private:
 	Player* m_player1;
 	Player* m_player2;
 	std::vector<GameEntity*> m_entities;
+	StateStack* m_sm;
 
 	float* m_timer;
 

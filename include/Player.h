@@ -47,6 +47,7 @@ public:
 	void onCollision(GameEntity* collider);
 	void onHit(Player* attacker, Attack * attack);
 	const Hitbox& hitbox();
+	void change(StateName stateName, void* params = nullptr);
 
 	static constexpr Vector2 CROUCHING_DIMENSIONS { (Vector2){50, 50} };
 	static constexpr Vector2 STANDING_DIMENSIONS { (Vector2){50, 90} };
