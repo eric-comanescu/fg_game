@@ -87,7 +87,7 @@ void AttackState::update(float dt) {
 		m_canCancel = true;
 	}
 
-	if (m_attack->m_animation->currentFrame() == 1) {
+	if (m_attack->m_animation->currentFrame() == 2) {
 		m_attack->m_hitbox.isActive = true;
 		m_player->m_activeHitbox = &m_attack->m_hitbox;
 	}
@@ -121,6 +121,8 @@ void AttackState::render() {
 			{0.0f, 0.0f},
 			0.0f,
 			WHITE);
+
+	m_attack->m_hitbox.render();
 }
 
 StateName AttackState::name() {

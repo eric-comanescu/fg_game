@@ -154,7 +154,10 @@ void BlockstunState::checkTransitions() {
 	}
 
 	if (m_player->facing == Direction::Right) {
-		if ((directionHold & RIGHT_BITMASK) == 0) {
+		if ((directionHold & DOWN_BITMASK) != 0) {
+			m_player->m_stateMachine.change(StateName::Player_Crouching_State, nullptr);
+		}
+		else if ((directionHold & RIGHT_BITMASK) == 0) {
 			// TODO: Add check for crouch block
 			if ((directionHold & LEFT_BITMASK) != 0) {
 				m_player->m_stateMachine.change(StateName::Player_Backwards_Walking_State, nullptr);
@@ -163,12 +166,12 @@ void BlockstunState::checkTransitions() {
 				m_player->m_stateMachine.change(StateName::Player_Idle_State, nullptr);
 			}
 		}
-		else if ((directionHold & DOWN_BITMASK) != 0) {
-			m_player->m_stateMachine.change(StateName::Player_Crouching_State, nullptr);
-		}
 	}
 	else {
-		if ((directionHold & LEFT_BITMASK) == 0) {
+		if ((directionHold & DOWN_BITMASK) != 0) {
+			m_player->m_stateMachine.change(StateName::Player_Crouching_State, nullptr);
+		}
+		else if ((directionHold & LEFT_BITMASK) == 0) {
 			// TODO: Add check for crouch block
 			if ((directionHold & RIGHT_BITMASK) != 0) {
 				m_player->m_stateMachine.change(StateName::Player_Backwards_Walking_State, nullptr);
@@ -176,9 +179,6 @@ void BlockstunState::checkTransitions() {
 			else {
 				m_player->m_stateMachine.change(StateName::Player_Idle_State, nullptr);
 			}
-		}
-		else if ((directionHold & DOWN_BITMASK) != 0) {
-			m_player->m_stateMachine.change(StateName::Player_Crouching_State, nullptr);
 		}
 	}
 }

@@ -47,7 +47,7 @@ Player::Player(Vector2 pos, Vector2 dimensions, bool isP1, Hitbox hitboxOffsets)
 			(Rectangle){500.0f, 300.0f, 100.0f, 100.0f}
 		}, 5, 0),
 		{0b00001000}, 
-		Hitbox(40, 10, 40, 25, RED),
+		Hitbox(30, 20, 20, 15, RED),
 		Attack::AttackStrength::Low, 
 		false, 
 		7,
