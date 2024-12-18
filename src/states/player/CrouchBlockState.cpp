@@ -21,25 +21,18 @@ void CrouchBlockState::enter(void* params) {
 	m_player->m_isBlocking = true;
 	m_player->m_isCrouching = true;
 
-	m_player->m_hurtboxOffsets.position().y += Player::CROUCHING_POS;
+	m_player->m_hurtboxOffsets.position().y = 50;
 	m_player->m_hurtboxOffsets.dimensions() = Player::CROUCHING_DIMENSIONS;
 }
 
 void CrouchBlockState::exit() {
-	m_player->m_hurtboxOffsets.position().y -= Player::STANDING_POS;
+	m_player->m_hurtboxOffsets.position().y = 10;
 	m_player->m_hurtboxOffsets.dimensions() = Player::STANDING_DIMENSIONS;
 	m_player->m_isBlocking = false;
 }
 
 void CrouchBlockState::update(float dt) {
 	m_player->m_inputManager.update(dt);
-
-	// m_player->m_hurtbox.set(
-	// 	m_player->m_position.x + m_player->m_hurtboxOffsets.position().x,
-	// 	m_player->m_position.y + m_player->m_hurtboxOffsets.position().y,
-	// 	m_player->m_hurtboxOffsets.dimensions().x,
-	// 	m_player->m_hurtboxOffsets.dimensions().y
-	// );
 
 	checkTransitions();
 }

@@ -35,13 +35,6 @@ void CrouchState::exit() {
 void CrouchState::update(float dt) {
 	m_player->m_inputManager.update(dt);
 
-	// m_player->m_hurtbox.set(
-	// 	m_player->m_position.x + m_player->m_hurtboxOffsets.position().x,
-	// 	m_player->m_position.y + m_player->m_hurtboxOffsets.position().y,
-	// 	m_player->m_hurtboxOffsets.dimensions().x,
-	// 	m_player->m_hurtboxOffsets.dimensions().y
-	// );
-
 	checkTransitions();
 }
 

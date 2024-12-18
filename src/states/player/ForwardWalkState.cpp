@@ -19,7 +19,7 @@ ForwardWalkState::~ForwardWalkState() {
 }
 
 void ForwardWalkState::enter(void* params = nullptr) {
-
+	m_player->m_hurtboxOffsets.position().y = 10;
 }
 
 void ForwardWalkState::exit() {

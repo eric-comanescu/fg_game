@@ -39,15 +39,15 @@ void HitstunState::enter(void* params) {
 	}
 
 	if (m_player->m_isCrouching) {
-		m_player->m_dimensions = Player::CROUCHING_DIMENSIONS;
-		m_player->m_position.y = Player::CROUCHING_POS;
+		m_player->m_hurtboxOffsets.dimensions() = Player::CROUCHING_DIMENSIONS;
+		m_player->m_hurtboxOffsets.position().y = 50;
 	}
 }
 
 void HitstunState::exit() {
 	if (!m_player->m_isCrouching) {
-		m_player->m_dimensions = Player::STANDING_DIMENSIONS;
-		m_player->m_position.y = Player::STANDING_POS;
+	m_player->m_hurtboxOffsets.dimensions() = Player::STANDING_DIMENSIONS;
+	m_player->m_hurtboxOffsets.position().y = 10;
 	}
 }
 

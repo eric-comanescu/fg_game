@@ -34,8 +34,6 @@ void Fight::update(float dt) {
 
 	updateEntities(dt);
 
-	m_player1->m_prevPosition = m_player1->m_position;
-	m_player2->m_prevPosition = m_player2->m_position;
 }
 
 void Fight::render() {
@@ -65,6 +63,10 @@ void Fight::updateEntities(float dt) {
 			if (entity->didCollideWith(entity2->hitbox())) {
 				entity->onCollision(entity2);
 			}
+			else {
+				m_player1->m_prevPosition = m_player1->m_position;
+				m_player2->m_prevPosition = m_player2->m_position;
+			}
 		}
 
 		if (m_player1->m_activeHitbox != nullptr && m_player1->m_activeHitbox->isActive) {
@@ -85,10 +87,26 @@ void Fight::handleRoundEnd() {
 	if (*m_timer > 0) {
 		if (m_player1->hp <= 0 && m_player2->hp <= 0) {
 			// TODO: DRAW
+
+			m_sm->push(new RoundIntroState(m_sm), new RoundIntroState::RoundIntroEnterParams {
+				this,
+				m_ui,
+				m_player1,
+				m_player2,
+				0
+			});
 		}
 		else if (m_player1->hp <= 0) {
 			// TODO: P1 LOSS
 			m_player2->roundsWon++;
+
+			m_sm->push(new RoundIntroState(m_sm), new RoundIntroState::RoundIntroEnterParams {
+				this,
+				m_ui,
+				m_player1,
+				m_player2,
+				2
+			});
 		}
 		else if (m_player2->hp <= 0) {
 			// TODO: P2 LOSS
@@ -106,14 +124,38 @@ void Fight::handleRoundEnd() {
 	else {
 		if (m_player1->hp == m_player2->hp) {
 			// TODO: Draw
+
+			m_sm->push(new RoundIntroState(m_sm), new RoundIntroState::RoundIntroEnterParams {
+				this,
+				m_ui,
+				m_player1,
+				m_player2,
+				0
+			});
 		}
 		else if (m_player1->hp > m_player2->hp) {
 			// TODO: P1 win
 			m_player1->roundsWon++;
+
+			m_sm->push(new RoundIntroState(m_sm), new RoundIntroState::RoundIntroEnterParams {
+				this,
+				m_ui,
+				m_player1,
+				m_player2,
+				1
+			});
 		}
 		else {
 			// TODO: P2 win
 			m_player2->roundsWon++;
+
+			m_sm->push(new RoundIntroState(m_sm), new RoundIntroState::RoundIntroEnterParams {
+				this,
+				m_ui,
+				m_player1,
+				m_player2,
+				2
+			});
 		}
 	}
 }
@@ -122,8 +164,8 @@ void Fight::reset() {
 	m_player1->m_position = Player::PLAYER1_STARTING_POS;
 	m_player2->m_position = Player::PLAYER2_STARTING_POS;
 
-	m_player1->m_dimensions = Player::STANDING_DIMENSIONS;
-	m_player2->m_dimensions = Player::STANDING_DIMENSIONS;
+	m_player1->m_hurtboxOffsets.dimensions() = Player::STANDING_DIMENSIONS;
+	m_player2->m_hurtboxOffsets.dimensions() = Player::STANDING_DIMENSIONS;
 
 	m_player1->hp = m_player1->maxHp;
 	m_player2->hp = m_player2->maxHp;

@@ -29,13 +29,13 @@ void AttackState::enter(void* params) {
 	m_canCancel = false;
 
 	if (m_attack->m_isLow) {
-		m_player->m_dimensions = Player::CROUCHING_DIMENSIONS;
-		m_player->m_position.y += 40;
+		m_player->m_hurtboxOffsets.dimensions() = Player::CROUCHING_DIMENSIONS;
+		m_player->m_hurtboxOffsets.position().y = 50;
 	}
 }
 
 void AttackState::exit() {
-	m_player->m_dimensions = Player::STANDING_DIMENSIONS;
+	m_player->m_hurtboxOffsets.dimensions() = Player::STANDING_DIMENSIONS;
 
 	m_player->m_activeAttack = nullptr;
 	m_player->m_activeHitbox = nullptr;
@@ -45,7 +45,7 @@ void AttackState::exit() {
 	m_attack->m_animation->reset();
 
 	if (m_attack->m_isLow)
-		m_player->m_position.y -= 40;
+		m_player->m_hurtboxOffsets.position().y = 10;
 }
 
 void AttackState::update(float dt) {
@@ -53,16 +53,16 @@ void AttackState::update(float dt) {
 
 	if (m_player->facing == Direction::Right) {
 		m_attack->m_hitbox.set(
-			m_player->m_position.x + m_attack->m_hitboxOffset.position().x,
-			m_player->m_position.y + m_attack->m_hitboxOffset.position().y,
+			m_player->m_hurtbox.position().x + m_attack->m_hitboxOffset.position().x,
+			m_player->m_hurtbox.position().y + m_attack->m_hitboxOffset.position().y,
 			m_attack->m_hitboxOffset.dimensions().x,
 			m_attack->m_hitboxOffset.dimensions().y
 		);
 	}
 	else {
 		m_attack->m_hitbox.set(
-			m_player->m_position.x - m_attack->m_hitboxOffset.dimensions().x + m_player->m_dimensions.x - m_attack->m_hitboxOffset.dimensions().x,
-			m_player->m_position.y + m_attack->m_hitboxOffset.position().y,
+			m_player->m_hurtbox.position().x - m_attack->m_hitboxOffset.dimensions().x + m_player->m_hurtbox.dimensions().x - m_attack->m_hitboxOffset.dimensions().x,
+			m_player->m_hurtbox.position().y + m_attack->m_hitboxOffset.position().y,
 			m_attack->m_hitboxOffset.dimensions().x,
 			m_attack->m_hitboxOffset.dimensions().y
 		);
