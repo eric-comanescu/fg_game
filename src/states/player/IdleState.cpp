@@ -20,6 +20,8 @@ IdleState::~IdleState() {
 void IdleState::enter(void* params = nullptr) {
 	m_player->m_hurtboxOffsets.position() = Player::IDLE_HURTBOX_OFFSETS;
 	m_player->m_hurtboxOffsets.dimensions() = Player::IDLE_HURTBOX_DIMENSIONS;
+
+	m_player->m_isCrouching = false;
 }
 
 void IdleState::exit() {

@@ -1,5 +1,7 @@
 #include "../../../include/CrouchBlockState.h"
 
+#include <iostream>
+
 #include "../../../include/Player.h"
 #include "../../../include/Input.h"
 #include "../../../include/State.h"
@@ -102,6 +104,7 @@ void CrouchBlockState::checkTransitions() {
 			}
 			// TODO: Add jump detection
 			else {
+
 				m_player->m_isCrouching = false;
 				m_player->m_stateMachine.change(StateName::Player_Idle_State, nullptr);
 			}

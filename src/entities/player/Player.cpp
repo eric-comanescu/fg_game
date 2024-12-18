@@ -37,7 +37,14 @@ Player::Player(Vector2 pos, Vector2 dimensions, bool isP1, Hitbox hitboxOffsets)
 
 	m_attacks.push_back(new Attack(
 		this, 
-		new Animation({0, 0, 1, 1, 2, 2}, 5, 0),
+		new Animation({
+			(Rectangle){0.0f, 300.0f, 100.0f, 100.0f},
+			(Rectangle){100.0f, 300.0f, 100.0f, 100.0f},
+			(Rectangle){200.0f, 300.0f, 100.0f, 100.0f},
+			(Rectangle){300.0f, 300.0f, 100.0f, 100.0f},
+			(Rectangle){400.0f, 300.0f, 100.0f, 100.0f},
+			(Rectangle){500.0f, 300.0f, 100.0f, 100.0f}
+		}, 5, 0),
 		{0b00001000}, 
 		Hitbox(40, 10, 40, 25, RED),
 		Attack::AttackStrength::Low, 
@@ -47,12 +54,19 @@ Player::Player(Vector2 pos, Vector2 dimensions, bool isP1, Hitbox hitboxOffsets)
 	);
 	m_attacks.push_back(new Attack(
 		this, 
-		new Animation({0, 0, 1, 1, 2, 2}, 5, 0),
+		new Animation({
+			(Rectangle){100.0f, 400.0f, 100.0f, 100.0f},
+			(Rectangle){200.0f, 400.0f, 100.0f, 100.0f},
+			(Rectangle){300.0f, 400.0f, 100.0f, 100.0f},
+			(Rectangle){400.0f, 400.0f, 100.0f, 100.0f},
+			(Rectangle){500.0f, 400.0f, 100.0f, 100.0f},
+			(Rectangle){0.0f, 400.0f, 100.0f, 100.0f},
+		}, 5, 0),
 		{0b00001000}, 
-		Hitbox(40, 30, 40, 20, RED),
+		Hitbox(30, 30, 32, 16, RED),
 		Attack::AttackStrength::Low, 
 		true, 
-		100,
+		10,
 		0)
 	);
 

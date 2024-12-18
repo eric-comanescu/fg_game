@@ -29,7 +29,6 @@ void CrouchState::enter(void* params) {
 void CrouchState::exit() {
 	m_player->m_hurtboxOffsets.position().y = 10;
 	m_player->m_hurtboxOffsets.dimensions() = Player::STANDING_DIMENSIONS;
-	m_player->m_isCrouching = false;
 }
 
 void CrouchState::update(float dt) {

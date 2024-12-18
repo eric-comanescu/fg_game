@@ -23,6 +23,8 @@ void ForwardWalkState::enter(void* params = nullptr) {
 
 	m_player->m_hurtboxOffsets.position() = Player::FWALK_HURTBOX_OFFSETS;
 	m_player->m_hurtboxOffsets.dimensions() = Player::FWALK_HURTBOX_DIMENSIONS;
+
+	m_player->m_isCrouching = false;
 }
 
 void ForwardWalkState::exit() {

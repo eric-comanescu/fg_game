@@ -105,17 +105,14 @@ void AttackState::update(float dt) {
 }
 
 void AttackState::render() {
-	std::stringstream ss;
-
-	if (m_player->m_isP1)
-		ss << "P1 Attack Frame: " << m_attack->m_animation->currentFrame();
-	else
-		ss << "P2 Attack Frame: " << m_attack->m_animation->currentFrame();
-
-	if (m_player->m_isP1)
-		DrawText(ss.str().c_str(), 0, 20, 24, WHITE);
-	else
-		DrawText(ss.str().c_str(), 0, 40, 24, WHITE);
+	DrawTexturePro(
+		m_player->m_sprites,
+		m_attack->m_animation->currentSprite(),
+		(Rectangle){m_player->m_position.x,m_player->m_position.y,m_player->m_dimensions.x,m_player->m_dimensions.y},
+		{0.0f,0.0f},
+		0.0f,
+		WHITE
+	);
 
 	m_attack->m_hitbox.render();
 }

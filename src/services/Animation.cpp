@@ -2,7 +2,9 @@
 
 #include <vector>
 
-Animation::Animation(std::vector<int> frames, int intervalFrames, int cycles)
+#include "raylib.h"
+
+Animation::Animation(std::vector<Rectangle> frames, int intervalFrames, int cycles)
 	: m_frames {frames}
 	, m_interval {static_cast<float>(intervalFrames) / 60.0f} 
 	, m_timer {m_interval}
@@ -32,6 +34,10 @@ void Animation::update(float dt) {
 
 int Animation::currentFrame() {
 	return m_currentFrame;
+}
+
+Rectangle Animation::currentSprite() {
+	return m_frames[m_currentFrame];
 }
 
 float Animation::duration() {

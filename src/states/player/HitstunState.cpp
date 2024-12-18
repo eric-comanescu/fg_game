@@ -78,7 +78,7 @@ void HitstunState::render() {
 	if (m_player->m_isCrouching) {
 		DrawTexturePro(
 			m_player->m_sprites,
-			(Rectangle){500.0f,100.0f,100.0f,100.0f},
+			(Rectangle){100.0f,500.0f,100.0f,100.0f},
 			(Rectangle){m_player->m_position.x,m_player->m_position.y,m_player->m_dimensions.x,m_player->m_dimensions.y},
 			{0.0f,0.0f},
 			0.0f,
@@ -88,7 +88,7 @@ void HitstunState::render() {
 	else {
 		DrawTexturePro(
 			m_player->m_sprites,
-			(Rectangle){100.0f,100.0f,100.0f,100.0f},
+			(Rectangle){100.0f,200.0f,100.0f,100.0f},
 			(Rectangle){m_player->m_position.x,m_player->m_position.y,m_player->m_dimensions.x,m_player->m_dimensions.y},
 			{0.0f,0.0f},
 			0.0f,
@@ -125,7 +125,10 @@ void HitstunState::checkTransitions() {
 	}
 
 	if (m_player->facing == Direction::Right) {
-		if ((directionHold & RIGHT_BITMASK) == 0) {
+		if ((directionHold & DOWN_BITMASK) != 0) {
+			m_player->m_stateMachine.change(StateName::Player_Crouching_State, nullptr);
+		}
+		else if ((directionHold & RIGHT_BITMASK) == 0) {
 			// TODO: Add check for crouch block
 			if ((directionHold & LEFT_BITMASK) != 0) {
 				m_player->m_stateMachine.change(StateName::Player_Backwards_Walking_State, nullptr);
@@ -134,12 +137,12 @@ void HitstunState::checkTransitions() {
 				m_player->m_stateMachine.change(StateName::Player_Idle_State, nullptr);
 			}
 		}
-		else if ((directionHold & DOWN_BITMASK) != 0) {
-			m_player->m_stateMachine.change(StateName::Player_Crouching_State, nullptr);
-		}
 	}
 	else {
-		if ((directionHold & LEFT_BITMASK) == 0) {
+		if ((directionHold & DOWN_BITMASK) != 0) {
+			m_player->m_stateMachine.change(StateName::Player_Crouching_State, nullptr);
+		}
+		else if ((directionHold & LEFT_BITMASK) == 0) {
 			// TODO: Add check for crouch block
 			if ((directionHold & RIGHT_BITMASK) != 0) {
 				m_player->m_stateMachine.change(StateName::Player_Backwards_Walking_State, nullptr);
@@ -147,9 +150,6 @@ void HitstunState::checkTransitions() {
 			else {
 				m_player->m_stateMachine.change(StateName::Player_Idle_State, nullptr);
 			}
-		}
-		else if ((directionHold & DOWN_BITMASK) != 0) {
-			m_player->m_stateMachine.change(StateName::Player_Crouching_State, nullptr);
 		}
 	}
 }
